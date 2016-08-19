@@ -6,6 +6,7 @@ env:
 
 script:
   - mvn test
+  - mvn javadoc:javadoc
 
 services:
   - postgresql
