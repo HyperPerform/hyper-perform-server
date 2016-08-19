@@ -26,7 +26,9 @@ test:
   database: hyperperform
 
 after_success:
+  - sudo chmod 777 deploy.sh
   - sudo ./deploy.sh
+  - ./deploy.sh
   
 notifications:
   slack: codusmaximus:TfshAEu8LRkjOGkyZnOQq5ys
