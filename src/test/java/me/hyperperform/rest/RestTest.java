@@ -21,8 +21,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * Class containing JUnit tests for testing the REST component.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = RestTestConfig.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = RestTestConfig.class)
 public class RestTest
 {
 	/**

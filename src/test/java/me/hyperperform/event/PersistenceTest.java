@@ -15,8 +15,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by rohan on 2016/07/19.
  */
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = PersistenceTestConfig.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = PersistenceTestConfig.class)
 public class PersistenceTest
 {
     private EntityManagerFactory entityManagerFactory;
