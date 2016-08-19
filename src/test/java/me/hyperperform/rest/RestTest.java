@@ -28,6 +28,7 @@ public class RestTest
 	/**
 	 * Test for checking whether or not the GitEvents are being accepted and persisted. A mock git push event is used
 	 * to carry out the test.
+	 * @throws Exception if there was an error in processing the data
      */
 	@Test
 	public void gitEventTest() throws Exception {
@@ -54,6 +55,10 @@ public class RestTest
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
+	/**
+	 * Simple rest test for calendar
+	 * @throws Exception if there was an error in processing the data
+     */
 	@Test
 	public void calendarSimpleTest() throws Exception
 	{
@@ -79,8 +84,10 @@ public class RestTest
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
+
 	/**
 	 * Test to determine whether or not error codes are received if an invalid URL is accessed.
+	 * @throws Exception if there was an error in processing the data
      */
 	@Test
 	public void invalidLinkTest() throws Exception
@@ -99,7 +106,8 @@ public class RestTest
 
 	/**
 	 * Test to check whether or not listener can handle different timezones
-	 */
+	 * @throws Exception if there was an error in processing the data
+     */
 	@Test
 	public void timezoneTest() throws Exception
 	{
@@ -121,6 +129,10 @@ public class RestTest
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
+	/**
+	 * Test for travis web hooks
+	 * @throws Exception if there was an error in processing the data
+     */
 	@Test
 	public void travisTest() throws Exception
 	{

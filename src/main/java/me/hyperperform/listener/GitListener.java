@@ -62,6 +62,7 @@ public class GitListener implements IListener
      * @param eventType This field identifies the type of GitHub event coming through i.e push, pull, issue closed etc.
      * @param jsonStr Contains the actual information about the event. This JSON object is processed and persisted.
      * @return If the persistence was successful a 200 status code is returned.
+     * @throws Exception if there was an error in processing the data
      */
     @POST
     @Consumes("application/json")

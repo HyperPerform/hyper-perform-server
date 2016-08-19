@@ -20,11 +20,14 @@ import org.json.simple.parser.JSONParser;
 import java.util.*;
 
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/24
- * Feature: Calendar Listener
+ * Listener for the calendar that pulls data from the web hook
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/24
  */
+
+
 
 /**
  * Listener Class to listen for Google Calendar Events
@@ -66,7 +69,7 @@ public class CalendarListener implements IListener
      * @param link - Link received of the calendarID url to make a get request to the google calendar
      * @param jsonStr - The events returned from the get request
      * @return A javax.ws.rs.core.Response object with the status of the response
-     * @throws Exception
+     * @throws Exception if there was an error in processing the data
      */
     @GET
     @Consumes("application/json")

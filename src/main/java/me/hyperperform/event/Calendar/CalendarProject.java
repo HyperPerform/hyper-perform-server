@@ -6,12 +6,17 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/06
- * Feature: Calendar
+ * Calendar Meeting POJO to store the data for a CalendarMeeting Event
+ * Contains Annotations for Persistence that stores the data via JPA
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/06
  */
+
+
 
 @Entity
 @Table(name = "\"CalendarProject\"")
@@ -23,7 +28,6 @@ public class CalendarProject implements ICalendarEvent, Serializable
     private int id;
 
 
-    //    @Id
     @Column(name = "eventID")
     private String eventID;
 
@@ -39,7 +43,7 @@ public class CalendarProject implements ICalendarEvent, Serializable
     @Column(name = "reponame")
     private String repoName;
 
-//    @ElementCollection
+
     @Column(name = "collaborators")
     private ArrayList<String> collaborators;
 
@@ -51,6 +55,16 @@ public class CalendarProject implements ICalendarEvent, Serializable
 
     }
 
+    /***
+     * Overloaded constructor initializing the POJO with all the necessary attributes
+     * @param eventID sets the eventID attribute
+     * @param calendarID sets the calendarID attribute
+     * @param create sets the creator attribute
+     * @param due sets the dueDate attribute
+     * @param collaborators sets the collaborator's attribute
+     * @param repoName sets the name of the repository for Version Control Systems
+     * @param time sets the timestamp attribute
+     */
     public CalendarProject(String eventID, String calendarID, String create, String due, String repoName, ArrayList<String> collaborators, String time)
     {
         setEventID(eventID);

@@ -4,11 +4,13 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/02
- * Feature: Github
+ * Git Push
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/02
  */
+
 
 @Entity
 @Table(name = "\"GitPush\"")
@@ -32,6 +34,14 @@ public class GitPush implements IGitEvent
     @Column(name = "commitSize")
     int commitSize;
 
+    /**
+     * Overloaded constructor for initialize the object
+     *
+     * @param repoName initialize the repository name
+     * @param date initialize the date the event was triggered
+     * @param user initialize the user who triggered the event
+     * @param commit initialize the number of commits
+     */
     public GitPush(String repoName, String date, String user, int commit)
     {
         setRepoName(repoName);

@@ -6,8 +6,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by rohan on 2016/08/03.
+ * Travis Event POJO
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/08/03
  */
+
+
 @Entity
 @Table(name = "\"TravisEvent\"")
 public class TravisEvent implements IEvent {
