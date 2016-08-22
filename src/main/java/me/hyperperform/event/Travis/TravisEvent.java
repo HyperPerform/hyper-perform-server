@@ -35,6 +35,14 @@ public class TravisEvent implements Event {
     public TravisEvent() {
     }
 
+    public TravisEvent(String repo, String branch, String commiter, String status, String timestamp) {
+        this.repo = repo;
+        this.branch = branch;
+        this.commiter = commiter;
+        this.status = status;
+        this.timestamp = Timestamp.valueOf(timestamp);
+    }
+
     public int getId() {
         return id;
     }
