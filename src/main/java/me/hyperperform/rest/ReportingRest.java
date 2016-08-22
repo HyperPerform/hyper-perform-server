@@ -30,9 +30,9 @@ public class ReportingRest {
     public Response getSummary()
     {
         GetSummaryRequest getSummaryRequest = new GetSummaryRequest();
-        getSummaryRequest.setName("Sven Fuchs");
-        getSummaryRequest.setStartDate("2015-05-05 10:00:00");
-        getSummaryRequest.setEndDate("2015-05-05 23:00:00");
+        getSummaryRequest.setName("Rohan");
+        getSummaryRequest.setStartDate("2016-01-01 00:00:01");
+        getSummaryRequest.setEndDate("2016-12-30 23:59:59");
 
         GetSummaryResponse getSummaryResponse = reportGenerator.getSummary(getSummaryRequest);
 
@@ -45,12 +45,27 @@ public class ReportingRest {
     public Response getTravisDetails()
     {
         GetTravisRequest getTravisRequest = new GetTravisRequest();
-        getTravisRequest.setName("Sven Fuchs");
-        getTravisRequest.setStartDate("2015-05-05 10:00:00");
-        getTravisRequest.setEndDate("2015-05-05 23:00:00");
+        getTravisRequest.setName("Rohan");
+        getTravisRequest.setStartDate("2016-01-01 00:00:01");
+        getTravisRequest.setEndDate("2016-12-30 23:59:59");
 
         GetTravisResponse getTravisResponse = reportGenerator.getTravisDetails(getTravisRequest);
 
         return Response.status(200).entity(getTravisResponse).build();
+    }
+
+    @GET
+    @Path("/getScore")
+    @Produces("application/json")
+    public Response getScore()
+    {
+        GetScoreRequest getScoreRequest = new GetScoreRequest();
+        getScoreRequest.setName("Rohan");
+        getScoreRequest.setStartDate("2016-01-01 00:00:01");
+        getScoreRequest.setEndDate("2016-12-30 23:59:59");
+
+        GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreResponse);
+
+        return Response.status(200).entity(getScoreResponse).build();
     }
 }
