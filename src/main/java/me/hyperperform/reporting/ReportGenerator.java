@@ -47,7 +47,6 @@ public class ReportGenerator implements IReport
         getSummaryResponse.setGithub((Long)q.getSingleResult());
         /*--------------------------------------------------------------*/
 
-
         /*----------------------------Trvis-----------------------------*/
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
         long passed = (Long)q.getSingleResult();
@@ -93,5 +92,10 @@ public class ReportGenerator implements IReport
         getTravisResponse.setData(data);
 
         return getTravisResponse;
+    }
+
+    public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
+    {
+        return null;
     }
 }
