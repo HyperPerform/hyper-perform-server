@@ -1,6 +1,8 @@
 package me.hyperperform.reporting;
 
 import me.hyperperform.event.Travis.TravisEvent;
+import me.hyperperform.reporting.algorithm.Algorithm;
+import me.hyperperform.reporting.algorithm.StandardAlgorithm;
 import me.hyperperform.reporting.request.*;
 import me.hyperperform.reporting.response.*;
 
@@ -16,8 +18,10 @@ import java.util.List;
 
 public class ReportGenerator implements IReport
 {
-    EntityManagerFactory entityManagerFactory;
-    EntityManager entityManager;
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
+
+    private Algorithm algorithm;
 
     @PostConstruct
     private void initConnection()
@@ -96,6 +100,15 @@ public class ReportGenerator implements IReport
 
     public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
     {
-        return null;
+        CalculateScoreRequest calculateScoreRequest = new CalculateScoreRequest();
+        calculateScoreRequest.setName(getScoreRequest.getName());
+        calculateScoreRequest.setStartDate(getScoreRequest.getStartDate());
+        calculateScoreRequest.setEndDate(getScoreRequest.getEndDate());
+
+        algorithm = new StandardAlgorithm();
+
+        CalculateScoreResponse calculateScoreResponse = (new StandardAlgorithm()).calculateScore(calculateScoreRequest);
+
+        return new GetScoreResponse(calculateScoreResponse.getScore());
     }
 }
