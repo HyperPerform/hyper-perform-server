@@ -11,7 +11,7 @@ fi
 
 echo -e "Publishing javadoc...\n"
 
-cp -R build/docs/javadoc $HOME/javadoc-latest
+cp -R target/site/apidocs $HOME/javadoc-latest
 
 cd $HOME
 git config --global user.email "hyperpeformteam@gmail.com"

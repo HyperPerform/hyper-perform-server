@@ -29,7 +29,7 @@ public class QueueConnection
     /**
      * A method that is called when the class has been constructed. It connects to the messaging queue and retrieves the
      * destination queue on which objects will be placed.
-     * @throws JMSException
+     * @throws JMSException if there was an error in putting the object on the queue
      */
     @PostConstruct
     public void initConnection() throws JMSException
@@ -46,7 +46,7 @@ public class QueueConnection
     /**
      * Called when the object is about to be destroyed. This method ensures that existing connections to the messaging
      * queue service are closed.
-     * @throws JMSException
+     * @throws JMSException if there was an error in putting the object on the queue
      */
     @PreDestroy
     public void disconnect() throws JMSException
@@ -58,7 +58,7 @@ public class QueueConnection
     /**
      * Simple method used to place an object onto the queue.
      * @param event A Serializable object that is to be placed onto the queue.
-     * @throws JMSException
+     * @throws JMSException if there was an error in putting the object on the queue
      */
     public void sendObject(Serializable event) throws JMSException
     {

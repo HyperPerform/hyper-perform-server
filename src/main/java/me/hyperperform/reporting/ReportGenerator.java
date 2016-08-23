@@ -46,7 +46,10 @@ public class ReportGenerator implements IReport
 
         /*---------------------------Github-----------------------------*/
         Query q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
-        getSummaryResponse.setGithub((Long)q.getSingleResult());
+
+        Object totalCommits = q.getSingleResult();
+        if (totalCommits != null)
+            getSummaryResponse.setGithub((Long)totalCommits);
         /*--------------------------------------------------------------*/
 
         /*----------------------------Trvis-----------------------------*/
