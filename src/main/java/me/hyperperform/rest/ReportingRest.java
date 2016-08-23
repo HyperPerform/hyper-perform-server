@@ -1,6 +1,6 @@
 package me.hyperperform.rest;
 
-import me.hyperperform.reporting.ReportGenerator;
+import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.*;
 import me.hyperperform.reporting.response.*;
 
@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 public class ReportingRest {
 
     @Inject
-    ReportGenerator reportGenerator;
+    IReport reportGenerator;
 
     @GET
 //    @Consumes("application/json")
@@ -40,18 +40,19 @@ public class ReportingRest {
     }
 
     @GET
-    @Path("/getTravisDetails")
+    @Path("/getDetails")
     @Produces("application/json")
-    public Response getTravisDetails()
+    public Response getDetails()
     {
-        GetTravisRequest getTravisRequest = new GetTravisRequest();
-        getTravisRequest.setName("Rohan");
-        getTravisRequest.setStartDate("2016-01-01 00:00:01");
-        getTravisRequest.setEndDate("2016-12-30 23:59:59");
+        GetDetailsRequest getDetailsRequest = new GetDetailsRequest();
+        getDetailsRequest.setName("Rohan");
+        getDetailsRequest.setStartDate("2016-01-01 00:00:01");
+        getDetailsRequest.setEndDate("2016-12-30 23:59:59");
+        getDetailsRequest.setType("travis");
 
-        GetTravisResponse getTravisResponse = reportGenerator.getTravisDetails(getTravisRequest);
+        GetDetailsResponse getDetailsResponse = reportGenerator.getDetails(getDetailsRequest);
 
-        return Response.status(200).entity(getTravisResponse).build();
+        return Response.status(200).entity(getDetailsResponse).build();
     }
 
     @GET
