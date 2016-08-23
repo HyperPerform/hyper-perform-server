@@ -26,6 +26,8 @@ public class StandardAlgorithm implements Algorithm
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
 
+
+
         long numOfDays = TimeUnit.DAYS.convert(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime(), TimeUnit.MILLISECONDS);
 
         /*---------------------------------------------------------------------*/
@@ -43,9 +45,16 @@ public class StandardAlgorithm implements Algorithm
 
         double score = (0.5*(sumCommits/(5.0*numOfDays))) + (0.5*((double)passed/(passed+failed)));
 
+
+
         entityManager.close();
         entityManagerFactory.close();
 
-        return new CalculateScoreResponse(score);
+        return new CalculateScoreResponse(scale(score, 0.0, 5.0));
+    }
+
+    private double scale(double value, double start, double end)
+    {
+        return (value*(end-start)) + start;
     }
 }
