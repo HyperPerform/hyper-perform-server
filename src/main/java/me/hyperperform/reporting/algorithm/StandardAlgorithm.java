@@ -18,28 +18,23 @@ import java.util.concurrent.TimeUnit;
  */
 public class StandardAlgorithm implements Algorithm
 {
-    EntityManagerFactory entityManagerFactory;
-    EntityManager entityManager;
-
-    @PostConstruct
-    private void initConnection()
-    {
-        entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
-        entityManager = entityManagerFactory.createEntityManager();
-    }
-
-    @PreDestroy
-    private void disconnect()
-    {
-        entityManager.close();
-        entityManagerFactory.close();
-    }
+    private EntityManagerFactory entityManagerFactory;
+    private EntityManager entityManager;
 
     public CalculateScoreResponse calculateScore(CalculateScoreRequest calculateScoreRequest)
     {
+        entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+        entityManager = entityManagerFactory.createEntityManager();
+
         long numOfDays = TimeUnit.DAYS.convert(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime(), TimeUnit.MILLISECONDS);
 
         /*---------------------------------------------------------------------*/
+
+        System.out.println("---------------------------------------------------------");
+        System.out.println(entityManagerFactory);
+        System.out.println(entityManager);
+        System.out.println("---------------------------------------------------------");
+
         Query q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", calculateScoreRequest.getName());
         long sumCommits = (Long)q.getSingleResult();
         /*---------------------------------------------------------------------*/
@@ -54,6 +49,9 @@ public class StandardAlgorithm implements Algorithm
 
         double score = (0.5*(sumCommits/(5.0*numOfDays))) + (0.5*((double)passed/(passed+failed)));
 
-        return null;
+        entityManager.close();
+        entityManagerFactory.close();
+
+        return new CalculateScoreResponse(score);
     }
 }
