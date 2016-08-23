@@ -29,12 +29,6 @@ public class StandardAlgorithm implements Algorithm
         long numOfDays = TimeUnit.DAYS.convert(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime(), TimeUnit.MILLISECONDS);
 
         /*---------------------------------------------------------------------*/
-
-        System.out.println("---------------------------------------------------------");
-        System.out.println(entityManagerFactory);
-        System.out.println(entityManager);
-        System.out.println("---------------------------------------------------------");
-
         Query q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", calculateScoreRequest.getName());
         long sumCommits = (Long)q.getSingleResult();
         /*---------------------------------------------------------------------*/
