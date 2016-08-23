@@ -37,7 +37,7 @@ public class DatabasePopulatorTest
         entityManagerFactory.close();
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void databasePopTest()
     {
