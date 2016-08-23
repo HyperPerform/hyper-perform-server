@@ -44,8 +44,6 @@ public class ReportGenerator implements IReport
     {
         GetSummaryResponse getSummaryResponse = new GetSummaryResponse();
 
-//        Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
-
         /*---------------------------Github-----------------------------*/
         Query q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
         getSummaryResponse.setGithub((Long)q.getSingleResult());
@@ -65,37 +63,38 @@ public class ReportGenerator implements IReport
         getSummaryResponse.setTravis(successRate);
         /*--------------------------------------------------------------*/
 
-
         return getSummaryResponse;
     }
 
-    public GetTravisResponse getTravisDetails(GetTravisRequest getTravisRequest)
-    {
-        GetTravisResponse getTravisResponse = new GetTravisResponse();
-        Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getTravisRequest.getStartDate()).setParameter("endDate", getTravisRequest.getEndDate()).setParameter("uname", getTravisRequest.getName());
+    public GetDetailsResponse getDetails(GetDetailsRequest getDetailsRequest) {
 
-        List<TravisEvent> result = q.getResultList();
+        GetDetailsResponse getDetailsResponse = new GetDetailsResponse();
 
-        ArrayList<String> repos = new ArrayList<String>();
-        ArrayList<ArrayList<TravisEvent>> data = new ArrayList<ArrayList<TravisEvent>>();
-
-        for (int k = 0; k < result.size(); k++)
+        if (getDetailsRequest.getType().equals("travis"))
         {
-            TravisEvent curr = result.get(k);
+            Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            List<TravisEvent> result = q.getResultList();
 
-            if (repos.indexOf(curr.getRepo()) == -1)
+            ArrayList<String> repos = new ArrayList<String>();
+            ArrayList<ArrayList<TravisEvent>> data = new ArrayList<ArrayList<TravisEvent>>();
+
+            for (int k = 0; k < result.size(); k++)
             {
-                repos.add(curr.getRepo());
-                data.add(new ArrayList<TravisEvent>());
+                TravisEvent curr = result.get(k);
+
+                if (repos.indexOf(curr.getRepo()) == -1)
+                {
+                    repos.add(curr.getRepo());
+                    data.add(new ArrayList<TravisEvent>());
+                }
+
+                data.get(repos.indexOf(curr.getRepo())).add(curr);
             }
 
-            data.get(repos.indexOf(curr.getRepo())).add(curr);
+            getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data));
         }
 
-        getTravisResponse.setSize(data.size());
-        getTravisResponse.setData(data);
-
-        return getTravisResponse;
+        return getDetailsResponse;
     }
 
     public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
@@ -107,7 +106,7 @@ public class ReportGenerator implements IReport
 
         algorithm = new StandardAlgorithm();
 
-        CalculateScoreResponse calculateScoreResponse = (new StandardAlgorithm()).calculateScore(calculateScoreRequest);
+        CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
 
         return new GetScoreResponse(calculateScoreResponse.getScore());
     }
