@@ -64,7 +64,7 @@ public class ReportingRest {
         getScoreRequest.setStartDate("2016-01-01 00:00:01");
         getScoreRequest.setEndDate("2016-12-30 23:59:59");
 
-        GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreResponse);
+        GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreRequest);
 
         return Response.status(200).entity(getScoreResponse).build();
     }
