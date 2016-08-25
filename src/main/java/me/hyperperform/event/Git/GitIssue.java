@@ -89,6 +89,9 @@ public class GitIssue implements IGitEvent
     }
 
     public void setClosedAt(String closedAt) {
+        if (closedAt == null)
+            return;
+
         this.closedAt = Timestamp.valueOf(closedAt);
     }
 
