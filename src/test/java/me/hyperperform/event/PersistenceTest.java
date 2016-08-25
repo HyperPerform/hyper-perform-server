@@ -1,5 +1,6 @@
 package me.hyperperform.event;
 
+import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
 import org.junit.*;
@@ -48,6 +49,26 @@ public class PersistenceTest
 
         entityManager.getTransaction().begin();
         entityManager.persist(t);
+        entityManager.getTransaction().commit();
+    }
+
+    @Test
+    public void gitIssuePojoTest()
+    {
+        GitIssue gitIssue = new GitIssue();
+
+        gitIssue.setIssueId(73464126);
+        gitIssue.setAction("opened");
+        gitIssue.setRepository("public-repo");
+
+        gitIssue.setCreatedAt("2016-07-28 22:42:44");
+        gitIssue.setClosedAt(null);
+
+        gitIssue.setAssignee(null);
+        gitIssue.setCreatedBy("baxterthehacker");
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(gitIssue);
         entityManager.getTransaction().commit();
     }
 
