@@ -7,8 +7,7 @@ public class GetSummaryResponse {
 
     private long Github;
     private double travis;
-    private int issuesOpened;
-    private int issuesClosed;
+    private double issues;
 
     public long getGithub() {
         return Github;
@@ -26,19 +25,11 @@ public class GetSummaryResponse {
         this.travis = travis;
     }
 
-    public int getIssuesOpened() {
-        return issuesOpened;
+    public double getIssues() {
+        return issues;
     }
 
-    public void setIssuesOpened(int issuesOpened) {
-        this.issuesOpened = issuesOpened;
-    }
-
-    public int getIssuesClosed() {
-        return issuesClosed;
-    }
-
-    public void setIssuesClosed(int issuesClosed) {
-        this.issuesClosed = issuesClosed;
+    public void setIssues(double issues) {
+        this.issues = issues;
     }
 }
