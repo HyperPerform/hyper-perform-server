@@ -36,7 +36,7 @@ public class ReportingRest {
 
         GetSummaryResponse getSummaryResponse = reportGenerator.getSummary(getSummaryRequest);
 
-        return Response.status(200).entity(getSummaryResponse).build();
+        return Response.status(200).entity(getSummaryResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 
     @GET
@@ -52,7 +52,7 @@ public class ReportingRest {
 
         GetDetailsResponse getDetailsResponse = reportGenerator.getDetails(getDetailsRequest);
 
-        return Response.status(200).entity(getDetailsResponse).build();
+        return Response.status(200).entity(getDetailsResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 
     @GET
@@ -67,6 +67,6 @@ public class ReportingRest {
 
         GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreRequest);
 
-        return Response.status(200).entity(getScoreResponse).build();
+        return Response.status(200).entity(getScoreResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 }
