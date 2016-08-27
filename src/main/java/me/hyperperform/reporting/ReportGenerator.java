@@ -1,5 +1,6 @@
 package me.hyperperform.reporting;
 
+import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
 import me.hyperperform.reporting.algorithm.Algorithm;
 import me.hyperperform.reporting.algorithm.StandardAlgorithm;
@@ -52,7 +53,7 @@ public class ReportGenerator implements IReport
             getSummaryResponse.setGithub((Long)totalCommits);
         /*--------------------------------------------------------------*/
 
-        /*----------------------------Trvis-----------------------------*/
+        /*----------------------------Travis-----------------------------*/
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
         long passed = (Long)q.getSingleResult();
 
@@ -95,6 +96,30 @@ public class ReportGenerator implements IReport
             }
 
             getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data));
+        }
+
+        else if (getDetailsRequest.getType().equals("git"))
+        {
+            Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            List<GitPush> result = q.getResultList();
+
+            ArrayList<String> repos = new ArrayList<String>();
+            ArrayList<ArrayList<GitPush>> data = new ArrayList<ArrayList<GitPush>>();
+
+            for (int k = 0; k < result.size(); k++)
+            {
+                GitPush curr = result.get(k);
+
+                if (repos.indexOf(curr.getRepository()) == -1)
+                {
+                    repos.add(curr.getRepository());
+                    data.add(new ArrayList<GitPush>());
+                }
+
+                data.get(repos.indexOf(curr.getRepository())).add(curr);
+            }
+
+            getDetailsResponse.setGitDetails(new GitDetails(data.size(), data));
         }
 
         return getDetailsResponse;
