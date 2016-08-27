@@ -45,10 +45,16 @@ public class ReportingRest {
     public Response getDetails()
     {
         GetDetailsRequest getDetailsRequest = new GetDetailsRequest();
-        getDetailsRequest.setName("Rohan");
-        getDetailsRequest.setStartDate("2016-01-01 00:00:01");
+//        getDetailsRequest.setName("Rohan");
+//        getDetailsRequest.setStartDate("2016-01-01 00:00:01");
+//        getDetailsRequest.setEndDate("2016-12-30 23:59:59");
+//        getDetailsRequest.setType("travis");
+
+        getDetailsRequest.setName("baxterthehacker");
+        getDetailsRequest.setStartDate("2015-01-01 00:00:01");
         getDetailsRequest.setEndDate("2016-12-30 23:59:59");
-        getDetailsRequest.setType("travis");
+        getDetailsRequest.setType("git");
+
 
         GetDetailsResponse getDetailsResponse = reportGenerator.getDetails(getDetailsRequest);
 
