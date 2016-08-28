@@ -1,7 +1,7 @@
 # Hyper Perform
 
-[![Build Status](https://travis-ci.org/HyperPerfom/hyper-perform-server.svg?branch=develop)](https://travis-ci.org/HyperPerfom/hyper-perform-server)
-[![Stories in Ready](https://badge.waffle.io/HyperPerfom/hyper-perform-server.svg?label=ready&title=Ready)](http://waffle.io/HyperPerfom/hyper-perform-server)
+[![Build Status](https://travis-ci.org/HyperPerform/hyper-perform-server.svg?branch=develop)](https://travis-ci.org/HyperPerform/hyper-perform-server)
+[![Stories in Ready](https://badge.waffle.io/HyperPerform/hyper-perform-server.svg?label=ready&title=Ready)](http://waffle.io/HyperPerform/hyper-perform-server)
 
 Hyper Perform is an automated performance tracking tool, which sources information from many different integrations in order to provide information about various employee's performances levels and how they affect the current project's success level.
 
@@ -9,9 +9,9 @@ Hyper Perform is an automated performance tracking tool, which sources informati
 
 Github pages link https://hyperperform.github.io
 
-Waffle board https://waffle.io/HyperPerfom/hyper-perform-server
+Waffle board https://waffle.io/HyperPerform/hyper-perform-server
 
-Travis build https://travis-ci.org/HyperPerfom/hyper-perform-server
+Travis build https://travis-ci.org/HyperPerform/hyper-perform-server
 
 
 ##Server
