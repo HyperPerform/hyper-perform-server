@@ -25,11 +25,6 @@ test:
   adapter: postgresql
   database: hyperperform
 
-after_success:
-  - sudo chmod 777 deploy.sh
-  - sudo ./deploy.sh
-  - ./deploy.sh
-  
 notifications:
   slack: codusmaximus:TfshAEu8LRkjOGkyZnOQq5ys
   webhooks: http://hyperperform.me:8080/hyperperform-system-1.0-SNAPSHOT/rs/TravisEvent
