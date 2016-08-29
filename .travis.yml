@@ -20,17 +20,11 @@ before_script:
   - psql -d hyperperform -c 'CREATE TABLE public."CalendarProject" ( projectid integer NOT NULL, calendarid character varying(255), collaborators bytea, creator character varying(255), duedate timestamp without time zone, eventid character varying(255), reponame character varying(255), "timestamp" timestamp without time zone, CONSTRAINT "CalendarProject_pkey" PRIMARY KEY (projectid));' -U postgres
   - psql -d hyperperform -c 'CREATE TABLE public."CalendarMeeting" ( meetingid integer NOT NULL, calendarid character varying(255), creator character varying(255), duedate timestamp without time zone, eventid character varying(255), location character varying(255), "timestamp" timestamp without time zone, CONSTRAINT "CalendarMeeting_pkey" PRIMARY KEY (meetingid));' -U postgres
   - psql -d hyperperform -c 'CREATE TABLE public."CalendarMeeting_attendees" ( "CalendarMeeting_meetingID" integer NOT NULL, attendees integer, attendees_key character varying(255) NOT NULL, CONSTRAINT "CalendarMeeting_attendees_pkey" PRIMARY KEY ("CalendarMeeting_meetingID", attendees_key), CONSTRAINT fkn4q1pmj9vx3tfsaw9irp9voax FOREIGN KEY ("CalendarMeeting_meetingID") REFERENCES public."CalendarMeeting" (meetingid) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION);' -U postgres
-  - psql -d hyperperform -c 'CREATE TABLE public."GitIssue" (id integer NOT NULL, action character varying(255), assignee character varying(255), closedat timestamp without time zone, createdat timestamp without time zone, createdby character varying(255), issueid bigint, repository character varying(255), CONSTRAINT "GitIssue_pkey" PRIMARY KEY (id));' -U postgres
 
 test:
   adapter: postgresql
   database: hyperperform
 
-after_success:
-  - sudo chmod 777 deploy.sh
-  - sudo ./deploy.sh
-  - ./deploy.sh
-  
 notifications:
   slack: codusmaximus:TfshAEu8LRkjOGkyZnOQq5ys
   webhooks: http://hyperperform.me:8080/hyperperform-system-1.0-SNAPSHOT/rs/TravisEvent
