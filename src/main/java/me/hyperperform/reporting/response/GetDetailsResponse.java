@@ -1,6 +1,8 @@
 package me.hyperperform.reporting.response;
 
+import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.reporting.GitDetails;
+import me.hyperperform.reporting.GitIssueDetails;
 import me.hyperperform.reporting.TravisDetails;
 
 /**
@@ -11,6 +13,7 @@ public class GetDetailsResponse {
     /*----------All possible detail types----------*/
     private TravisDetails travisDetails;
     private GitDetails gitDetails;
+    private GitIssueDetails gitIssueDetails;
     /*---------------------------------------------*/
 
     public TravisDetails getTravisDetails() {
@@ -25,5 +28,13 @@ public class GetDetailsResponse {
     }
     public void setGitDetails(GitDetails gitDetails) {
         this.gitDetails = gitDetails;
+    }
+
+    public GitIssueDetails getGitIssueDetails() {
+        return gitIssueDetails;
+    }
+
+    public void setGitIssueDetails(GitIssueDetails gitIssueDetails) {
+        this.gitIssueDetails = gitIssueDetails;
     }
 }
