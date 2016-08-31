@@ -43,6 +43,7 @@ public class RestTest
 	}
 
 	@Test
+	@Ignore
 	public void calendarSimpleTest() throws Exception
 	{
 		System.out.println("-------------------------------------------------");
