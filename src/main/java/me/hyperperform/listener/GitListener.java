@@ -1,6 +1,7 @@
 package me.hyperperform.listener;
 
 import me.hyperperform.QueueConnection;
+import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 
 import org.json.simple.JSONArray;
@@ -16,6 +17,7 @@ import javax.ws.rs.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.sql.Timestamp;
 
 
 /**
@@ -89,9 +91,38 @@ public class GitListener implements IListener
             if (entityManager != null)
             {
                 entityManager.getTransaction().begin();
-
                 entityManager.persist(push);
+                entityManager.getTransaction().commit();
+            }
+        }
+        else
+        if (eventType.equals("issues"))
+        {
+            GitIssue gitIssue = new GitIssue();
 
+            JSONObject issue = (JSONObject)json.get("issue");
+            JSONObject user = (JSONObject)issue.get("user");
+            JSONObject repo = (JSONObject)json.get("repository");
+
+            gitIssue.setIssueId((Long)issue.get("id"));
+            gitIssue.setAction((String)json.get("action"));
+            gitIssue.setRepository((String)repo.get("name"));
+
+//            gitIssue.setCreatedAt(extractTimestamp((String)issue.get("created_at")));
+//            gitIssue.setClosedAt(extractTimestamp((String)issue.get("closed_at")));
+
+            gitIssue.setTimestamp(new Timestamp(System.currentTimeMillis()));
+
+            gitIssue.setAssignee((String)issue.get("assignee"));
+            gitIssue.setCreatedBy((String)user.get("login"));
+
+            if (queueConnection != null)
+                queueConnection.sendObject(gitIssue);
+
+            if (entityManager != null)
+            {
+                entityManager.getTransaction().begin();
+                entityManager.persist(gitIssue);
                 entityManager.getTransaction().commit();
             }
         }
@@ -153,7 +184,18 @@ public class GitListener implements IListener
         else
         if (tmp.indexOf('+') != -1)
             tmp = tmp.substring(0, tmp.indexOf('+'));
+        else
+        if (tmp.indexOf('Z') != -1)
+            tmp = tmp.substring(0, tmp.indexOf('Z'));
 
         return tmp;
+    }
+
+    private String extractTimestamp(String s)
+    {
+        if (s == null)
+            return null;
+
+        return (extractDate(s) + " " + extractTime(s));
     }
 }
