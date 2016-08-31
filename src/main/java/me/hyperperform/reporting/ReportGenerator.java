@@ -1,5 +1,6 @@
 package me.hyperperform.reporting;
 
+import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
 import me.hyperperform.reporting.algorithm.Algorithm;
@@ -76,6 +77,10 @@ public class ReportGenerator implements IReport
 
         if (getDetailsRequest.getType().equals("travis"))
         {
+            System.out.println("------------------------------------------------");
+            System.out.println("Generating report for travis");
+            System.out.println("------------------------------------------------");
+
             Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<TravisEvent> result = q.getResultList();
 
@@ -120,6 +125,30 @@ public class ReportGenerator implements IReport
             }
 
             getDetailsResponse.setGitDetails(new GitDetails(data.size(), data));
+        }
+        else
+        if (getDetailsRequest.getType().equals("issues"))
+        {
+            Query q = entityManager.createQuery("SELECT a FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action='closed' OR action='assigned')").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            List<GitIssue> result = q.getResultList();
+
+            ArrayList<String> repos = new ArrayList<String>();
+            ArrayList<ArrayList<GitIssue>> data = new ArrayList<ArrayList<GitIssue>>();
+
+            for (int k = 0; k < result.size(); k++)
+            {
+                GitIssue curr = result.get(k);
+
+                if (repos.indexOf(curr.getRepository()) == -1)
+                {
+                    repos.add(curr.getRepository());
+                    data.add(new ArrayList<GitIssue>());
+                }
+
+                data.get(repos.indexOf(curr.getRepository())).add(curr);
+            }
+
+            getDetailsResponse.setGitIssueDetails(new GitIssueDetails(data.size(), data));
         }
 
         return getDetailsResponse;
