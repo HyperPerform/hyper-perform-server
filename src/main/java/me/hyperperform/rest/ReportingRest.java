@@ -6,10 +6,7 @@ import me.hyperperform.reporting.response.*;
 
 import javax.inject.Inject;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
@@ -39,26 +36,31 @@ public class ReportingRest {
         return Response.status(200).entity(getSummaryResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 
-    @GET
+    @POST
     @Path("/getDetails")
     @Produces("application/json")
-    public Response getDetails()
+    @Consumes("application/json")
+    public Response getDetails(GetDetailsRequest getDetailsRequest)
     {
-        GetDetailsRequest getDetailsRequest = new GetDetailsRequest();
+        System.out.println(getDetailsRequest);
+
+//        GetDetailsRequest getDetailsRequest = new GetDetailsRequest();
 //        getDetailsRequest.setName("Rohan");
 //        getDetailsRequest.setStartDate("2016-01-01 00:00:01");
 //        getDetailsRequest.setEndDate("2016-12-30 23:59:59");
-//        getDetailsRequest.setType("travis");
+//        getDetailsRequest.setType("issues");
 
-        getDetailsRequest.setName("baxterthehacker");
-        getDetailsRequest.setStartDate("2015-01-01 00:00:01");
-        getDetailsRequest.setEndDate("2016-12-30 23:59:59");
-        getDetailsRequest.setType("git");
-
+//        getDetailsRequest.setName("baxterthehacker");
+//        getDetailsRequest.setStartDate("2015-01-01 00:00:01");
+//        getDetailsRequest.setEndDate("2016-12-30 23:59:59");
+//        getDetailsRequest.setType("git");
 
         GetDetailsResponse getDetailsResponse = reportGenerator.getDetails(getDetailsRequest);
 
-        return Response.status(200).entity(getDetailsResponse).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200)
+                .header("Access-Control-Allow-Origin", "*")
+                .entity(getDetailsResponse)
+                .build();
     }
 
     @GET
