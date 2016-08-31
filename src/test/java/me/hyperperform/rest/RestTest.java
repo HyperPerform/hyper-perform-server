@@ -10,6 +10,7 @@ import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;
 import org.jboss.resteasy.mock.*;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,14 @@ import javax.ws.rs.core.MediaType;
 //@ContextConfiguration(classes = RestTestConfig.class)
 public class RestTest
 {
+	@Before
+	public void init()
+	{
+		System.out.println("-------------------------------------------------");
+		System.out.println("Starting REST services test");
+		System.out.println("-------------------------------------------------");
+	}
+
 	/**
 	 * Test for checking whether or not the GitEvents are being accepted and persisted. A mock git push event is used
 	 * to carry out the test.
@@ -32,10 +41,6 @@ public class RestTest
      */
 	@Test
 	public void gitEventTest() throws Exception {
-
-		System.out.println("-------------------------------------------------");
-		System.out.println("Starting REST services test");
-		System.out.println("-------------------------------------------------");
 
 		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
@@ -55,6 +60,27 @@ public class RestTest
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
+	@Test
+	public void gitIssueEventTest() throws Exception
+	{
+		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
+		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+
+		dispatcher.getRegistry().addResourceFactory(noDef);
+
+		MockHttpRequest request = MockHttpRequest.post("/gitEvent");
+
+		request.header("X-GitHub-Event", "issues");
+		request.contentType(MediaType.APPLICATION_JSON_TYPE);
+
+		request.content(MockEvent.gitIssuesEvent.getBytes());
+
+		MockHttpResponse response = new MockHttpResponse();
+		dispatcher.invoke(request, response);
+
+		Assert.assertEquals(response.getStatus(), 200);
+	}
+
 	/**
 	 * Simple rest test for calendar
 	 * @throws Exception if there was an error in processing the data
@@ -62,10 +88,6 @@ public class RestTest
 	@Test
 	public void calendarSimpleTest() throws Exception
 	{
-		System.out.println("-------------------------------------------------");
-		System.out.println("Starting REST services test - Calendar");
-		System.out.println("-------------------------------------------------");
-
 		POJOResourceFactory noDef = new POJOResourceFactory(CalendarListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
