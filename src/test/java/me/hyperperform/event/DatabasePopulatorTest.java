@@ -1,5 +1,6 @@
 package me.hyperperform.event;
 
+import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
 import org.junit.After;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -43,6 +45,7 @@ public class DatabasePopulatorTest
     {
         ArrayList<GitPush> gitPushes = new ArrayList<GitPush>();
         ArrayList<TravisEvent> travisEvents = new ArrayList<TravisEvent>();
+        ArrayList<GitIssue> issueEvents = new ArrayList<GitIssue>();
 
         travisEvents.add(new TravisEvent("hyperperform", "develop", "Rohan", "Passed", "2016-01-01 11:11:11"));
         travisEvents.add(new TravisEvent("hyperperform", "feature/Git", "Rohan", "Failed", "2016-01-01 16:10:00"));
@@ -86,41 +89,41 @@ public class DatabasePopulatorTest
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 10));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 12));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 6));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 1));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 2));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 9));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 9));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 12));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 11));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 14));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 7));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 7));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 3));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 1));
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 10));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 12));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 6));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Jason", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 1));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 6));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 2));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Jason", 2));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 9));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 12));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 11));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 14));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Jason", 14));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 7));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 3));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 1));
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 10));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 12));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Avinash", 12));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 6));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 1));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Avinash", 1));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 2));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 9));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 12));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 11));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Avinash", 11));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 14));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 7));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Avinash", 3));
@@ -128,17 +131,38 @@ public class DatabasePopulatorTest
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 10));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 12));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 6));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Claudio", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 1));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 6));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 2));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 9));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Claudio", 9));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 12));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 11));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 14));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 7));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 3));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Claudio", 1));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Claudio", 1));
+
+        issueEvents.add(new GitIssue(1 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(1 ,"closed", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(2 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(3 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(4 ,"assigned", "ubuntu", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(5 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(6 ,"assigned", "ubuntu", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(7 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(8 ,"assigned", "ubuntu", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(9 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(2 ,"closed", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(10 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(11 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(11 ,"closed", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(12 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(13 ,"assigned", "ubuntu", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(14 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(14 ,"closed", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(15 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
+        issueEvents.add(new GitIssue(16 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
 
         entityTransaction.begin();
 
@@ -147,6 +171,9 @@ public class DatabasePopulatorTest
 
         for (int k = 0; k < travisEvents.size(); k++)
             entityManager.persist(travisEvents.get(k));
+
+        for (int k = 0; k < issueEvents.size(); k++)
+            entityManager.persist(issueEvents.get(k));
 
         entityTransaction.commit();
     }

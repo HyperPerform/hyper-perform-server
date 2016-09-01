@@ -14,21 +14,21 @@ import java.sql.Timestamp;
 
 public interface IGitEvent extends IEvent
 {
-	/**
-	 *
-	 * @param timestamp initialize the date and time the event was triggered
-     */
-	public void setDate(Timestamp timestamp);
-
-	/**
-	 *
-	 * @param name initialize the repository name for the event
-     */
-	public void setRepoName(String name);
-
-	/**
-	 *
-	 * @param user initialize the username of who triggered an event
-     */
-	public void setUser(String user);
+//	/**
+//	 *
+//	 * @param timestamp initialize the date and time the event was triggered
+//     */
+//	public void setDate(Timestamp timestamp);
+//
+//	/**
+//	 *
+//	 * @param name initialize the repository name for the event
+//     */
+//	public void setRepoName(String name);
+//
+//	/**
+//	 *
+//	 * @param user initialize the username of who triggered an event
+//     */
+//	public void setUser(String user);
 }

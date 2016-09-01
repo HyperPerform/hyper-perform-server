@@ -8,6 +8,7 @@ public class GetSummaryResponse {
     private long Github;
     private double travis;
     private double issues;
+    private double entryExit;
 
     public long getGithub() {
         return Github;
@@ -31,5 +32,13 @@ public class GetSummaryResponse {
 
     public void setIssues(double issues) {
         this.issues = issues;
+    }
+
+    public double getEntryExit() {
+        return entryExit;
+    }
+
+    public void setEntryExit(double entryExit) {
+        this.entryExit = entryExit;
     }
 }

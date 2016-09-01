@@ -29,9 +29,6 @@ public class CalendarPersistenceTest
     @Before
     public void init()
     {
-        System.out.println("-------------------------------------------------");
-        System.out.println("Starting Calendar Persistence Test");
-        System.out.println("-------------------------------------------------");
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
@@ -55,7 +52,7 @@ public class CalendarPersistenceTest
     @Test
     public void jpaTest()
     {
-        System.out.print("Starting Calendar jpaTest ...");
+        System.out.println("Running Calendar jpaTest ...");
         entityTransaction.begin();
 
         entityManager.persist(cm);
@@ -68,7 +65,7 @@ public class CalendarPersistenceTest
     @Test
     public void QueryTest()
     {
-        System.out.print("Starting CalendarMeeting & CalendarProject QueryTest ...");
+        System.out.println("Running CalendarMeeting & CalendarProject QueryTest ...");
         entityTransaction.begin();
 
         entityManager.persist(cm);
@@ -110,7 +107,5 @@ public class CalendarPersistenceTest
     {
         entityManager.close();
         entityManagerFactory.close();
-        System.out.println("\t\tSUCCESS\n\n");
-
     }
 }

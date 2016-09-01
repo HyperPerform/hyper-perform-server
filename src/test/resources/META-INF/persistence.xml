@@ -6,11 +6,16 @@
 
 
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <!-- Classes to be persisted must be added here -->
+    <!-- Calendar Events -->
     <class>me.hyperperform.event.Calendar.AttendeeState</class>
     <class>me.hyperperform.event.Calendar.CalendarMeeting</class>
     <class>me.hyperperform.event.Calendar.CalendarProject</class>
+
+    <!-- Git Events -->
     <class>me.hyperperform.event.Git.GitPush</class>
+    <class>me.hyperperform.event.Git.GitIssue</class>
+
+    <!-- Travis Events -->
     <class>me.hyperperform.event.Travis.TravisEvent</class>
 
     <properties>

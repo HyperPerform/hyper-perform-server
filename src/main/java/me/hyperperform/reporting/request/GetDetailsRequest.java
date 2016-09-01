@@ -43,4 +43,14 @@ public class GetDetailsRequest {
     public void setType(String type) {
         this.type = type;
     }
+
+    public String toString(){
+        String s = "Name: " + name + "\n";
+        s += "Start date: " + startDate + "\n";
+        s += "End date: " + endDate + "\n";
+        s += "Type: " + type;
+
+        return s;
+    }
+
 }
