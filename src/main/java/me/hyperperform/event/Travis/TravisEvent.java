@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Travis Event POJO
+ * Travis Event POJO which contains build information
  *
  * @author  CodusMaximus
  * @version 1.0
@@ -41,6 +41,14 @@ public class TravisEvent implements IEvent {
     public TravisEvent() {
     }
 
+    /**
+     * Public constructor that allows for quick creation of POJO.
+     * @param repo Repository that is being built
+     * @param branch Which branch in particular was the build instantiated
+     * @param commiter Who initiated the build
+     * @param status What was the outcome of the build i.e passed, failed
+     * @param timestamp When did this event take place
+     */
     public TravisEvent(String repo, String branch, String commiter, String status, String timestamp) {
         this.repo = repo;
         this.branch = branch;
