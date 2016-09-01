@@ -20,7 +20,13 @@ import javax.annotation.PreDestroy;
 import java.lang.StringBuilder;
 
 /**
- * Created by rohan on 2016/08/02.
+ * Hyper-perform
+ * Group: CodusMaximus
+ * Date: 2016/07/05
+ * Feature: Github Listener
+ *
+ * Provides a URL for Travis to push build events to. From here the events are persisted and placed onto a queue
+ * for CEP at a later stage.
  */
 @Path("/TravisEvent")
 public class TravisListener implements IListener
@@ -46,6 +52,11 @@ public class TravisListener implements IListener
         entityManagerFactory.close();
     }
 
+    /**
+     * Listener function which is called when Travis sends out an event to the provided REST endpoint
+     * @param jsonStr The JSON object sent by Travis
+     * @return returns a 200 response
+     */
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response listen(@FormParam("payload") String jsonStr) throws Exception {
