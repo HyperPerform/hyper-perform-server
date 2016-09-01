@@ -4,7 +4,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by rohan on 2016/08/25.
+ * Git Issues POJO used to store data from github issue object. That data is then used for event processing.
+ *
+ * @author  Rohan
+ * @version 1.0
+ * @since   2016/08/25
  */
 @Entity
 @Table(name = "\"GitIssue\"")
@@ -36,6 +40,15 @@ public class GitIssue implements IGitEvent
     public GitIssue() {
     }
 
+    /**
+     * Public constructor for easy creation of object
+     * @param issueId Issue Id provided by GitHub
+     * @param action The type of event that has taken place i.e opened, closed or assigned
+     * @param repository In which repository this event took place
+     * @param timestamp Time of the event
+     * @param createdBy Author of the issue
+     * @param assignee Developer assigned to issue
+     */
     public GitIssue(long issueId, String action, String repository, Timestamp timestamp, String createdBy, String assignee) {
         this.issueId = issueId;
         this.action = action;
