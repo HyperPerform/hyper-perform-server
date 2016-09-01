@@ -23,15 +23,10 @@ public class PersistenceTest
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
-//    private  GitPush g;
 
     @Before
     public void init()
     {
-        System.out.println("-------------------------------------------------");
-        System.out.println("Starting Persistence Test");
-        System.out.println("-------------------------------------------------");
-
         entityManagerFactory = Persistence.createEntityManagerFactory("test");
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
@@ -40,6 +35,7 @@ public class PersistenceTest
     @Test
     public void travisPojoTest()
     {
+        System.out.println("Running travis pojo test...");
         TravisEvent t = new TravisEvent();
         t.setCommiter("Sven Fuchs");
         t.setBranch("master");
@@ -55,6 +51,7 @@ public class PersistenceTest
     @Test
     public void gitIssuePojoTest()
     {
+        System.out.println("Running git pojo test...");
         GitIssue gitIssue = new GitIssue();
 
         gitIssue.setIssueId(73464126);
@@ -77,7 +74,7 @@ public class PersistenceTest
     @Test
     public void jpaTest()
     {
-        System.out.print("Starting JPA test ...");
+        System.out.println("Running JPA test ...");
 
         GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
 
@@ -91,7 +88,7 @@ public class PersistenceTest
     @Test
     public void queryTest()
     {
-        System.out.print("Starting QueryTest ...");
+        System.out.println("Running QueryTest ...");
 
         GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
 
@@ -114,7 +111,5 @@ public class PersistenceTest
     {
         entityManager.close();
         entityManagerFactory.close();
-        System.out.println("\t\tSUCCESS");
-
     }
 }

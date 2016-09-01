@@ -26,14 +26,6 @@ import javax.ws.rs.core.MediaType;
 //@ContextConfiguration(classes = RestTestConfig.class)
 public class RestTest
 {
-	@Before
-	public void init()
-	{
-		System.out.println("-------------------------------------------------");
-		System.out.println("Starting REST services test");
-		System.out.println("-------------------------------------------------");
-	}
-
 	/**
 	 * Test for checking whether or not the GitEvents are being accepted and persisted. A mock git push event is used
 	 * to carry out the test.
@@ -42,6 +34,7 @@ public class RestTest
 	@Test
 	public void gitEventTest() throws Exception {
 
+		System.out.println("Running git listener Push test..");
 		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
@@ -63,6 +56,8 @@ public class RestTest
 	@Test
 	public void gitIssueEventTest() throws Exception
 	{
+		System.out.println("Running git listener Issue test..");
+
 		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
@@ -88,6 +83,8 @@ public class RestTest
 	@Test
 	public void calendarSimpleTest() throws Exception
 	{
+		System.out.println("Running calendar listener test..");
+
 		POJOResourceFactory noDef = new POJOResourceFactory(CalendarListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
@@ -114,6 +111,8 @@ public class RestTest
 	@Test
 	public void invalidLinkTest() throws Exception
 	{
+		System.out.println("Running listener invalid link test..");
+
 		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
@@ -133,6 +132,8 @@ public class RestTest
 	@Test
 	public void timezoneTest() throws Exception
 	{
+		System.out.println("Running listener timezone test..");
+
 		POJOResourceFactory noDef = new POJOResourceFactory(GitListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
@@ -158,6 +159,8 @@ public class RestTest
 	@Test
 	public void travisTest() throws Exception
 	{
+		System.out.println("Running travis listener test..");
+
 		POJOResourceFactory noDef = new POJOResourceFactory(TravisListener.class);
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
