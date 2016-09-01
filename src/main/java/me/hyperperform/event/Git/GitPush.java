@@ -102,9 +102,9 @@ public class GitPush implements IGitEvent
         username = userName;
     }
 
-    public Timestamp getDate()
+    public String getDate()
     {
-        return timestamp;
+        return timestamp.toString();
     }
 
     public String toString()
