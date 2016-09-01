@@ -16,4 +16,4 @@ Travis build https://travis-ci.org/HyperPerform/hyper-perform-server
 
 ##Server
 
-The server has been developed and tested in the WildFly 10 environment and is largely JavaEE based. The server runs in the background and is accessed via a front-end such as the web application, communicating via a REST protocol. 
+This project has been developed and tested in the WildFly 10 application server environment and is largely JavaEE based. The server runs in the background and is accessed via a front-end such as the web application, communicating via a REST protocol. 
