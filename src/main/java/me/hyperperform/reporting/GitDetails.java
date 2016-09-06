@@ -14,10 +14,12 @@ public class GitDetails
 {
     private int size;
     private ArrayList<ArrayList<GitPush>> data;
+    private ArrayList<GraphData<String, Long>> graphData;
 
-    public GitDetails(int size, ArrayList<ArrayList<GitPush>> data) {
+    public GitDetails(int size, ArrayList<ArrayList<GitPush>> data, ArrayList<GraphData<String, Long>> graphData) {
         this.size = size;
         this.data = data;
+        this.graphData = graphData;
     }
 
     public int getSize() {
@@ -36,4 +38,11 @@ public class GitDetails
         this.data = data;
     }
 
+    public ArrayList<GraphData<String, Long>> getGraphData() {
+        return graphData;
+    }
+
+    public void setGraphData(ArrayList<GraphData<String, Long>> graphData) {
+        this.graphData = graphData;
+    }
 }
