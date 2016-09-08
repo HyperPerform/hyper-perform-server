@@ -1,5 +1,6 @@
 package me.hyperperform.event.EntryExit;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -8,22 +9,47 @@ import java.sql.Timestamp;
  * Date: 2016/09/08
  * Feature:
  */
+
+@Entity
+@Table(name = "\"AccessEvent\"")
 public class AccessEvent implements IEntryExit
 {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "EmployeeID")
     String employeeID;
+
+    @Column(name = "DeviceID")
     String deviceID;
+
+    @Column(name = "Name")
     String name;
+
+    @Column(name = "Surname")
     String surname;
+
+    @Column(name = "Timestamp")
     Timestamp timestamp;
+
+    @Column(name = "Day")
     Long day;
 
-    public AccessEvent(String employeeID, String deviceID, String name, String surname, Timestamp timestamp, Long day)
+    public AccessEvent()
+    {
+
+    }
+
+    public AccessEvent(String employeeID, String deviceID, String name, String surname, String timestamp, Long day)
     {
         this.employeeID = employeeID;
         this.deviceID = deviceID;
         this.name = name;
         this.surname = surname;
-        this.timestamp = timestamp;
+        this.timestamp = Timestamp.valueOf(timestamp);
         this.day = day;
     }
 
@@ -87,4 +113,15 @@ public class AccessEvent implements IEntryExit
     {
         this.day = day;
     }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
 }
