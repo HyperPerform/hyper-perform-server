@@ -31,8 +31,8 @@ public class UserTest
     {
 //        Image img = ImageIO.read(new FileInputStream(""));
         Image img = null;
-        u = new User("u12345678","Avinash", "Singh", "tashan.avi@gmail.com", "hashedPass", "Developer" ,false);
-        admin = new User("admin","admin", "", "admin", "hashedPass", "Administrator" ,true);
+        u = new User("u12345678","Avinash", "Singh", "tashan.avi@gmail.com", "hashedPass",EmployeeRole.Employee ,Position.SoftwareDeveloper );
+        admin = new User("admin","admin", "", "admin", "hashedPass", EmployeeRole.Administrator, null);
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
@@ -59,8 +59,8 @@ public class UserTest
         Assert.assertEquals("Not the same userID", "u12345678", u.getUserID());
         Assert.assertEquals("Not the same email", "tashan.avi@gmail.com", u.getUserEmail());
         Assert.assertEquals("Not the same password", "hashedPass", u.getUserPassword());
-        Assert.assertEquals("Not the same isAdmin", false, u.getIsAdmin());
-        Assert.assertEquals("Not the same Position", "Developer", u.getPosition());
+        Assert.assertEquals("Not the same admin", EmployeeRole.Employee , u.getRole());
+        Assert.assertEquals("Not the same Position", Position.SoftwareDeveloper, u.getPosition());
 
 
 
