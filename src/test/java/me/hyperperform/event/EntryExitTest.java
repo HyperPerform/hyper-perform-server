@@ -26,6 +26,7 @@ public class EntryExitTest
 
     @Test
     @Before
+//    @Ignore
     public void createAccessEventTest() throws Exception
     {
         access = new AccessEvent("u12345678", "ComboSmart", "Avinash", "Singh", "2007-09-23 10:10:10.0", (long) 0);
@@ -46,7 +47,8 @@ public class EntryExitTest
     }
 
     @Test
-    public void aceessTest() throws Exception
+//    @Ignore
+    public void accessTest() throws Exception
     {
         Assert.assertEquals("Not the same name", "Avinash", access.getName());
         Assert.assertEquals("Not the same surname", "Singh", access.getSurname());
