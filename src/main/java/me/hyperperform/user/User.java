@@ -1,9 +1,6 @@
 package me.hyperperform.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.awt.*;
 
 /**
@@ -18,6 +15,8 @@ import java.awt.*;
 public class User implements IPerson
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private String userID = null;
 
     @Column(name = "Name")
