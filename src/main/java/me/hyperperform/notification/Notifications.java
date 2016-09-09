@@ -1,5 +1,12 @@
 package me.hyperperform.notification;
 
+import me.hyperperform.notification.request.ChangePasswordNotificationRequest;
+import me.hyperperform.notification.request.NewUserNotificationRequest;
+import me.hyperperform.notification.response.ChangePasswordNotificationResponse;
+import me.hyperperform.notification.response.NewUserNotificationResponse;
+
+import javax.mail.*;
+
 /**
  * hyperperform-system
  * Group: CodusMaximus
@@ -8,14 +15,13 @@ package me.hyperperform.notification;
  */
 public class Notifications implements INotification
 {
-
-    public void newUserNotification()
+    public NewUserNotificationResponse newUserNotification(NewUserNotificationRequest newUserNotificationRequest)
     {
-
+        return null;
     }
 
-    public void changePasswordNotification()
+    public ChangePasswordNotificationResponse changePasswordNotification(ChangePasswordNotificationRequest changePasswordNotificationRequest)
     {
-
+        return null;
     }
 }
