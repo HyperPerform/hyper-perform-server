@@ -1,5 +1,10 @@
 package me.hyperperform.notification;
 
+import me.hyperperform.notification.request.ChangePasswordNotificationRequest;
+import me.hyperperform.notification.request.NewUserNotificationRequest;
+import me.hyperperform.notification.response.ChangePasswordNotificationResponse;
+import me.hyperperform.notification.response.NewUserNotificationResponse;
+
 /**
  * hyperperform-system
  * Group: CodusMaximus
@@ -8,7 +13,6 @@ package me.hyperperform.notification;
  */
 public interface INotification
 {
-    void newUserNotification();
-    void changePasswordNotification();
-
+    NewUserNotificationResponse newUserNotification(NewUserNotificationRequest newUserNotificationRequest);
+    ChangePasswordNotificationResponse changePasswordNotification(ChangePasswordNotificationRequest changePasswordNotificationRequest);
 }
