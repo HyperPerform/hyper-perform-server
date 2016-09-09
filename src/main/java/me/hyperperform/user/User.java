@@ -32,13 +32,17 @@ public class User implements IPerson
     @Column(name = "Password")
     private String userPassword = null;
 
-//    @Column(name = "ProfilePicture")
-//    private Image profilePicture = null;
-    @Column(name = "Position")
-    private String position = null;
 
-    @Column(name = "isAdmin")
-    private boolean isAdmin = false;
+
+    //    @Column(name = "ProfilePicture")
+//    private Image profilePicture = null;
+    @Column(name = "Role")
+    private EmployeeRole role;
+
+
+    @Column(name = "Position")
+    private Position position;
+
 
 
 
@@ -47,81 +51,15 @@ public class User implements IPerson
 
     }
 
-    public User(String userID, String userName, String userSurname, String userEmail, String userPassword, String position, Boolean isAdmin)
+    public User(String userID, String userName, String userSurname, String userEmail, String userPassword, EmployeeRole role, Position position)
     {
         this.userID = userID;
         this.userName = userName;
         this.userSurname = userSurname;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
-//        this.profilePicture = profilePicture;
+        this.role = role;
         this.position = position;
-        this.isAdmin = isAdmin;
-    }
-
-    public String getPosition()
-    {
-        return position;
-    }
-
-    public void setPosition(String position)
-    {
-        this.position = position;
-    }
-
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
-
-    public void setUserSurname(String userSurname)
-    {
-        this.userSurname = userSurname;
-    }
-
-    public void setUserEmail(String userEmail)
-    {
-        this.userEmail = userEmail;
-    }
-
-    public void setUserID(String userID)
-    {
-        this.userID = userID;
-    }
-
-    public void setUserPassword(String userPassword)
-    {
-        this.userPassword = userPassword;
-    }
-
-    public void setIsAdmin(boolean isAdmin)
-    {
-        this.isAdmin = isAdmin;
-    }
-
-//    public Image getProfilePicture()
-//    {
-//        return profilePicture;
-//    }
-
-    public boolean getIsAdmin()
-    {
-        return isAdmin;
-    }
-
-    public String getUserName()
-    {
-        return userName;
-    }
-
-    public String getUserSurname()
-    {
-        return userSurname;
-    }
-
-    public String getUserEmail()
-    {
-        return userEmail;
     }
 
     public String getUserID()
@@ -129,16 +67,68 @@ public class User implements IPerson
         return userID;
     }
 
+    public void setUserID(String userID)
+    {
+        this.userID = userID;
+    }
+
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public String getUserSurname()
+    {
+        return userSurname;
+    }
+
+    public void setUserSurname(String userSurname)
+    {
+        this.userSurname = userSurname;
+    }
+
+    public String getUserEmail()
+    {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail)
+    {
+        this.userEmail = userEmail;
+    }
+
     public String getUserPassword()
     {
         return userPassword;
     }
 
-//    public void setProfilePicture(Image profilePicture)
-//    {
-//        this.profilePicture = profilePicture;
-//    }
+    public void setUserPassword(String userPassword)
+    {
+        this.userPassword = userPassword;
+    }
 
+    public EmployeeRole getRole()
+    {
+        return role;
+    }
 
+    public void setRole(EmployeeRole role)
+    {
+        this.role = role;
+    }
 
+    public Position getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(Position position)
+    {
+        this.position = position;
+    }
 }

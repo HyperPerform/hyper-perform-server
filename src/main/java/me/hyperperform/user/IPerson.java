@@ -8,7 +8,7 @@ package me.hyperperform.user;
  * Date: 2016/09/05
  * Feature:
  */
-public interface IPerson
+public interface    IPerson
 {
     String getUserName();
 
