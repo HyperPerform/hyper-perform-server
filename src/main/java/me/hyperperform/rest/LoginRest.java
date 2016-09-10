@@ -3,7 +3,9 @@ package me.hyperperform.rest;
 import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.user.User;
 import me.hyperperform.user.request.VerifyLoginRequest;
+import me.hyperperform.user.request.VerifySignUpRequest;
 import me.hyperperform.user.response.VerifyLoginResponse;
+import me.hyperperform.user.response.VerifySignUpResponse;
 
 import javax.persistence.*;
 import javax.ws.rs.Consumes;
@@ -33,7 +35,7 @@ public class LoginRest
     @Path("/verifyDetails")
     @Produces("application/json")
     @Consumes("application/json")
-    public Response verify(VerifyLoginRequest log)
+    public Response verifyLogin(VerifyLoginRequest log)
     {
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
@@ -48,9 +50,9 @@ public class LoginRest
         {
             User tmp = result.get(i);
 
-            if (log.getUserID().equals(tmp.getUserEmail()))
+            if (log.getUserEmail().equals(tmp.getUserEmail()))
             {
-                if (log.getUserID().equals(tmp.getUserPassword()))
+                if (log.getUserPassword().equals(tmp.getUserPassword()))
                 {
                     res = new VerifyLoginResponse(true);
                 }
@@ -61,6 +63,28 @@ public class LoginRest
         return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
 
     }
+
+
+    @POST
+    @Path("/verifySignUp")
+    @Produces("application/json")
+    @Consumes("application/json")
+    public Response verifySignup(VerifySignUpRequest sign)
+    {
+
+        entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+        entityManager = entityManagerFactory.createEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        VerifySignUpResponse res = null;
+
+        //@TODO check the request integrity and persist the new user
+
+
+        return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
+
+    }
+
 
 
 }
