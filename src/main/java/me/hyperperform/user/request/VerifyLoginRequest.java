@@ -8,30 +8,26 @@ package me.hyperperform.user.request;
  */
 public class VerifyLoginRequest
 {
-    private String userID;
-    private String password;
+    private String userEmail;
+    private String userPassword;
 
-
-    public String getUserID()
+    public String getUserEmail()
     {
-        return userID;
+        return userEmail;
     }
 
-    public void setUserID(String userID)
+    public void setUserEmail(String userEmail)
     {
-        this.userID = userID;
+        this.userEmail = userEmail;
     }
 
-    public String getPassword()
+    public String getUserPassword()
     {
-        return password;
+        return userPassword;
     }
 
-    public void setPassword(String password)
+    public void setUserPassword(String userPassword)
     {
-        this.password = password;
+        this.userPassword = userPassword;
     }
-
-
-
 }
