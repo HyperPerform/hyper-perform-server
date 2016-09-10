@@ -157,3 +157,5 @@ pythontex-files-*/
 # Latexian
 TSWLatexianTemp*
 .idea/
+hyperperform-system.iml
+target/

@@ -12,23 +12,14 @@ public interface    IPerson
 {
     String getUserName();
 
-    String getUserSurname();
-
-    String getUserEmail();
-
     String getUserPassword();
 
-    String getUserID();
-
+    String getUserEmail();
 
 
     void setUserName(String userName);
 
-    void setUserSurname(String userSurname);
-
     void setUserEmail(String userEmail);
-
-    void setUserID(String userID);
 
     void setUserPassword(String userPassword);
 }
