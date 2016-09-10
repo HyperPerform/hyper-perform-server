@@ -14,30 +14,31 @@ import java.awt.*;
 @Table(name = "\"User\"")
 public class User implements IPerson
 {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Column(name = "id")
+//    private String id = null;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private String userID = null;
-
-    @Column(name = "Name")
-    private String userName = null;
-
-    @Column(name = "Surname")
-    private String userSurname = null;
-
     @Column(name = "Email")
     private String userEmail = null;
+
+    @Column(name = "Username")
+    private String userName = null;
+
+    @Column(name = "Name")
+    private String name = null;
+
+    @Column(name = "Surname")
+    private String surname = null;
 
     @Column(name = "Password")
     private String userPassword = null;
 
+    @Column(name = "ProfilePicture")
+    private Byte[] profilePicture = null;
 
-
-    //    @Column(name = "ProfilePicture")
-//    private Image profilePicture = null;
     @Column(name = "Role")
     private EmployeeRole role;
-
 
     @Column(name = "Position")
     private Position position;
@@ -50,45 +51,16 @@ public class User implements IPerson
 
     }
 
-    public User(String userID, String userName, String userSurname, String userEmail, String userPassword, EmployeeRole role, Position position)
+    public User(String userEmail, String userName, String name, String surname, String userPassword, Byte[] profilePicture, EmployeeRole role, Position position)
     {
-        this.userID = userID;
-        this.userName = userName;
-        this.userSurname = userSurname;
         this.userEmail = userEmail;
+        this.userName = userName;
+        this.name = name;
+        this.surname = surname;
         this.userPassword = userPassword;
+        this.profilePicture = profilePicture;
         this.role = role;
         this.position = position;
-    }
-
-    public String getUserID()
-    {
-        return userID;
-    }
-
-    public void setUserID(String userID)
-    {
-        this.userID = userID;
-    }
-
-    public String getUserName()
-    {
-        return userName;
-    }
-
-    public void setUserName(String userName)
-    {
-        this.userName = userName;
-    }
-
-    public String getUserSurname()
-    {
-        return userSurname;
-    }
-
-    public void setUserSurname(String userSurname)
-    {
-        this.userSurname = userSurname;
     }
 
     public String getUserEmail()
@@ -101,6 +73,36 @@ public class User implements IPerson
         this.userEmail = userEmail;
     }
 
+    public String getUserName()
+    {
+        return userName;
+    }
+
+    public void setUserName(String userName)
+    {
+        this.userName = userName;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public String getSurname()
+    {
+        return surname;
+    }
+
+    public void setSurname(String surname)
+    {
+        this.surname = surname;
+    }
+
     public String getUserPassword()
     {
         return userPassword;
@@ -109,6 +111,16 @@ public class User implements IPerson
     public void setUserPassword(String userPassword)
     {
         this.userPassword = userPassword;
+    }
+
+    public Byte[] getProfilePicture()
+    {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Byte[] profilePicture)
+    {
+        this.profilePicture = profilePicture;
     }
 
     public EmployeeRole getRole()
