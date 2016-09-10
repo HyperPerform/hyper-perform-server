@@ -42,6 +42,8 @@ public class LoginRest
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
+//        System.out.print(log.getUserEmail() + " " + log.getUserPassword());
+
         VerifyLoginResponse res = null;
         Query query = entityManager.createQuery("FROM User ", User.class);
         List<User> result = query.getResultList();
