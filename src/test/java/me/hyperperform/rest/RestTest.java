@@ -176,4 +176,25 @@ public class RestTest
 
 		Assert.assertEquals(response.getStatus(), 200);
 	}
+
+	@Test
+	public void loginTest() throws Exception
+	{
+		System.out.println("Running login listener test..");
+
+		POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+
+		dispatcher.getRegistry().addResourceFactory(noDef);
+
+		MockHttpRequest request = MockHttpRequest.post("/verifyDetails");
+		request.addFormHeader("payload", MockEvent.loginEvent);
+
+		request.contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+
+		MockHttpResponse response = new MockHttpResponse();
+		dispatcher.invoke(request, response);
+
+		Assert.assertEquals(response.getStatus(), 200);
+	}
 }
