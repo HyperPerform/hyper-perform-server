@@ -662,5 +662,7 @@ public class MockEvent
             " ]\n" +
             "}";
 
-
+    public static String loginEvent = "{\n" +
+            " \"userEmail\": \"admin@hyperperform.me\",\n" +
+            " \"userPassword\": \"admin\" }";
 }
