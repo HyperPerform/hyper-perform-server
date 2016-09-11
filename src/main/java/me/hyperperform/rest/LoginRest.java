@@ -42,7 +42,7 @@ public class LoginRest
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
-//        System.out.print(log.getUserEmail() + " " + log.getUserPassword());
+        System.out.print("\n"+log.getUserEmail() + " " + log.getUserPassword() + "\n");
 
         VerifyLoginResponse res = null;
         Query query = entityManager.createQuery("FROM User ", User.class);
@@ -60,8 +60,10 @@ public class LoginRest
                 }
             }
         }
-
-
+	
+	if (res != null)
+		System.out.println("Response: " + res.getLoggedin());
+	else System.out.println("Response: null");
         return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
 
     }
