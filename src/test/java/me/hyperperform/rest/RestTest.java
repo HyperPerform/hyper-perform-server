@@ -1,5 +1,6 @@
 package me.hyperperform.rest;
 
+import me.hyperperform.listener.AccessListener;
 import me.hyperperform.listener.GitListener;
 import me.hyperperform.listener.CalendarListener;
 import me.hyperperform.event.MockEvent;
@@ -170,6 +171,28 @@ public class RestTest
 		request.addFormHeader("payload", MockEvent.travisEvent);
 
 		request.contentType(MediaType.APPLICATION_FORM_URLENCODED_TYPE);
+
+		MockHttpResponse response = new MockHttpResponse();
+		dispatcher.invoke(request, response);
+
+		Assert.assertEquals(response.getStatus(), 200);
+	}
+
+	@Test
+	@Ignore
+	public void AccessTest() throws Exception
+	{
+		System.out.println("Running Access listener test..");
+
+		POJOResourceFactory noDef = new POJOResourceFactory(AccessListener.class);
+		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+
+		dispatcher.getRegistry().addResourceFactory(noDef);
+
+		MockHttpRequest request = MockHttpRequest.post("/AccessEvent");
+		request.contentType(MediaType.APPLICATION_JSON_TYPE);
+
+		request.content(MockEvent.accessEvent.getBytes());
 
 		MockHttpResponse response = new MockHttpResponse();
 		dispatcher.invoke(request, response);
