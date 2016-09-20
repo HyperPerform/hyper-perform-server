@@ -662,5 +662,7 @@ public class MockEvent
             " ]\n" +
             "}";
 
+    public static String accessEvent = "{'employeeID':'12345678','deviceID':'ComboSmart'"+
+    ",'name':'Avinash','surname':'Singh','timestamp':'2016-08-08 07:11:01','day':1}";
 
 }
