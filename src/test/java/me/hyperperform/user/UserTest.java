@@ -1,9 +1,18 @@
 package me.hyperperform.user;
 
+import me.hyperperform.event.MockEvent;
+import me.hyperperform.listener.TravisListener;
+import me.hyperperform.rest.LoginRest;
+import org.jboss.resteasy.core.Dispatcher;
+import org.jboss.resteasy.mock.MockDispatcherFactory;
+import org.jboss.resteasy.mock.MockHttpRequest;
+import org.jboss.resteasy.mock.MockHttpResponse;
+import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;
 import org.junit.*;
 
 import javax.imageio.ImageIO;
 import javax.persistence.*;
+import javax.ws.rs.core.MediaType;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -84,7 +93,25 @@ public class UserTest
         // query and test
     }
 
+    @Test
+    public void registrationTest() throws Exception
+    {
+        System.out.println("Running valid registration test...");
 
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.normalUser.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(200, response.getStatus());
+    }
 
 
     @After
