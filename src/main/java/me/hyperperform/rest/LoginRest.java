@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 
-@Path("/login")
+@Path("/users")
 public class LoginRest
 {
     private EntityManagerFactory entityManagerFactory;
