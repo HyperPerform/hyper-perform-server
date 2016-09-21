@@ -8,6 +8,8 @@ import me.hyperperform.user.request.VerifyLoginRequest;
 import me.hyperperform.user.request.VerifySignUpRequest;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javax.persistence.*;
 import javax.ws.rs.*;
@@ -71,8 +73,23 @@ public class LoginRest
     @Path("/verifySignUp")
     @Produces("application/json")
     @Consumes("application/json")
-    public Response verifySignup(VerifySignUpRequest sign)
+    public Response verifySignup(String jsonStr) throws Exception
+//    public Response verifySignup()
     {
+
+        JSONObject json = (JSONObject)new JSONParser().parse(jsonStr);
+
+        VerifySignUpRequest sign = new VerifySignUpRequest();
+        sign.setUserName((String)json.get("userName"));
+        sign.setUserSurname((String)json.get("userSurname"));
+        sign.setUserEmail((String)json.get("userEmail"));
+        sign.setUserPassword((String)json.get("userPassword"));
+        sign.setPosition((String)json.get("position"));
+        sign.setRole((String)json.get("role"));
+
+        System.out.println("--------------------------------------------------");
+        System.out.println(sign);
+        System.out.println("--------------------------------------------------");
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
@@ -98,7 +115,7 @@ public class LoginRest
         if (sign.getPosition() == null || sign.getPosition().equals(""))
             return  Response.status(400).entity("No position found").header("Access-Control-Allow-Origin", "*").build();
 
-        Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.userEmail=:email").setParameter("email", sign.getUserEmail());
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
         List<User> result = query.getResultList();
 
         if (result.size() != 0)
