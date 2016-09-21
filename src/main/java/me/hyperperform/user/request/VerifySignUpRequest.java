@@ -79,4 +79,18 @@ public class VerifySignUpRequest
     {
         this.position = position;
     }
+
+    public String toString()
+    {
+        String s = "";
+
+        s += "Name: " + userName + "\n";
+        s += "Surname: " + userSurname + "\n";
+        s += "Email: " + userEmail + "\n";
+        s += "Password: " + userPassword + "\n";
+        s += "Role: " + role + "\n";
+        s += "Position: " + position;
+
+        return s;
+    }
 }
