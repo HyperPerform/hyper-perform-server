@@ -5,5 +5,5 @@ package me.hyperperform.user;
  */
 public class MockUsers
 {
-    static String normalUser = "{userName:\"rohan\", userSurname:\"chhipa\", userEmail:\"rohan.chhipa@live.com\", userPassword:\"1234\", role:\"Employee\", position:\"SoftwareDeveloper\", }";
+    static String normalUser = "{\"userName\":\"rohan\", \"userSurname\":\"chhipa\", \"userEmail\":\"rohan.chhipa@live.com\", \"userPassword\":\"1234\", \"role\":\"Employee\", \"position\":\"SoftwareDeveloper\"}";
 }
