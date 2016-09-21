@@ -1,5 +1,6 @@
 package me.hyperperform.reporting;
 
+import me.hyperperform.event.EntryExit.AccessEvent;
 import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
@@ -81,6 +82,16 @@ public class ReportGenerator implements IReport
         closeRate = roundTmp2/100.0;
 
         getSummaryResponse.setIssues(closeRate);
+        /*--------------------------------------------------------------*/
+
+        /*--------------------------Entry Exit------------------------*/
+        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        long loghours = (Long)q.getSingleResult();
+
+
+        //@TODO Get management forecast and update
+
+        getSummaryResponse.setEntryExit(loghours);
         /*--------------------------------------------------------------*/
 
         return getSummaryResponse;
@@ -201,6 +212,14 @@ public class ReportGenerator implements IReport
             }
 
             getDetailsResponse.setGitIssueDetails(new GitIssueDetails(data.size(), data));
+        }
+        else
+        if (getDetailsRequest.getType().equals("entry"))
+        {
+            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            List<AccessEvent> result = q.getResultList();
+
+            getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result));
         }
 
         return getDetailsResponse;
