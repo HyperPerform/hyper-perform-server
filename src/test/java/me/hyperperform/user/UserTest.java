@@ -111,6 +111,10 @@ public class UserTest
         dispatcher.invoke(request, response);
 
         Assert.assertEquals(200, response.getStatus());
+
+        entityTransaction.begin();
+        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityTransaction.commit();
     }
 
 
