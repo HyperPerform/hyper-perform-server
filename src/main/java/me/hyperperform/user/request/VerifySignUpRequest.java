@@ -17,8 +17,8 @@ public class VerifySignUpRequest
     private String userSurname;
     private String userEmail;
     private String userPassword;
-    private EmployeeRole role;
-    private Position position;
+    private String role;
+    private String position;
 
     public String getUserName()
     {
@@ -60,23 +60,37 @@ public class VerifySignUpRequest
         this.userPassword = userPassword;
     }
 
-    public EmployeeRole getRole()
+    public String getRole()
     {
         return role;
     }
 
-    public void setRole(EmployeeRole role)
+    public void setRole(String role)
     {
         this.role = role;
     }
 
-    public Position getPosition()
+    public String getPosition()
     {
         return position;
     }
 
-    public void setPosition(Position position)
+    public void setPosition(String position)
     {
         this.position = position;
+    }
+
+    public String toString()
+    {
+        String s = "";
+
+        s += "Name: " + userName + "\n";
+        s += "Surname: " + userSurname + "\n";
+        s += "Email: " + userEmail + "\n";
+        s += "Password: " + userPassword + "\n";
+        s += "Role: " + role + "\n";
+        s += "Position: " + position;
+
+        return s;
     }
 }
