@@ -87,9 +87,9 @@ public class LoginRest
         sign.setPosition((String)json.get("position"));
         sign.setRole((String)json.get("role"));
 
-        System.out.println("--------------------------------------------------");
-        System.out.println(sign);
-        System.out.println("--------------------------------------------------");
+//        System.out.println("--------------------------------------------------");
+//        System.out.println(sign);
+//        System.out.println("--------------------------------------------------");
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
@@ -120,6 +120,22 @@ public class LoginRest
 
         if (result.size() != 0)
             return  Response.status(400).entity("Email Already Exists").header("Access-Control-Allow-Origin", "*").build();
+
+        try {
+            EmployeeRole.valueOf(sign.getRole());
+        }
+
+        catch (IllegalArgumentException e) {
+            return  Response.status(400).entity("Role doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+        }
+
+        try {
+            Position.valueOf(sign.getPosition());
+        }
+
+        catch (IllegalArgumentException e) {
+            return  Response.status(400).entity("Position doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+        }
 
         User user = new User();
         user.setName(sign.getUserName());
