@@ -22,6 +22,9 @@ public class User implements IPerson
     @Column(name = "Email")
     private String userEmail = null;
 
+    @Column(name = "GitUsername")
+    private String gitUserName = null;
+
     @Column(name = "Username")
     private String userName = null;
 
@@ -51,9 +54,10 @@ public class User implements IPerson
 
     }
 
-    public User(String userEmail, String userName, String name, String surname, String userPassword, Byte[] profilePicture, EmployeeRole role, Position position)
+    public User(String userEmail, String gitUserName, String userName, String name, String surname, String userPassword, Byte[] profilePicture, EmployeeRole role, Position position)
     {
         this.userEmail = userEmail;
+        this.gitUserName = gitUserName;
         this.userName = userName;
         this.name = name;
         this.surname = surname;
@@ -63,6 +67,7 @@ public class User implements IPerson
         this.position = position;
     }
 
+
     public String getUserEmail()
     {
         return userEmail;
@@ -71,6 +76,16 @@ public class User implements IPerson
     public void setUserEmail(String userEmail)
     {
         this.userEmail = userEmail;
+    }
+
+    public String getGitUserName()
+    {
+        return gitUserName;
+    }
+
+    public void setGitUserName(String gitUserName)
+    {
+        this.gitUserName = gitUserName;
     }
 
     public String getUserName()
