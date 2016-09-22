@@ -33,8 +33,8 @@ public class UserTest
         Image img = null;
 
 //        String userEmail, String userName, String name, String surname, String userPassword, Byte[] profilePicture, EmployeeRole role, Position position
-        u = new User("tashan.avi@gmail.com","u12345678","Avinash", "Singh", "hashedPass", null, EmployeeRole.Employee, Position.SoftwareDeveloper );
-        admin = new User("admin@hyperperform.me","admin", "admin", "", "hashedPass", null, EmployeeRole.Administrator, null);
+        u = new User("tashan.avi@gmail.com", "AvinashSingh786" ,"u12345678","Avinash", "Singh", "hashedPass", null, EmployeeRole.Employee, Position.SoftwareDeveloper );
+        admin = new User("admin@hyperperform.me", "","admin", "admin", "", "hashedPass", null, EmployeeRole.Administrator, null);
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
