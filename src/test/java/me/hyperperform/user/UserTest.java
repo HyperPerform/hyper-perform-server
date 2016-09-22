@@ -138,6 +138,29 @@ public class UserTest
         Assert.assertEquals("Invalid Name", response.getContentAsString());
     }
 
+    @Test
+    public void invalidSurnameTest() throws Exception
+    {
+        System.out.println("Running invalid surname registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.noSurname.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("Invalid Surname", response.getContentAsString());
+    }
+
+    
+
     @After
     public void closeManager()
     {
