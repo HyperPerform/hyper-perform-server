@@ -159,7 +159,26 @@ public class UserTest
         Assert.assertEquals("Invalid Surname", response.getContentAsString());
     }
 
-    
+    @Test
+    public void invalidEmailTest() throws Exception
+    {
+        System.out.println("Running invalid email registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.noEmail.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("Invalid Email", response.getContentAsString());
+    }
 
     @After
     public void closeManager()
