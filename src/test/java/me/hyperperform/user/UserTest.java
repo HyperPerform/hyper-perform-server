@@ -117,6 +117,26 @@ public class UserTest
         entityTransaction.commit();
     }
 
+    @Test
+    public void invalidNameTest() throws Exception
+    {
+        System.out.println("Running invalid name registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.noUsername.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("Invalid Name", response.getContentAsString());
+    }
 
     @After
     public void closeManager()
