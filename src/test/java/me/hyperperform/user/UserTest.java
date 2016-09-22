@@ -201,6 +201,27 @@ public class UserTest
         Assert.assertEquals("Role doesn't exist", response.getContentAsString());
     }
 
+    @Test
+    public void invalidPositionTest() throws Exception
+    {
+        System.out.println("Running invalid position registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.invalidPosition.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(400, response.getStatus());
+        Assert.assertEquals("Position doesn't exist", response.getContentAsString());
+    }
+
     @After
     public void closeManager()
     {
