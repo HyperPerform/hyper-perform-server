@@ -47,13 +47,15 @@ public class AccessListener implements IListener
         @POST
         @Consumes("application/json")
         public Response listen(AccessEvent accessEvent) throws Exception {
-        System.out.println("\n\n\nAccess Event\n\n");
+        System.out.println("\nAccess Event\n\n");
+//            System.out.println(accessEvent.getName());
+
             if (accessEvent != null)
             {
-                System.out.println("\n\n\nnull\n\n");
+
                 if (accessEvent.getEmployeeID() != null || !accessEvent.getEmployeeID().equals(""))
                 {
-                    System.out.println("\n\n\nerror\n\n");
+
                     if (queueConnection != null)
                         queueConnection.sendObject(accessEvent);
 
@@ -64,10 +66,10 @@ public class AccessListener implements IListener
                         entityManager.persist(accessEvent);
 
                         entityManager.getTransaction().commit();
-                    }
+                    } else System.out.println("error Entity Man");
                 }
             }
 
-            return Response.status(200).entity("Successfully received event").header("Access-Control-Allow-Origin", "*").build();
+            return Response.status(200).entity("Successfully received Access event").header("Access-Control-Allow-Origin", "*").build();
         }
 }
