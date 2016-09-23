@@ -179,7 +179,7 @@ public class RestTest
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void AccessTest() throws Exception
 	{
 		System.out.println("Running Access listener test..");
@@ -196,7 +196,7 @@ public class RestTest
 
 		MockHttpResponse response = new MockHttpResponse();
 		dispatcher.invoke(request, response);
-
+		System.out.println(response.getContentAsString());
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 }
