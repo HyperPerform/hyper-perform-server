@@ -179,6 +179,18 @@ public class ReportGenerator implements IReport
 
         CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
 
-        return new GetScoreResponse(calculateScoreResponse.getScore());
+        String performance = "Non-performer";
+
+        double score = calculateScoreResponse.getScore();
+        if (score >= 2.0 && score < 3.0)
+            performance = "Standard performer";
+        else
+        if (score >= 3.0 && score < 4.0)
+            performance = "Standard plus performer";
+        else
+        if (score >= 4.0)
+            performance = "High performer";
+
+        return new GetScoreResponse(score, performance);
     }
 }
