@@ -81,7 +81,9 @@ public class UserTest
         Assert.assertEquals("Not the same admin", EmployeeRole.Administrator , admin.getRole());
         Assert.assertEquals("Not the same Position", null, admin.getPosition());
 
-
+        entityTransaction.begin();
+        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityTransaction.commit();
     }
 
 
