@@ -46,24 +46,37 @@ public class EntryExitTest
     }
 
     @Test
-    public void aceessTest() throws Exception
+    public void pojoTest() throws Exception
     {
         Assert.assertEquals("Not the same name", "Avinash", access.getName());
         Assert.assertEquals("Not the same surname", "Singh", access.getSurname());
         Assert.assertEquals("Not the same userID", "u12345678", access.getEmployeeID());
         Assert.assertEquals("Not the same deviceID", "ComboSmart", access.getDeviceID());
         Assert.assertEquals("Not the same day", new Long(0), access.getDay());
-        Assert.assertEquals("Not the same userID", "2007-09-23 10:10:10.0", access.getTimestamp().toString());
+        Assert.assertEquals("Not the same userID", "2007-09-23 10:10:10.0", access.getTimestamp());
 
 
     }
 
 
     @Test
-    @Ignore
+//    @Ignore
     public void queryTest() throws Exception
     {
         // query and test
+
+        System.out.println("Running QueryTest ...");
+
+        Query query = entityManager.createQuery("FROM AccessEvent ", AccessEvent.class);
+        List<AccessEvent> result = query.getResultList();
+        Assert.assertNotEquals(result.size(), 0);
+        Assert.assertEquals("Not the same name", result.get(0).getName(), access.getName());
+        Assert.assertEquals("Not the same surname", result.get(0).getSurname(), access.getSurname());
+        Assert.assertEquals("Not the same userID", result.get(0).getEmployeeID(), access.getEmployeeID());
+        Assert.assertEquals("Not the same deviceID", result.get(0).getDeviceID(), access.getDeviceID());
+        Assert.assertEquals("Not the same day", result.get(0).getDay(), access.getDay());
+        Assert.assertEquals("Not the same userID", result.get(0).getTimestamp(), access.getTimestamp());
+
     }
 
 
