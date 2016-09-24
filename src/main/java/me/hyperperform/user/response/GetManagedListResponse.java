@@ -14,14 +14,16 @@ public class GetManagedListResponse
         String email;
         double score;
         String performance;
+        String role;
 
-        public ListUnit(String firstname, String lastname, String email, double score, String performance)
+        public ListUnit(String firstname, String lastname, String email, double score, String performance, String role)
         {
             this.firstname = firstname;
             this.lastname = lastname;
             this.email = email;
             this.score = score;
             this.performance = performance;
+            this.role = role;
         }
 
         public String getFirstname() {
@@ -63,6 +65,14 @@ public class GetManagedListResponse
         public void setScore(double score) {
             this.score = score;
         }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
     }
 
     private int size;
@@ -73,8 +83,8 @@ public class GetManagedListResponse
         data = new ArrayList<ListUnit>();
     }
 
-    public void addToList(String firstname, String lastname, String email, double score, String performance) {
-        data.add(new ListUnit(firstname, lastname, email, score, performance));
+    public void addToList(String firstname, String lastname, String email, double score, String performance, String role) {
+        data.add(new ListUnit(firstname, lastname, email, score, performance, role));
     }
 
     public int getSize() {
