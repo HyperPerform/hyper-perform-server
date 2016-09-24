@@ -88,18 +88,18 @@ public class DatabasePopulatorTest
         travisEvents.add(new TravisEvent("hyperperform", "develop", "Claudio", "Passed", "2016-04-11 11:11:11"));
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 10));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 12));
-        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 6));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 1));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 6));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 2));
-        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 9));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 12));
+        gitPushes.add(new GitPush("hyperperform", "2016-02-15 11:11:11", "Rohan", 12));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-12-18 11:11:11", "Rohan", 6));
+        gitPushes.add(new GitPush("hyperperform", "2016-07-07 11:11:11", "Rohan", 1));
+        gitPushes.add(new GitPush("hyperperform", "2016-05-19 11:11:11", "Rohan", 6));
+        gitPushes.add(new GitPush("hyperperform", "2016-01-11 11:11:11", "Rohan", 2));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-07-20 11:11:11", "Rohan", 9));
+        gitPushes.add(new GitPush("hyperperform", "2016-05-22 11:11:11", "Rohan", 12));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 11));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 14));
-        gitPushes.add(new GitPush("UbuntuScript", "2016-04-11 11:11:11", "Rohan", 7));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 3));
-        gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Rohan", 1));
+        gitPushes.add(new GitPush("hyperperform", "2016-01-04 11:11:11", "Rohan", 14));
+        gitPushes.add(new GitPush("UbuntuScript", "2016-07-25 11:11:11", "Rohan", 7));
+        gitPushes.add(new GitPush("hyperperform", "2016-01-11 11:11:11", "Rohan", 3));
+        gitPushes.add(new GitPush("hyperperform", "2016-08-11 11:11:11", "Rohan", 1));
 
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 10));
         gitPushes.add(new GitPush("hyperperform", "2016-04-11 11:11:11", "Jason", 12));
