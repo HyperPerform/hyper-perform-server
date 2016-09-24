@@ -191,7 +191,12 @@ public class LoginRest
             getScoreRequest.setName(list.get(k).getUserEmail());
             GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreRequest);
 
-            getManagedListResponse.addToList(list.get(k).getName(), list.get(k).getSurname(), list.get(k).getUserEmail(), getScoreResponse.getScore(), getScoreResponse.getPerformance());
+            getManagedListResponse.addToList(list.get(k).getName(),
+                    list.get(k).getSurname(),
+                    list.get(k).getUserEmail(),
+                    getScoreResponse.getScore(),
+                    getScoreResponse.getPerformance(),
+                    (list.get(k).getPosition() == null) ? "Unknown" : list.get(k).getPosition().getType());
         }
 
         getManagedListResponse.setSize(n);
