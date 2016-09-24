@@ -94,9 +94,9 @@ public class AccessEvent implements IEntryExit
         this.surname = surname;
     }
 
-    public Timestamp getTimestamp()
+    public String getTimestamp()
     {
-        return timestamp;
+        return timestamp.toString();
     }
 
     public void setTimestamp(Timestamp timestamp)
