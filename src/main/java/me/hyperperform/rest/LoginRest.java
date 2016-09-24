@@ -4,8 +4,10 @@ import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.user.EmployeeRole;
 import me.hyperperform.user.Position;
 import me.hyperperform.user.User;
+import me.hyperperform.user.request.GetManagedListRequest;
 import me.hyperperform.user.request.VerifyLoginRequest;
 import me.hyperperform.user.request.VerifySignUpRequest;
+import me.hyperperform.user.response.GetManagedListResponse;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
 import org.json.simple.JSONObject;
@@ -155,6 +157,15 @@ public class LoginRest
 
     }
 
+    @GET
+    @Path("/getManagedList")
+    public Response getManagedList(GetManagedListRequest getManagedListRequest)
+    {
+        GetManagedListResponse getManagedListResponse = new GetManagedListResponse();
 
+        
+
+        return Response.status(200).entity(getManagedListResponse).header("Access-Control-Allow-Origin", "*").build();
+    }
 
 }
