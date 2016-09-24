@@ -23,6 +23,46 @@ public class GetManagedListResponse
             this.score = score;
             this.performance = performance;
         }
+
+        public String getFirstname() {
+            return firstname;
+        }
+
+        public void setFirstname(String firstname) {
+            this.firstname = firstname;
+        }
+
+        public String getLastname() {
+            return lastname;
+        }
+
+        public void setLastname(String lastname) {
+            this.lastname = lastname;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPerformance() {
+            return performance;
+        }
+
+        public void setPerformance(String performance) {
+            this.performance = performance;
+        }
+
+        public double getScore() {
+            return score;
+        }
+
+        public void setScore(double score) {
+            this.score = score;
+        }
     }
 
     private int size;
@@ -33,7 +73,7 @@ public class GetManagedListResponse
         data = new ArrayList<ListUnit>();
     }
 
-    private void addToList(String firstname, String lastname, String email, double score, String performance) {
+    public void addToList(String firstname, String lastname, String email, double score, String performance) {
         data.add(new ListUnit(firstname, lastname, email, score, performance));
     }
 
