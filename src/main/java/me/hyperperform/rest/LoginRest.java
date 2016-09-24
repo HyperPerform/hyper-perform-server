@@ -1,6 +1,9 @@
 package me.hyperperform.rest;
 
+import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.GetDetailsRequest;
+import me.hyperperform.reporting.request.GetScoreRequest;
+import me.hyperperform.reporting.response.GetScoreResponse;
 import me.hyperperform.user.EmployeeRole;
 import me.hyperperform.user.Position;
 import me.hyperperform.user.User;
@@ -13,6 +16,7 @@ import me.hyperperform.user.response.VerifySignUpResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javax.inject.Inject;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -33,6 +37,8 @@ public class LoginRest
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
 
+    @Inject
+    IReport reportGenerator;
 
     @POST
     @Path("/verifyDetails")
@@ -177,8 +183,16 @@ public class LoginRest
         List<User> list = q.getResultList();
 
         int n = list.size();
-        for (int k = 0; k < n; k++)
-            getManagedListResponse.addToList(list.get(k).getName(), list.get(k).getSurname(), list.get(k).getUserEmail(), 1.2, "Non-performer");
+        GetScoreRequest getScoreRequest = new GetScoreRequest();
+        getScoreRequest.setStartDate(getManagedListRequest.getStartDate().toString());
+        getScoreRequest.setEndDate(getManagedListRequest.getEndDate().toString());
+
+        for (int k = 0; k < n; k++) {
+            getScoreRequest.setName(list.get(k).getUserEmail());
+            GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreRequest);
+
+            getManagedListResponse.addToList(list.get(k).getName(), list.get(k).getSurname(), list.get(k).getUserEmail(), getScoreResponse.getScore(), getScoreResponse.getPerformance());
+        }
 
         getManagedListResponse.setSize(n);
 
