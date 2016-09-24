@@ -8,7 +8,19 @@ package me.hyperperform.user;
  */
 public enum Position
 {
-    WebDeveloper,
-    SoftwareDeveloper,
-    Multimedia
+    WebDeveloper("Web Developer"),
+    SoftwareDeveloper("Software Developer"),
+    Multimedia("Multimedia ");
+
+    private String type;
+
+    Position(String type)
+    {
+        this.type = type;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
 }
