@@ -159,11 +159,28 @@ public class LoginRest
 
     @GET
     @Path("/getManagedList")
-    public Response getManagedList(GetManagedListRequest getManagedListRequest)
+    @Produces("application/json")
+//    public Response getManagedList(GetManagedListRequest getManagedListRequest)
+    public Response getManagedList()
     {
+        GetManagedListRequest getManagedListRequest = new GetManagedListRequest();
+        getManagedListRequest.setStartDate("2016-01-01 00:00:01");
+        getManagedListRequest.setEndDate("2016-12-30 23:59:59");
+
+        entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+        entityManager = entityManagerFactory.createEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
         GetManagedListResponse getManagedListResponse = new GetManagedListResponse();
 
-        
+        Query q = entityManager.createQuery("select u from User u");
+        List<User> list = q.getResultList();
+
+        int n = list.size();
+        for (int k = 0; k < n; k++)
+            getManagedListResponse.addToList(list.get(k).getName(), list.get(k).getSurname(), list.get(k).getUserEmail(), 1.2, "Non-performer");
+
+        getManagedListResponse.setSize(n);
 
         return Response.status(200).entity(getManagedListResponse).header("Access-Control-Allow-Origin", "*").build();
     }
