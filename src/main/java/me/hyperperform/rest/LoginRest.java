@@ -54,7 +54,9 @@ public class LoginRest
         System.out.print("\n"+log.getUserEmail() + " " + log.getUserPassword() + "\n");
 
         VerifyLoginResponse res = null;
-        Query query = entityManager.createQuery("FROM User ", User.class);
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail = :input", User.class)
+                .setParameter("input", log.getUserEmail());
+
         List<User> result = query.getResultList();
 
         for (int i = 0; i < result.size(); i++)
@@ -65,7 +67,7 @@ public class LoginRest
             {
                 if (log.getUserPassword().equals(tmp.getUserPassword()))
                 {
-                    res = new VerifyLoginResponse(true);
+                    res = new VerifyLoginResponse(true, tmp.getUserEmail(), tmp.getName(), tmp.getPosition());
                 }
             }
         }
