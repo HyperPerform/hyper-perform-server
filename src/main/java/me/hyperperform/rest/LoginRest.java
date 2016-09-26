@@ -13,6 +13,7 @@ import me.hyperperform.user.request.VerifySignUpRequest;
 import me.hyperperform.user.response.GetManagedListResponse;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
+import org.jboss.logging.annotations.Pos;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,6 +21,7 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -204,4 +206,16 @@ public class LoginRest
         return Response.status(200).entity(getManagedListResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 
+    @GET
+    @Produces("application/json")
+    public Response getPositions()
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        Position[] positions = Position.values();
+
+        for (int k = 0; k < positions.length; k++)
+            list.add(positions[k].getType());
+
+        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+    }
 }
