@@ -1,5 +1,6 @@
 package me.hyperperform.rest;
 
+import me.hyperperform.Hash;
 import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.reporting.request.GetScoreRequest;
@@ -67,7 +68,7 @@ public class LoginRest
 
             if (log.getUserEmail().equals(tmp.getUserEmail()))
             {
-                if (log.getUserPassword().equals(tmp.getUserPassword()))
+                if (Hash.gethash(log.getUserPassword()).equals(tmp.getUserPassword()))
                 {
                     res = new VerifyLoginResponse(true, tmp.getUserEmail(), tmp.getName(), tmp.getPosition());
                 }
