@@ -1,5 +1,7 @@
 package me.hyperperform.user;
 
+import me.hyperperform.Hash;
+
 import javax.persistence.*;
 import java.awt.*;
 
@@ -61,7 +63,7 @@ public class User implements IPerson
         this.userName = userName;
         this.name = name;
         this.surname = surname;
-        this.userPassword = userPassword;
+        this.userPassword = Hash.gethash(userPassword);
         this.profilePicture = profilePicture;
         this.role = role;
         this.position = position;
@@ -125,7 +127,7 @@ public class User implements IPerson
 
     public void setUserPassword(String userPassword)
     {
-        this.userPassword = userPassword;
+        this.userPassword = Hash.gethash(userPassword);
     }
 
     public Byte[] getProfilePicture()
