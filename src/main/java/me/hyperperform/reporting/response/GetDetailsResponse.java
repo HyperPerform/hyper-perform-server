@@ -1,6 +1,7 @@
 package me.hyperperform.reporting.response;
 
 import me.hyperperform.event.Git.GitIssue;
+import me.hyperperform.reporting.AccessDetails;
 import me.hyperperform.reporting.GitDetails;
 import me.hyperperform.reporting.GitIssueDetails;
 import me.hyperperform.reporting.TravisDetails;
@@ -14,8 +15,18 @@ public class GetDetailsResponse {
     private TravisDetails travisDetails;
     private GitDetails gitDetails;
     private GitIssueDetails gitIssueDetails;
+    private AccessDetails accessDetails;
     /*---------------------------------------------*/
 
+    public AccessDetails getAccessDetails()
+    {
+        return accessDetails;
+    }
+
+    public void setAccessDetails(AccessDetails accessDetails)
+    {
+        this.accessDetails = accessDetails;
+    }
     public TravisDetails getTravisDetails() {
         return travisDetails;
     }

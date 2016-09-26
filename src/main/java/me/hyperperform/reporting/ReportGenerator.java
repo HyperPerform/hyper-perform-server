@@ -1,5 +1,6 @@
 package me.hyperperform.reporting;
 
+import me.hyperperform.event.EntryExit.AccessEvent;
 import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
@@ -11,6 +12,7 @@ import me.hyperperform.reporting.response.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +84,16 @@ public class ReportGenerator implements IReport
         getSummaryResponse.setIssues(closeRate);
         /*--------------------------------------------------------------*/
 
+        /*--------------------------Entry Exit------------------------*/
+        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        long loghours = (Long)q.getSingleResult();
+
+
+        //@TODO Get management forecast and update
+
+        getSummaryResponse.setEntryExit(loghours);
+        /*--------------------------------------------------------------*/
+
         return getSummaryResponse;
     }
 
@@ -138,7 +150,44 @@ public class ReportGenerator implements IReport
                 data.get(repos.indexOf(curr.getRepository())).add(curr);
             }
 
-            getDetailsResponse.setGitDetails(new GitDetails(data.size(), data));
+
+
+            long range = (getDetailsRequest.getEndDate().getTime() - getDetailsRequest.getStartDate().getTime());
+            range /= 10;
+
+            ArrayList<GraphData<String, Long>> graphData = new ArrayList<GraphData<String, Long>>();
+
+            for (int k = 0; k < repos.size(); k++)
+            {
+                ArrayList<String> xAxis = new ArrayList<String>();
+                ArrayList<Long> yAxis = new ArrayList<Long>();
+
+                long prev = getDetailsRequest.getStartDate().getTime();
+                for (int j = 1; j <= 10; j++)
+                {
+                    long curr = prev + range;
+
+                    Query dataQuery = entityManager.createQuery("SELECT SUM(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname) AND (repository=:repo)")
+                            .setParameter("startDate", new Timestamp(prev))
+                            .setParameter("endDate", new Timestamp(curr))
+                            .setParameter("uname", getDetailsRequest.getName())
+                            .setParameter("repo", repos.get(k));
+
+                    Object commits = dataQuery.getSingleResult();
+
+                    String currXLabel = (new Timestamp(curr)).toString();
+
+                    xAxis.add(currXLabel.substring(0, currXLabel.indexOf(" ")));
+                    yAxis.add((commits == null) ? 0 : (Long) commits);
+
+                    prev = curr;
+                }
+
+                graphData.add(new GraphData<String, Long>(xAxis, yAxis));
+            }
+
+            getDetailsResponse.setGitDetails(new GitDetails(data.size(), data, graphData));
+
         }
         else
         if (getDetailsRequest.getType().equals("issues"))
@@ -163,6 +212,14 @@ public class ReportGenerator implements IReport
             }
 
             getDetailsResponse.setGitIssueDetails(new GitIssueDetails(data.size(), data));
+        }
+        else
+        if (getDetailsRequest.getType().equals("entry"))
+        {
+            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            List<AccessEvent> result = q.getResultList();
+
+            getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result));
         }
 
         return getDetailsResponse;
