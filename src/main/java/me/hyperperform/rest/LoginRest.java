@@ -207,6 +207,7 @@ public class LoginRest
     }
 
     @GET
+    @Path("/getPositions")
     @Produces("application/json")
     public Response getPositions()
     {
