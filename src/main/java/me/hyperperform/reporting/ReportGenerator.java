@@ -260,8 +260,8 @@ public class ReportGenerator implements IReport
                 prev = curr;
             }
 
-//            graphData.add(new GraphData<String, Long>(xAxis, yAxis));
-
+            graphData.setIndependent(xAxis);
+            graphData.setDependent(yAxis);
         }
 
         return getDetailsResponse;
