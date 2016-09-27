@@ -237,6 +237,11 @@ public class ReportGenerator implements IReport
 
     public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
     {
+        /*-------------------Mapping Email to name----------------------*/
+        Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getScoreRequest.getName());
+        getScoreRequest.setName((String)q.getSingleResult());
+        /*--------------------------------------------------------------*/
+
         CalculateScoreRequest calculateScoreRequest = new CalculateScoreRequest();
         calculateScoreRequest.setName(getScoreRequest.getName());
         calculateScoreRequest.setStartDate(getScoreRequest.getStartDate());
