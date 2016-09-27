@@ -104,6 +104,11 @@ public class ReportGenerator implements IReport
 
     public GetDetailsResponse getDetails(GetDetailsRequest getDetailsRequest) {
 
+        /*-------------------Mapping Email to name----------------------*/
+        Query z = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getDetailsRequest.getName());
+        getDetailsRequest.setName((String)z.getSingleResult());
+        /*--------------------------------------------------------------*/
+
         GetDetailsResponse getDetailsResponse = new GetDetailsResponse();
 
         if (getDetailsRequest.getType().equals("travis"))
