@@ -12,9 +12,11 @@ import me.hyperperform.reporting.response.*;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by rohan on 2016/08/10.
@@ -216,10 +218,50 @@ public class ReportGenerator implements IReport
         else
         if (getDetailsRequest.getType().equals("entry"))
         {
-            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<AccessEvent> result = q.getResultList();
 
             getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result));
+
+            long range = (getDetailsRequest.getEndDate().getTime() - getDetailsRequest.getStartDate().getTime());
+            range /= 10;
+
+            GraphData<String, Long> graphData = new GraphData<String, Long>();
+
+            ArrayList<String> xAxis = new ArrayList<String>();
+            ArrayList<Long> yAxis = new ArrayList<Long>();
+
+            long prev = getDetailsRequest.getStartDate().getTime();
+            for (int j = 1; j <= 10; j++)
+            {
+                long curr = prev + range;
+
+                Query dataQuery = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname) order by timestamp")
+                        .setParameter("startDate", new Timestamp(prev))
+                        .setParameter("endDate", new Timestamp(curr))
+                        .setParameter("uname", getDetailsRequest.getName());
+
+                String currXLabel = (new Timestamp(curr)).toString();
+
+                List<AccessEvent> list = dataQuery.getResultList();
+
+                long val = 0;
+                for (int k = 0; k < list.size(); k += 2)
+                {
+                    Timestamp a = Timestamp.valueOf(list.get(k).getTimestamp());
+                    Timestamp b = Timestamp.valueOf(list.get((k+1 < list.size()) ? k+1 : k ).getTimestamp());
+
+                    val += TimeUnit.MILLISECONDS.toHours(b.getTime() - a.getTime());
+                }
+
+                xAxis.add(currXLabel.substring(0, currXLabel.indexOf(" ")));
+                yAxis.add(val);
+
+                prev = curr;
+            }
+
+//            graphData.add(new GraphData<String, Long>(xAxis, yAxis));
+
         }
 
         return getDetailsResponse;
