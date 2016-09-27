@@ -23,7 +23,8 @@ before_script:
   - psql -d hyperperform -c 'CREATE TABLE public."GitIssue"(id integer NOT NULL, action character varying(255), assignee character varying(255), createdby character varying(255), issueid bigint, repository character varying(255), "timestamp" timestamp without time zone, CONSTRAINT "GitIssue_pkey" PRIMARY KEY (id));' -U postgres
   - psql -d hyperperform -c 'CREATE TABLE public."User" (email character varying(255) NOT NULL, gitusername character varying(255), name character varying(255), "position" integer, profilepicture bytea,  role integer, surname character varying(255), username character varying(255), password character varying(255), CONSTRAINT "User_pkey" PRIMARY KEY (email));' -U postgres
 
-    
+  - psql -d hyperperform -c 'CREATE TABLE "AccessEvent"(id integer NOT NULL, day bigint, deviceid character varying(255), employeeid character varying(255), name character varying(255), surname character varying(255), "timestamp" timestamp without time zone, CONSTRAINT "AccessEvent_pkey" PRIMARY KEY (id) );' -U postgres
+
 
 test:
   adapter: postgresql

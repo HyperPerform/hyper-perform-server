@@ -1,5 +1,6 @@
 package me.hyperperform.rest;
 
+import me.hyperperform.Hash;
 import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.reporting.request.GetScoreRequest;
@@ -13,6 +14,7 @@ import me.hyperperform.user.request.VerifySignUpRequest;
 import me.hyperperform.user.response.GetManagedListResponse;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
+import org.jboss.logging.annotations.Pos;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -20,6 +22,7 @@ import javax.inject.Inject;
 import javax.persistence.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,7 +57,9 @@ public class LoginRest
         System.out.print("\n"+log.getUserEmail() + " " + log.getUserPassword() + "\n");
 
         VerifyLoginResponse res = null;
-        Query query = entityManager.createQuery("FROM User ", User.class);
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail = :input", User.class)
+                .setParameter("input", log.getUserEmail());
+
         List<User> result = query.getResultList();
 
         for (int i = 0; i < result.size(); i++)
@@ -63,9 +68,9 @@ public class LoginRest
 
             if (log.getUserEmail().equals(tmp.getUserEmail()))
             {
-                if (log.getUserPassword().equals(tmp.getUserPassword()))
+                if (Hash.gethash(log.getUserPassword()).equals(tmp.getUserPassword()))
                 {
-                    res = new VerifyLoginResponse(true);
+                    res = new VerifyLoginResponse(true, tmp.getUserEmail(), tmp.getName(), tmp.getPosition());
                 }
             }
         }
@@ -204,4 +209,17 @@ public class LoginRest
         return Response.status(200).entity(getManagedListResponse).header("Access-Control-Allow-Origin", "*").build();
     }
 
+    @GET
+    @Path("/getPositions")
+    @Produces("application/json")
+    public Response getPositions()
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        Position[] positions = Position.values();
+
+        for (int k = 0; k < positions.length; k++)
+            list.add(positions[k].getType());
+
+        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+    }
 }

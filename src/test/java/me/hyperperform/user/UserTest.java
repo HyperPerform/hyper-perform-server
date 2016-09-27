@@ -1,5 +1,6 @@
 package me.hyperperform.user;
 
+import me.hyperperform.Hash;
 import me.hyperperform.event.MockEvent;
 import me.hyperperform.listener.TravisListener;
 import me.hyperperform.rest.LoginRest;
@@ -69,7 +70,7 @@ public class UserTest
         Assert.assertEquals("Not the same surname", "Singh", u.getSurname());
         Assert.assertEquals("Not the same name", "Avinash", u.getName());
         Assert.assertEquals("Not the same email", "tashan.avi@gmail.com", u.getUserEmail());
-        Assert.assertEquals("Not the same password", "hashedPass", u.getUserPassword());
+        Assert.assertEquals("Not the same password", Hash.gethash("hashedPass"), u.getUserPassword());
         Assert.assertEquals("Not the same admin", EmployeeRole.Employee , u.getRole());
         Assert.assertEquals("Not the same Position", Position.SoftwareDeveloper, u.getPosition());
 
@@ -77,12 +78,13 @@ public class UserTest
         Assert.assertEquals("Not the same surname", "", admin.getSurname());
         Assert.assertEquals("Not the same name", "admin", admin.getName());
         Assert.assertEquals("Not the same email", "admin@hyperperform.me", admin.getUserEmail());
-        Assert.assertEquals("Not the same password", "hashedPass", admin.getUserPassword());
+        Assert.assertEquals("Not the same password", Hash.gethash("hashedPass"), admin.getUserPassword());
         Assert.assertEquals("Not the same admin", EmployeeRole.Administrator , admin.getRole());
         Assert.assertEquals("Not the same Position", null, admin.getPosition());
 
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "tashan.avi@gmail.com").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "admin@hyperperform.me").executeUpdate();
         entityTransaction.commit();
     }
 
@@ -94,6 +96,7 @@ public class UserTest
         // query and test
     }
 
+//    @Ignore
     @Test
     public void registrationTest() throws Exception
     {
@@ -114,7 +117,7 @@ public class UserTest
         Assert.assertEquals(200, response.getStatus());
 
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "rohanchhipa@live.com").executeUpdate();
         entityTransaction.commit();
     }
 
