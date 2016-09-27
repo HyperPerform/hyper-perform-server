@@ -2,6 +2,7 @@ package me.hyperperform.user;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -34,6 +35,7 @@ public class DatabasePopulatorUsers
         entityManagerFactory.close();
     }
 
+    @Ignore
     @Test
     public void populateTest()
     {
