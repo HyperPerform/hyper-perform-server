@@ -54,6 +54,8 @@ public class LoginRest
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
+        log.setUserEmail(log.getUserEmail().toLowerCase());
+
         System.out.print("\n"+log.getUserEmail() + " " + log.getUserPassword() + "\n");
 
         VerifyLoginResponse res = null;
@@ -97,7 +99,10 @@ public class LoginRest
         VerifySignUpRequest sign = new VerifySignUpRequest();
         sign.setUserName((String)json.get("userName"));
         sign.setUserSurname((String)json.get("userSurname"));
+
         sign.setUserEmail((String)json.get("userEmail"));
+        sign.setUserEmail(sign.getUserEmail().toLowerCase());
+
         sign.setUserPassword((String)json.get("userPassword"));
         sign.setPosition((String)json.get("position"));
         sign.setRole((String)json.get("role"));
