@@ -22,6 +22,9 @@
     <!-- Entry/Exit -->
     <class>me.hyperperform.event.EntryExit.AccessEvent</class>
 
+    <!-- User -->
+    <class>me.hyperperform.user.User</class>
+
     <properties>
       <property name="hibernate.archive.autodetection" value="class" />
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />

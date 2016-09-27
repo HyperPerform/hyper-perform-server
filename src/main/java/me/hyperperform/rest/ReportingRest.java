@@ -19,17 +19,16 @@ public class ReportingRest {
     @Inject
     IReport reportGenerator;
 
-    @GET
-//    @Consumes("application/json")
-//    public Response getSummary(GetSummaryRequest getSummaryRequest)
+    @POST
     @Path("/getSummary")
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response getSummary()
+    public Response getSummary(GetSummaryRequest getSummaryRequest)
     {
-        GetSummaryRequest getSummaryRequest = new GetSummaryRequest();
-        getSummaryRequest.setName("Rohan");
-        getSummaryRequest.setStartDate("2016-01-01 00:00:01");
-        getSummaryRequest.setEndDate("2016-12-30 23:59:59");
+//        GetSummaryRequest getSummaryRequest = new GetSummaryRequest();
+//        getSummaryRequest.setName("Rohan");
+//        getSummaryRequest.setStartDate("2016-01-01 00:00:01");
+//        getSummaryRequest.setEndDate("2016-12-30 23:59:59");
 
         GetSummaryResponse getSummaryResponse = reportGenerator.getSummary(getSummaryRequest);
 
@@ -62,15 +61,16 @@ public class ReportingRest {
                 .build();
     }
 
-    @GET
+    @POST
     @Path("/getScore")
+    @Consumes("application/json")
     @Produces("application/json")
-    public Response getScore()
+    public Response getScore(GetScoreRequest getScoreRequest)
     {
-        GetScoreRequest getScoreRequest = new GetScoreRequest();
-        getScoreRequest.setName("Rohan");
-        getScoreRequest.setStartDate("2016-01-01 00:00:01");
-        getScoreRequest.setEndDate("2016-12-30 23:59:59");
+//        GetScoreRequest getScoreRequest = new GetScoreRequest();
+//        getScoreRequest.setName("Rohan");
+//        getScoreRequest.setStartDate("2016-01-01 00:00:01");
+//        getScoreRequest.setEndDate("2016-12-30 23:59:59");
 
         GetScoreResponse getScoreResponse = reportGenerator.getScore(getScoreRequest);
 

@@ -18,6 +18,9 @@
     <!-- Travis Events -->
     <class>me.hyperperform.event.Travis.TravisEvent</class>
 
+    <!-- User -->
+    <class>me.hyperperform.user.User</class>
+
 
     <!-- Entry/Exit -->
     <class>me.hyperperform.event.EntryExit.AccessEvent</class>
