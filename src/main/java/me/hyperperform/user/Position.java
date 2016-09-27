@@ -10,7 +10,8 @@ public enum Position
 {
     WebDeveloper("Web Developer"),
     SoftwareDeveloper("Software Developer"),
-    Multimedia("Multimedia ");
+    Multimedia("Multimedia "),
+    Manager("Manager");
 
     private String type;
 
