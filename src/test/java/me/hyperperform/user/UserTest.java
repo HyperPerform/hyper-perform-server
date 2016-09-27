@@ -96,7 +96,7 @@ public class UserTest
         // query and test
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void registrationTest() throws Exception
     {
@@ -117,7 +117,7 @@ public class UserTest
         Assert.assertEquals(200, response.getStatus());
 
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "rohanchhipa@live.com").executeUpdate();
         entityTransaction.commit();
     }
 
