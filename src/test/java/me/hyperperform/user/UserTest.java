@@ -83,7 +83,8 @@ public class UserTest
         Assert.assertEquals("Not the same Position", null, admin.getPosition());
 
         entityTransaction.begin();
-        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "tashan.avi@gmail.com").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "admin@hyperperform.me").executeUpdate();
         entityTransaction.commit();
     }
 
@@ -95,6 +96,7 @@ public class UserTest
         // query and test
     }
 
+    @Ignore
     @Test
     public void registrationTest() throws Exception
     {
