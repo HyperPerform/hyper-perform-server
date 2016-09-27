@@ -48,8 +48,13 @@ public class ReportGenerator implements IReport
     {
         GetSummaryResponse getSummaryResponse = new GetSummaryResponse();
 
+        /*-------------------Mapping Email to name----------------------*/
+        Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getSummaryRequest.getName());
+        getSummaryRequest.setName((String)q.getSingleResult());
+        /*--------------------------------------------------------------*/
+
         /*---------------------------Github-----------------------------*/
-        Query q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
 
         Object totalCommits = q.getSingleResult();
         if (totalCommits != null)
