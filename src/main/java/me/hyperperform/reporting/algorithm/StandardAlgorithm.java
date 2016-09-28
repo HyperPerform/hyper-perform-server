@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * A concrete realization of the {@see me.hyperperform.reporting.algorithm.Algorithm} interface. This class serves as
+ * the ConcreteStrategy in the strategy design pattern.
+ *
  * Created by rohan on 2016/08/19.
  */
 public class StandardAlgorithm implements Algorithm
@@ -22,6 +25,14 @@ public class StandardAlgorithm implements Algorithm
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
+    /**
+     * Implementation of the calculateScore found in {@see me.hyperperform.reporting.algorithm.Algorithm}.
+     *
+     * @param calculateScoreRequest Contains the necessary parameters for score calculations which include the user for
+     *                              whom the score is being calculated as well as a time period.
+     * @return A {@see me.hyperperform.reporting.response.CalculateScoreResponse} object is returned. This object
+     * the calculated score.
+     */
     public CalculateScoreResponse calculateScore(CalculateScoreRequest calculateScoreRequest)
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
