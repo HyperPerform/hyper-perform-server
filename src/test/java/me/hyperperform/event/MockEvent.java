@@ -665,7 +665,9 @@ public class MockEvent
     public static String accessEvent = "{\"employeeID\":\"12345678\",\"deviceID\":\"ComboSmart\", \"name\":\"Avinash\""
             +",\"surname\":\"Singh\",\"timestamp\":\"2016-08-08\",\"day\":1 }";
 
-    public static String forecastUpdateEvent = "{\"integration\":{\n" +
+    public static String forecastUpdateEvent = "{\n" +
+            "   \"integration\":\n" +
+            "   {\n" +
             "       \"name\": \"GitCommits\",\n" +
             "       \"positions\": [\n" +
             "       {\n" +
