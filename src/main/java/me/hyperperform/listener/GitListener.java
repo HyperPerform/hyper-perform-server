@@ -27,7 +27,9 @@ import java.sql.Timestamp;
  * Feature: Github Listener
  *
  * Provides a URL for GitHub to push events to. From here the events are persisted and placed onto a queue
- * for CEP at a later stage.
+ * for CEP at a later stage. This listener handle two types of events: push and issues. Both events are mapped to
+ * the {@see me.hyperperform.event.Git.Push} and {@see me.hyperperform.event.Git.GitIssue} respectively. This class
+ * implements the {@see me.hyperperform.event.listener.IListener} interface.
  */
 
 @Path("/gitEvent")
@@ -60,10 +62,13 @@ public class GitListener implements IListener
     }
 
     /**
+     * Listener function which receives the Git events. Each type of event is mapped to the corresponding POJO. Once
+     * mapped, the event is added to the database for processing at ta later stage. Events received are in the form
+     * of a JSON object.
      *
      * @param eventType This field identifies the type of GitHub event coming through i.e push, pull, issue closed etc.
      * @param jsonStr Contains the actual information about the event. This JSON object is processed and persisted.
-     * @return If the persistence was successful a 200 status code is returned.
+     * @return If mapping and persistence was successful a 200 status code is returned.
      * @throws Exception if there was an error in processing the data
      */
     @POST
