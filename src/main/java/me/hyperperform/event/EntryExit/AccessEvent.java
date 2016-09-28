@@ -20,6 +20,9 @@ public class AccessEvent implements IEntryExit
     @Column(name = "id")
     private int id;
 
+    @Column(name = "Email")
+    String email;
+
     @Column(name = "EmployeeID")
     String employeeID;
 
@@ -43,8 +46,9 @@ public class AccessEvent implements IEntryExit
 
     }
 
-    public AccessEvent(String employeeID, String deviceID, String name, String surname, String timestamp, Long day)
+    public AccessEvent(String email, String employeeID, String deviceID, String name, String surname, String timestamp, Long day)
     {
+        this.email = email;
         this.employeeID = employeeID;
         this.deviceID = deviceID;
         this.name = name;
@@ -124,4 +128,13 @@ public class AccessEvent implements IEntryExit
         this.id = id;
     }
 
+    public String getEmail()
+    {
+        return email;
+    }
+
+    public void setEmail(String email)
+    {
+        this.email = email;
+    }
 }
