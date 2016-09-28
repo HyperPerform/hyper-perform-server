@@ -2,48 +2,56 @@
 <hpForecast>
     <integrations>
         <integration name="GitCommits"> <!-- Number of commits per {week} -->
-            <position name="Web Developer">
-                <value time="week">20</value>
-            </position>
-            <position name="Software Developer">
-                <value time="week">20</value>
-            </position>
-            <position name="Multimedia">
-                <value time="week">10</value>
-            </position>
+            <positions>
+                <position name="Web Developer">
+                    <value time="week">20</value>
+                </position>
+                <position name="Software Developer">
+                    <value time="week">20</value>
+                </position>
+                <position name="Multimedia">
+                    <value time="week">10</value>
+                </position>
+            </positions>
         </integration>
         <integration name="GitIssues"> <!-- Number of issues opened and closed per {week}-->
-            <position name="Web Developer">
-                <value time="week">5</value>
-            </position>
-            <position name="Software Developer">
-                <value time="week">5</value>
-            </position>
-            <position name="Multimedia">
-                <value time="week">0</value>
-            </position>
+            <positions>
+                <position name="Web Developer">
+                    <value time="week">5</value>
+                </position>
+                <position name="Software Developer">
+                    <value time="week">5</value>
+                </position>
+                <position name="Multimedia">
+                    <value time="week">0</value>
+                </position>
+            </positions>
         </integration>
         <integration name="TravisBuild"> <!-- {Percentage} of builds to pass -->
-            <position name="Web Developer">
-                <value type="percentage">90</value>
-            </position>
-            <position name="Software Developer">
-                <value type="percentage">80</value>
-            </position>
-            <position name="Multimedia">
-                <value type="percentage">95</value>
-            </position>
+            <positions>
+                <position name="Web Developer">
+                    <value type="percentage">90</value>
+                </position>
+                <position name="Software Developer">
+                    <value type="percentage">80</value>
+                </position>
+                <position name="Multimedia">
+                    <value type="percentage">95</value>
+                </position>
+            </positions>
         </integration>
-        <integration name="EntryExit"> <!-- Number of times to come in per {time} -->
-            <position name="Web Developer">
-                <value time="week">5</value>
-            </position>
-            <position name="Software Developer">
-                <value time="week">5</value>
-            </position>
-            <position name="Multimedia">
-                <value time="week">5</value>
-            </position>
+        <integration name="EntryExit"> <!-- Number of times to come in per {week} -->
+            <positions>
+                <position name="Web Developer">
+                    <value time="week">5</value>
+                </position>
+                <position name="Software Developer">
+                    <value time="week">5</value>
+                </position>
+                <position name="Multimedia">
+                    <value time="week">5</value>
+                </position>
+            </positions>
         </integration>
     </integrations>
 </hpForecast>
