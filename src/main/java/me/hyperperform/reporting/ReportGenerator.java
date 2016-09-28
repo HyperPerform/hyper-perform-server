@@ -228,7 +228,7 @@ public class ReportGenerator implements IReport
         else
         if (getDetailsRequest.getType().equals("entry"))
         {
-            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<AccessEvent> result = q.getResultList();
 
             getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result));
