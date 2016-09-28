@@ -1,5 +1,6 @@
 package me.hyperperform.event;
 
+import me.hyperperform.event.EntryExit.AccessEvent;
 import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
@@ -39,13 +40,14 @@ public class DatabasePopulatorTest
         entityManagerFactory.close();
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void databasePopTest()
     {
         ArrayList<GitPush> gitPushes = new ArrayList<GitPush>();
         ArrayList<TravisEvent> travisEvents = new ArrayList<TravisEvent>();
         ArrayList<GitIssue> issueEvents = new ArrayList<GitIssue>();
+        ArrayList<AccessEvent> accessEvents = new ArrayList<AccessEvent>();
 
         travisEvents.add(new TravisEvent("hyperperform", "develop", "Rohan", "Passed", "2016-01-01 11:11:11"));
         travisEvents.add(new TravisEvent("hyperperform", "feature/Git", "Rohan", "Failed", "2016-01-01 16:10:00"));
@@ -164,6 +166,106 @@ public class DatabasePopulatorTest
         issueEvents.add(new GitIssue(15 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
         issueEvents.add(new GitIssue(16 ,"assigned", "hyperperform", Timestamp.valueOf("2016-04-11 11:11:11"), "Jack", "Rohan"));
 
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-01-02 08:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-01-02 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-01-02 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-01-02 18:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-03-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-03-23 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-05-29 07:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-05-29 22:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-06-15 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-06-15 23:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-06-29 06:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-06-29 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-09-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-09-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-09-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-09-23 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-10-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-10-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-10-29 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-10-29 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-12-23 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-12-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-12-29 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("rohanc", "ComboSmart", "Rohan", "Chhipa", "2016-12-29 20:10:10.0", (long) 0));
+
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-01-02 08:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-01-02 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-01-02 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-01-02 18:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-03-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-03-23 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-05-29 07:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-05-29 22:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-06-15 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-06-15 23:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-06-29 06:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-06-29 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-09-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-09-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-09-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-09-23 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-10-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-10-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-10-29 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-10-29 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-12-23 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-12-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-12-29 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("avinash", "ComboSmart", "Avinash", "Singh", "2016-12-29 20:10:10.0", (long) 0));
+
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-01-02 08:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-01-02 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-01-02 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-01-02 18:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-03-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-03-23 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-05-29 07:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-05-29 22:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-06-15 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-06-15 23:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-06-29 06:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-06-29 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-09-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-09-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-09-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-09-23 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-10-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-10-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-10-29 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-10-29 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-12-23 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-12-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-12-29 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Jason", "ComboSmart", "Jason", "Gordon", "2016-12-29 20:10:10.0", (long) 0));
+
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-01-02 08:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-01-02 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-01-02 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-01-02 18:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-03-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-03-23 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-05-29 07:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-05-29 22:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-06-15 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-06-15 23:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-06-29 06:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-06-29 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-09-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-09-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-09-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-09-23 16:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-10-23 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-10-23 13:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-10-29 10:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-10-29 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-12-23 11:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-12-23 12:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-12-29 19:10:10.0", (long) 0));
+        accessEvents.add(new AccessEvent("Claudio", "ComboSmart", "Claudio", "da Silva", "2016-12-29 20:10:10.0", (long) 0));
+
         entityTransaction.begin();
 
         for (int k = 0; k < gitPushes.size(); k++)
@@ -174,6 +276,9 @@ public class DatabasePopulatorTest
 
         for (int k = 0; k < issueEvents.size(); k++)
             entityManager.persist(issueEvents.get(k));
+
+        for (int k = 0; k < accessEvents.size(); k++)
+            entityManager.persist(accessEvents.get(k));
 
         entityTransaction.commit();
     }
