@@ -16,9 +16,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+/**
+ * hyperperform-system
+ * Group: CodusMaximus
+ * Date: 2016/09/28
+ * Feature: Forecasting
+ */
+
 @Path("/forecast")
 public class ForecastRest
 {
+    /**
+     * Converts the JSON string that is sent from the front-end to XML so that the forecasts can be updated.
+     * @param jsonStr - The JSON String that is sent from the front-end with data of the updated forecasting values.
+     * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
+     */
     @POST
     @Path("/forecast/updateForecasts")
     @Consumes("application/json")
@@ -46,15 +58,15 @@ public class ForecastRest
 
             JSONObject curr;
 
-            for (int i = 0; i < positions.size(); i++)
+            for (Object pos : positions)
             {
                 position = doc.createElement("position");
                 value = doc.createElement("value");
-                curr = (JSONObject)positions.get(i);
+                curr = (JSONObject) pos;
 
-                position.setAttribute("name", (String)curr.get("name"));
-                value.setAttribute("time", (String)curr.get("time"));
-                value.appendChild(doc.createTextNode((String)curr.get("value")));
+                position.setAttribute("name", (String) curr.get("name"));
+                value.setAttribute("time", (String) curr.get("time"));
+                value.appendChild(doc.createTextNode((String) curr.get("value")));
 
                 position.appendChild(value);
                 positionsArr.appendChild(position);
