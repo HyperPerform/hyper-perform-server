@@ -1,22 +1,18 @@
 package me.hyperperform.rest;
 
-import me.hyperperform.listener.AccessListener;
-import me.hyperperform.listener.GitListener;
-import me.hyperperform.listener.CalendarListener;
 import me.hyperperform.event.MockEvent;
-
+import me.hyperperform.listener.AccessListener;
+import me.hyperperform.listener.CalendarListener;
+import me.hyperperform.listener.GitListener;
 import me.hyperperform.listener.TravisListener;
 import org.jboss.resteasy.core.Dispatcher;
+import org.jboss.resteasy.mock.MockDispatcherFactory;
+import org.jboss.resteasy.mock.MockHttpRequest;
+import org.jboss.resteasy.mock.MockHttpResponse;
 import org.jboss.resteasy.plugins.server.resourcefactory.POJOResourceFactory;
-import org.jboss.resteasy.mock.*;
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.ws.rs.core.MediaType;
 
@@ -221,5 +217,25 @@ public class RestTest
 		dispatcher.invoke(request, response);
 		System.out.println(response.getContentAsString());
 		Assert.assertEquals(response.getStatus(), 200);
+	}
+
+//	@Ignore
+	@Test
+	public void ForecastUpdateTest() throws Exception
+	{
+		System.out.println("Running Forecast Update Test...");
+		POJOResourceFactory noDef = new POJOResourceFactory(ForecastRest.class);
+		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+
+		dispatcher.getRegistry().addResourceFactory(noDef);
+		MockHttpRequest req = MockHttpRequest.post("/forecast/updateForecasts");
+		req.contentType(MediaType.APPLICATION_JSON_TYPE);
+
+		req.content(MockEvent.forecastUpdateEvent.getBytes());
+
+		MockHttpResponse resp = new MockHttpResponse();
+		dispatcher.invoke(req, resp);
+		System.out.println(resp.getStatus());
+		Assert.assertEquals(resp.getStatus(), 200);
 	}
 }
