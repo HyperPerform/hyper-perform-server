@@ -92,12 +92,12 @@ public class ReportGenerator implements IReport
         /*--------------------------------------------------------------*/
 
         /*--------------------------Entry Exit------------------------*/
-        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (employeeID=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
         long loghours = (Long)q.getSingleResult();
 
 
         //@TODO Get management forecast and update
-
+        System.out.println("\n\n LOG: "+loghours+"\n\n" + "Email: " + getSummaryRequest.getName());
         getSummaryResponse.setEntryExit(loghours);
         /*--------------------------------------------------------------*/
 
