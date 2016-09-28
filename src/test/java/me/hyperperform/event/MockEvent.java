@@ -1,8 +1,5 @@
 package me.hyperperform.event;
 
-/**
- * Created by rohan on 2016/07/06.
- */
 public class MockEvent
 {
     public static String gitIssuesEvent = "{" +
@@ -668,4 +665,19 @@ public class MockEvent
     public static String accessEvent = "{\"employeeID\":\"12345678\",\"deviceID\":\"ComboSmart\", \"name\":\"Avinash\""
             +",\"surname\":\"Singh\",\"timestamp\":\"2016-08-08\",\"day\":1 }";
 
+    public static String forecastUpdateEvent = "{\"integration\":{\n" +
+            "       \"name\": \"GitCommits\",\n" +
+            "       \"positions\": [\n" +
+            "       {\n" +
+            "           \"name\": \"Software Developer\",\n" +
+            "           \"time\": \"Week\",\n" +
+            "           \"value\": 20\n" +
+            "       },\n" +
+            "       {\n" +
+            "           \"name\": \"Web Developer\",\n" +
+            "           \"time\": \"Day\",\n" +
+            "           \"value\": 5\n" +
+            "       }\n" +
+            "   ]\n" +
+            "}";
 }
