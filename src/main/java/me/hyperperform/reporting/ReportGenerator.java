@@ -231,8 +231,6 @@ public class ReportGenerator implements IReport
             Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<AccessEvent> result = q.getResultList();
 
-            getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result));
-
             long range = (getDetailsRequest.getEndDate().getTime() - getDetailsRequest.getStartDate().getTime());
             range /= 10;
 
@@ -272,6 +270,8 @@ public class ReportGenerator implements IReport
 
             graphData.setIndependent(xAxis);
             graphData.setDependent(yAxis);
+
+            getDetailsResponse.setAccessDetails(new AccessDetails((ArrayList<AccessEvent>) result, graphData));
         }
 
         return getDetailsResponse;
