@@ -4,17 +4,13 @@ package me.hyperperform.rest;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileReader;
 
 /**
  * hyperperform-system
@@ -32,57 +28,46 @@ public class ForecastRest
      * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
      */
     @POST
-    @Path("/forecast/updateForecasts")
+    @Path("/updateForecasts")
     @Consumes("application/json")
     public Response updateForecasts(String jsonStr)
     {
         try
         {
-            JSONObject json = (JSONObject)new JSONParser().parse(jsonStr);
+            System.out.println(jsonStr);
+            JSONParser j = new JSONParser();
 
-            JSONObject integration = (JSONObject)json.get("integration");
-            JSONArray positions = (JSONArray)json.get("positions");
+            JSONObject json = (JSONObject)j.parse(jsonStr);
+//            System.out.println(json.toString());
+            ClassLoader classLoader = getClass().getClassLoader();
+            File file = new File(classLoader.getResource("forecasting.json").getFile());
 
-            String integrationName = (String) integration.get("name");
+            JSONObject fFile = (JSONObject)j.parse(new FileReader(file));
 
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = factory.newDocumentBuilder();
+            JSONObject hpForecast = (JSONObject)fFile.get("hpForecast");
+            JSONArray integrations = (JSONArray)hpForecast.get("integrations");
+            JSONObject att, jsonAtt;
 
-            Document doc = docBuilder.newDocument();
-            Element integrationType = doc.createElement("integration");
-            integrationType.setAttribute("name", integrationName);
-
-            Element positionsArr = doc.createElement("positions");
-
-            Element position, value;
-
-            JSONObject curr;
-
-            for (Object pos : positions)
+            for(int i = 0; i < integrations.size(); i++)
             {
-                position = doc.createElement("position");
-                value = doc.createElement("value");
-                curr = (JSONObject) pos;
+                att = (JSONObject)((JSONObject)integrations.get(i)).get("@attributes");
+                jsonAtt = (JSONObject)((JSONObject)integrations.get(i)).get("@attributes");
 
-                position.setAttribute("name", (String) curr.get("name"));
-                value.setAttribute("time", (String) curr.get("time"));
-                value.appendChild(doc.createTextNode((String) curr.get("value")));
+//                System.out.println(((JSONObject)integrations.get(i)).get("@attributes").equals(jsonAtt.get("name")));
 
-                position.appendChild(value);
-                positionsArr.appendChild(position);
+                if(((JSONObject)integrations.get(i)).get("@attributes").equals(jsonAtt.get("name")))
+                {
+                    integrations.set(i, json);
+                }
             }
 
-            // Still need to access the xml document with JPA to update the document
-
+            return Response.status(200).entity("Successfully updated the forecasting").header("Access-Control-Allow-Origin", "*").build();
         }
-        catch (ParseException e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
-        catch (ParserConfigurationException pse)
-        {
-            pse.printStackTrace();
-        }
-        return Response.status(200).entity("Successfully updated the forecasting").header("Access-Control-Allow-Origin", "*").build();
+
+        return Response.status(400).header("Access-Control-Allow-Origin", "*").build();
     }
 }
