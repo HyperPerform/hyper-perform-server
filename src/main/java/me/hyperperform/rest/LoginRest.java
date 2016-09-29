@@ -237,8 +237,10 @@ public class LoginRest
         EmployeeRole[] roles = EmployeeRole.values();
 
         for (int k = 0; k < roles.length; k++)
+        {
+            if (!roles[k].getType().equals("Super"))
             list.add(roles[k].getType());
-
+        }
         return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
     }
 }
