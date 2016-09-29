@@ -662,7 +662,7 @@ public class MockEvent
             " ]\n" +
             "}";
 
-    public static String loginEvent = "{ userEmail: 'admin@hyperperform.me', userPassword: 'hashedPass' }";
+    public static String loginEvent = "{\"userEmail\": \"avinash.singh@gmail.com\", \"userPassword\": \"1234\" }";
 
 
     public static String accessEvent = "{\"employeeID\":\"12345678\",\"deviceID\":\"ComboSmart\", \"name\":\"Avinash\""
