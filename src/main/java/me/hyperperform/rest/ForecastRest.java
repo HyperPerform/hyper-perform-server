@@ -1,16 +1,17 @@
 package me.hyperperform.rest;
 
 
+import org.apache.camel.Produce;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * hyperperform-system
@@ -69,5 +70,27 @@ public class ForecastRest
         }
 
         return Response.status(400).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+//    @GET
+    @POST
+    @Path("/getIntegrations")
+    @Produces("application/json")
+    public Response getIntegrations() throws Exception
+    {
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("forecasting.json");
+
+        JSONObject forecastObject = (JSONObject)(new JSONParser()).parse(new InputStreamReader(inputStream));
+
+        forecastObject = (JSONObject)forecastObject.get("hpForecast");
+        JSONArray integrations = (JSONArray)forecastObject.get("integrations");
+
+        return Response.status(200).entity(integrations.toString()).build();
+    }
+
+    private <T> void log(T t)
+    {
+        System.out.println(t);
     }
 }
