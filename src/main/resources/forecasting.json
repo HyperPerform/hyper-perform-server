@@ -2,142 +2,139 @@
 	"hpForecast": 
 	{
 		"integrations": 
-		{
-			"integration": 
-			[
-				{
-					"@attributes": 
-					{
-						"name": "GitCommits"
-					},
-					"positions": 
-					{
-						"position": 
-						[
-							{
-								"@attributes": 
-								{
-									"name": "Web Developer"
-								},
-								"value": "20"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Software Developer"
-								},
-								"value": "20"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Multimedia"
-								},
-								"value": "10"
-							}
-						]
-					}
-				},
-				{
-					"@attributes": 
-					{
-						"name": "GitIssues"
-					},
-					"positions": 
-					{
-						"position": 
-						[
-							{
-								"@attributes": 
-								{
-									"name": "Web Developer"
-								},
-								"value": "5"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Software Developer"
-								},
-								"value": "5"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Multimedia"
-								},
-								"value": "0"
-							}
-						]
-					}
-				},
-				{
-					"@attributes": 
-					{
-						"name": "TravisBuild"
-					},
-					"positions": 
-					{
-						"position": 
-						[
-							{
-								"@attributes": 
-								{
-									"name": "Web Developer"
-								},
-								"value": "90"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Software Developer"
-								},
-								"value": "80"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Multimedia"
-								},
-								"value": "95"
-							}
-						]
-					}
-				},
-				{
-					"@attributes": 
-					{
-						"name": "EntryExit"
-					},
-					"positions": 
-					{
-						"position": 
-						[
-							{
-								"@attributes": 
-								{
-									"name": "Web Developer"
-								},
-								"value": "5"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Software Developer"
-								},
-								"value": "5"
-							},
-							{
-								"@attributes": 
-								{
-									"name": "Multimedia"
-								},
-								"value": "5"
-							}
-						]
-					}
-				}
-			]
-		}
+		[
+            {
+                "@attributes":
+                {
+                    "name": "GitCommits"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "value": "20"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "value": "20"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "value": "10"
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "GitIssues"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "value": "5"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "value": "5"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "value": "0"
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "TravisBuild"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "value": "90"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "value": "80"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "value": "95"
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "EntryExit"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "value": "5"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "value": "5"
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "value": "5"
+                        }
+                    ]
+                }
+            }
+        ]
 	}
 }
