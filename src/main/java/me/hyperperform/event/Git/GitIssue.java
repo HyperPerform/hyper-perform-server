@@ -37,6 +37,12 @@ public class GitIssue implements IGitEvent
     @Column(name = "createdBy")
     private String createdBy;
 
+    @Column(name = "url")
+    private String url;
+
+    @Column(name = "title")
+    private String title;
+
     public GitIssue() {
     }
 
@@ -112,5 +118,21 @@ public class GitIssue implements IGitEvent
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
