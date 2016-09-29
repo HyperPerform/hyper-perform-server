@@ -135,4 +135,20 @@ public class GitIssue implements IGitEvent
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String toString()
+    {
+        String s = "";
+
+        s += "issueID: " + issueId;
+        s += "action: " + action;
+        s += "repository: " + repository;
+        s += "timestamp: " + timestamp.toString();
+        s += "assignee: " + assignee;
+        s += "createdBy: " + createdBy;
+        s += "url: " + url;
+        s += "title: " + title;
+
+        return s;
+    }
 }
