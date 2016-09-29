@@ -8,7 +8,20 @@ package me.hyperperform.user;
  */
 public enum EmployeeRole
 {
-    Super,
-    Administrator,
-    Employee
+    Super("Super"),
+    Administrator("Administrator"),
+    Employee("Employee");
+
+
+    private String type;
+
+    EmployeeRole(String type)
+    {
+        this.type = type;
+    }
+
+    public String getType()
+    {
+        return type;
+    }
 }

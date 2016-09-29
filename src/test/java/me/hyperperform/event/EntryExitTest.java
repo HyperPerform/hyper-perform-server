@@ -28,12 +28,12 @@ public class EntryExitTest
     @Before
     public void createAccessEventTest() throws Exception
     {
-        access = new AccessEvent("u12345678", "ComboSmart", "Avinash", "Singh", "2007-09-23 10:10:10.0", (long) 0);
+        access = new AccessEvent("tashan.avi@gmail.com", "u12345678", "ComboSmart", "Avinash", "Singh", "2007-09-23 10:10:10.0", (long) 0);
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
-        Query query = entityManager.createQuery("FROM AccessEvent ", AccessEvent.class);
+        Query query = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (email='tashan.avi@gmail.com')");
         List<AccessEvent> result = query.getResultList();
 
         if (result.size() == 0)
@@ -49,6 +49,7 @@ public class EntryExitTest
     public void pojoTest() throws Exception
     {
         Assert.assertEquals("Not the same name", "Avinash", access.getName());
+        Assert.assertEquals("Not the same email", "tashan.avi@gmail.com", access.getEmail());
         Assert.assertEquals("Not the same surname", "Singh", access.getSurname());
         Assert.assertEquals("Not the same userID", "u12345678", access.getEmployeeID());
         Assert.assertEquals("Not the same deviceID", "ComboSmart", access.getDeviceID());
@@ -67,10 +68,12 @@ public class EntryExitTest
 
         System.out.println("Running QueryTest ...");
 
-        Query query = entityManager.createQuery("FROM AccessEvent ", AccessEvent.class);
+        Query query = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (email='tashan.avi@gmail.com')");
         List<AccessEvent> result = query.getResultList();
         Assert.assertNotEquals(result.size(), 0);
         Assert.assertEquals("Not the same name", result.get(0).getName(), access.getName());
+        Assert.assertEquals("Not the same email", result.get(0).getEmail(), access.getEmail());
+
         Assert.assertEquals("Not the same surname", result.get(0).getSurname(), access.getSurname());
         Assert.assertEquals("Not the same userID", result.get(0).getEmployeeID(), access.getEmployeeID());
         Assert.assertEquals("Not the same deviceID", result.get(0).getDeviceID(), access.getDeviceID());

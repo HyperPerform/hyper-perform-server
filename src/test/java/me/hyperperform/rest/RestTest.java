@@ -175,7 +175,7 @@ public class RestTest
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void loginTest() throws Exception
 	{
 		System.out.println("Running login listener test..");
@@ -185,15 +185,15 @@ public class RestTest
 
 		dispatcher.getRegistry().addResourceFactory(noDef);
 
-		MockHttpRequest request = MockHttpRequest.post("/login/verifyDetails");
+		MockHttpRequest request = MockHttpRequest.post("/users/verifyDetails");
 		request.contentType(MediaType.APPLICATION_JSON_TYPE);
-		request.addFormHeader("payload", MockEvent.loginEvent);
+		request.content(MockEvent.loginEvent.getBytes());
 
 
 
 		MockHttpResponse response = new MockHttpResponse();
 		dispatcher.invoke(request, response);
-
+//		System.out.println(response.getContentAsString());
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
