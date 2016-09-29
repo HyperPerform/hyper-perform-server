@@ -52,11 +52,12 @@ public class ReportGenerator implements IReport
 
         /*-------------------Mapping Email to name----------------------*/
         Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getSummaryRequest.getName());
-        getSummaryRequest.setName((String)q.getSingleResult());
+//        getSummaryRequest.setName((String)q.getSingleResult());
+        String gitUserName = (String)q.getSingleResult();
         /*--------------------------------------------------------------*/
 
         /*---------------------------Github-----------------------------*/
-        q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
 
         Object totalCommits = q.getSingleResult();
         if (totalCommits != null)
@@ -64,10 +65,10 @@ public class ReportGenerator implements IReport
         /*--------------------------------------------------------------*/
 
         /*----------------------------Travis-----------------------------*/
-        q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
         long passed = (Long)q.getSingleResult();
 
-        q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Failed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Failed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
         long failed = (Long)q.getSingleResult();
 
         double successRate = ((double)passed/(double)(passed+failed)) * 100.0;
@@ -78,10 +79,10 @@ public class ReportGenerator implements IReport
         /*--------------------------------------------------------------*/
 
         /*--------------------------Bug Tracking------------------------*/
-        q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'assigned')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'assigned')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
         long assigned = (Long)q.getSingleResult();
 
-        q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'closed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'closed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
         long closed = (Long)q.getSingleResult();
 
         double closeRate = ((double)closed/(double)assigned) * 100.0;
@@ -92,7 +93,7 @@ public class ReportGenerator implements IReport
         /*--------------------------------------------------------------*/
 
         /*--------------------------Entry Exit------------------------*/
-        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
         long loghours = (Long)q.getSingleResult();
 
 
@@ -108,7 +109,8 @@ public class ReportGenerator implements IReport
 
         /*-------------------Mapping Email to name----------------------*/
         Query z = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getDetailsRequest.getName());
-        getDetailsRequest.setName((String)z.getSingleResult());
+//        getDetailsRequest.setName((String)z.getSingleResult());
+        String gitUserName = (String)z.getSingleResult();
         /*--------------------------------------------------------------*/
 
         GetDetailsResponse getDetailsResponse = new GetDetailsResponse();
@@ -119,7 +121,7 @@ public class ReportGenerator implements IReport
             System.out.println("Generating report for travis");
             System.out.println("------------------------------------------------");
 
-            Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<TravisEvent> result = q.getResultList();
 
             ArrayList<String> repos = new ArrayList<String>();
@@ -143,7 +145,7 @@ public class ReportGenerator implements IReport
 
         else if (getDetailsRequest.getType().equals("git"))
         {
-            Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<GitPush> result = q.getResultList();
 
             ArrayList<String> repos = new ArrayList<String>();
@@ -182,7 +184,7 @@ public class ReportGenerator implements IReport
                     Query dataQuery = entityManager.createQuery("SELECT SUM(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname) AND (repository=:repo)")
                             .setParameter("startDate", new Timestamp(prev))
                             .setParameter("endDate", new Timestamp(curr))
-                            .setParameter("uname", getDetailsRequest.getName())
+                            .setParameter("uname", gitUserName)
                             .setParameter("repo", repos.get(k));
 
                     Object commits = dataQuery.getSingleResult();
@@ -204,7 +206,7 @@ public class ReportGenerator implements IReport
         else
         if (getDetailsRequest.getType().equals("issues"))
         {
-            Query q = entityManager.createQuery("SELECT a FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action='closed' OR action='assigned')").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action='closed' OR action='assigned')").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<GitIssue> result = q.getResultList();
 
             ArrayList<String> repos = new ArrayList<String>();
@@ -228,7 +230,7 @@ public class ReportGenerator implements IReport
         else
         if (getDetailsRequest.getType().equals("entry"))
         {
-            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
+            Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<AccessEvent> result = q.getResultList();
 
             long range = (getDetailsRequest.getEndDate().getTime() - getDetailsRequest.getStartDate().getTime());
@@ -244,7 +246,7 @@ public class ReportGenerator implements IReport
             {
                 long curr = prev + range;
 
-                Query dataQuery = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (name=:uname) order by timestamp")
+                Query dataQuery = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname) order by timestamp")
                         .setParameter("startDate", new Timestamp(prev))
                         .setParameter("endDate", new Timestamp(curr))
                         .setParameter("uname", getDetailsRequest.getName());
@@ -279,10 +281,7 @@ public class ReportGenerator implements IReport
 
     public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
     {
-        /*-------------------Mapping Email to name----------------------*/
-        Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", getScoreRequest.getName());
-        getScoreRequest.setName((String)q.getSingleResult());
-        /*--------------------------------------------------------------*/
+
 
         CalculateScoreRequest calculateScoreRequest = new CalculateScoreRequest();
         calculateScoreRequest.setName(getScoreRequest.getName());
