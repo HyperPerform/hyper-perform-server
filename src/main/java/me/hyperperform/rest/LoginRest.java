@@ -227,4 +227,18 @@ public class LoginRest
 
         return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
     }
+
+    @GET
+    @Path("/getRoles")
+    @Produces("application/json")
+    public Response getRoles()
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        EmployeeRole[] roles = EmployeeRole.values();
+
+        for (int k = 0; k < roles.length; k++)
+            list.add(roles[k].getType());
+
+        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+    }
 }
