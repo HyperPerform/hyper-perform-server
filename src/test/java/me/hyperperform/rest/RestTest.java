@@ -219,7 +219,7 @@ public class RestTest
 		Assert.assertEquals(response.getStatus(), 200);
 	}
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void ForecastUpdateTest() throws Exception
 	{
