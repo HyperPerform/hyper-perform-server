@@ -139,8 +139,8 @@ public class UserTest
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
 
-        Assert.assertEquals(400, response.getStatus());
-        Assert.assertEquals("Invalid Name", response.getContentAsString());
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: name", response.getContentAsString());
     }
 
     @Test
@@ -160,8 +160,8 @@ public class UserTest
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
 
-        Assert.assertEquals(400, response.getStatus());
-        Assert.assertEquals("Invalid Surname", response.getContentAsString());
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: surname", response.getContentAsString());
     }
 
     @Test
@@ -181,8 +181,8 @@ public class UserTest
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
 
-        Assert.assertEquals(400, response.getStatus());
-        Assert.assertEquals("Invalid Email", response.getContentAsString());
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: email", response.getContentAsString());
     }
 
     @Ignore
@@ -228,8 +228,8 @@ public class UserTest
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
 
-        Assert.assertEquals(400, response.getStatus());
-        Assert.assertEquals("Position doesn't exist", response.getContentAsString());
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: Position does not exist", response.getContentAsString());
     }
 
     @After
