@@ -11,9 +11,6 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
 
-/**
- * Created by rohan on 2016/09/27.
- */
 public class DatabasePopulatorUsersTest
 {
     EntityManagerFactory entityManagerFactory;

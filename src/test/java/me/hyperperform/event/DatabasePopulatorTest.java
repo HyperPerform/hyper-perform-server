@@ -15,9 +15,6 @@ import javax.persistence.Persistence;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-/**
- * Created by rohan on 2016/08/22.
- */
 public class DatabasePopulatorTest
 {
     EntityManagerFactory entityManagerFactory;
@@ -39,7 +36,7 @@ public class DatabasePopulatorTest
         entityManagerFactory.close();
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void databasePopTest()
     {
