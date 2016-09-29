@@ -23,7 +23,7 @@ import java.io.FileReader;
 public class ForecastRest
 {
     /**
-     * Converts the JSON string that is sent from the front-end to XML so that the forecasts can be updated.
+     * Finds the specific integration name and updates/adds the new data to the forecasting.json file.
      * @param jsonStr - The JSON String that is sent from the front-end with data of the updated forecasting values.
      * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
      */
