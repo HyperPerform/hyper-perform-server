@@ -82,13 +82,17 @@ public class GitListener implements IListener
            JSONObject repository = (JSONObject)json.get("repository");
            JSONObject commit = (JSONObject)json.get("head_commit");
            JSONObject pusher = (JSONObject)json.get("pusher");
-            JSONArray commits = (JSONArray)json.get("commits");
+           JSONArray commits = (JSONArray)json.get("commits");
+           JSONObject headCommit = (JSONObject) json.get("head_commit");
 
            String name = (String)repository.get("full_name");
            String date = (String)commit.get("timestamp");
            String user = (String)pusher.get("name");
+           String url = (String)headCommit.get("url");
 
            GitPush push = new GitPush(name, extractDate(date) + " " + extractTime(date), user, commits.size());
+           push.setUrl(url);
+
 
             if (queueConnection != null)
                 queueConnection.sendObject(push);
