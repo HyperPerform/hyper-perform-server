@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 /**
  * hyperperform-system
@@ -34,7 +35,7 @@ public class ForecastRest
     {
         try
         {
-            System.out.println(jsonStr);
+//            System.out.println(jsonStr);
             JSONParser j = new JSONParser();
 
             JSONObject json = (JSONObject)j.parse(jsonStr);
@@ -45,21 +46,35 @@ public class ForecastRest
             JSONObject fFile = (JSONObject)j.parse(new FileReader(file));
 
             JSONObject hpForecast = (JSONObject)fFile.get("hpForecast");
+//            System.out.println("fFile 1:\n" + fFile.toJSONString());
             JSONArray integrations = (JSONArray)hpForecast.get("integrations");
             JSONObject att, jsonAtt;
-
-            for(int i = 0; i < integrations.size(); i++)
-            {
-                att = (JSONObject)((JSONObject)integrations.get(i)).get("@attributes");
-                jsonAtt = (JSONObject)((JSONObject)integrations.get(i)).get("@attributes");
-
-//                System.out.println(((JSONObject)integrations.get(i)).get("@attributes").equals(jsonAtt.get("name")));
-
-                if(((JSONObject)integrations.get(i)).get("@attributes").equals(jsonAtt.get("name")))
+//            System.out.println("Can Write? " + file.canWrite() + "\n filename: " + file.toString());
+            FileWriter fw = new FileWriter(file);
+//            if(integrations.indexOf("@attributes") != -1 && )
+//            {
+                for (int i = 0; i < integrations.size(); i++)
                 {
-                    integrations.set(i, json);
+                    att = (JSONObject) ((JSONObject) integrations.get(i)).get("@attributes");
+                    jsonAtt = (JSONObject) json.get("@attributes");
+                    System.out.println(att.get("name") + " " + jsonAtt.get("name"));
+                    if (att.get("name").equals(jsonAtt.get("name")))
+                    {
+                        integrations.set(i, json);
+//                        System.out.println("fFile 2:\n" + fFile.toJSONString());
+                        fw.write(fFile.toJSONString());
+                        fw.flush();
+                        fw.close();
+                        break;
+                    }
                 }
-            }
+
+
+//            }
+//            else
+//            {
+//
+//            }
 
             return Response.status(200).entity("Successfully updated the forecasting").header("Access-Control-Allow-Origin", "*").build();
         }
@@ -68,6 +83,6 @@ public class ForecastRest
             e.printStackTrace();
         }
 
-        return Response.status(400).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity("Failed to update forecasting").header("Access-Control-Allow-Origin", "*").build();
     }
 }
