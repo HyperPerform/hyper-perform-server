@@ -17,21 +17,24 @@
                             {
                                 "name": "Web Developer"
                             },
-                            "value": "20"
+                            "time": "week",
+                            "value": 20
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Software Developer"
                             },
-                            "value": "20"
+                            "time": "week",
+                            "value": 20
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Multimedia"
                             },
-                            "value": "10"
+                            "time": "week",
+                            "value": 10
                         }
                     ]
                 }
@@ -50,21 +53,24 @@
                             {
                                 "name": "Web Developer"
                             },
-                            "value": "5"
+                            "time": "week",
+                            "value": 5
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Software Developer"
                             },
-                            "value": "5"
+                            "time": "week",
+                            "value": 5
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Multimedia"
                             },
-                            "value": "0"
+                            "time": "week",
+                            "value": 0
                         }
                     ]
                 }
@@ -83,21 +89,24 @@
                             {
                                 "name": "Web Developer"
                             },
-                            "value": "90"
+                            "time": "week",
+                            "value": 90
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Software Developer"
                             },
-                            "value": "80"
+                            "time": "week",
+                            "value": 80
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Multimedia"
                             },
-                            "value": "95"
+                            "time": "week",
+                            "value": 95
                         }
                     ]
                 }
@@ -116,21 +125,24 @@
                             {
                                 "name": "Web Developer"
                             },
-                            "value": "5"
+                            "time": "week",
+                            "value": 5
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Software Developer"
                             },
-                            "value": "5"
+                            "time": "week",
+                            "value": 5
                         },
                         {
                             "@attributes":
                             {
                                 "name": "Multimedia"
                             },
-                            "value": "5"
+                            "time": "week",
+                            "value": 5
                         }
                     ]
                 }
