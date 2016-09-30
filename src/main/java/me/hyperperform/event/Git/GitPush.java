@@ -34,6 +34,30 @@ public class GitPush implements IGitEvent
     @Column(name = "commitSize")
     int commitSize;
 
+    @Column(name = "url")
+    String url;
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getUrl() {
+        return url;
+
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     /**
      * Overloaded constructor for initialize the object
      *
