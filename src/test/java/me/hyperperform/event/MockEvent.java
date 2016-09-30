@@ -679,23 +679,63 @@ public class MockEvent
 			"        {\n" +
 			"         \"name\": \"Web Developer\"\n" +
 			"        },\n" +
-			"        \"value\": \"90\"\n" +
+			"		 \"time\":\"week\"\n" +
+			"        \"value\": 90\n" +
 			"       },\n" +
 			"       {\n" +
 			"        \"@attributes\": \n" +
 			"        {\n" +
 			"         \"name\": \"Software Developer\"\n" +
 			"        },\n" +
-			"        \"value\": \"80\"\n" +
+			"		 \"time\":\"month\"\n" +
+			"        \"value\": 85\n" +
 			"       },\n" +
 			"       {\n" +
 			"        \"@attributes\": \n" +
 			"        {\n" +
 			"         \"name\": \"Multimedia\"\n" +
 			"        },\n" +
-			"        \"value\": \"95\"\n" +
+			"		 \"time\":\"month\"\n" +
+			"        \"value\": 92\n" +
 			"       }\n" +
 			"      ]\n" +
 			"     }\n" +
 			"    }";
+
+	public static String altForecastUpdateEvent = "{\n" +
+			"                \"@attributes\":\n" +
+			"                {\n" +
+			"                    \"name\": \"GitCommits\"\n" +
+			"                },\n" +
+			"                \"positions\":\n" +
+			"                {\n" +
+			"                    \"position\":\n" +
+			"                    [\n" +
+			"                        {\n" +
+			"                            \"@attributes\":\n" +
+			"                            {\n" +
+			"                                \"name\": \"Web Developer\"\n" +
+			"                            },\n" +
+			"                            \"time\": \"week\",\n" +
+			"                            \"value\": 18\n" +
+			"                        },\n" +
+			"                        {\n" +
+			"                            \"@attributes\":\n" +
+			"                            {\n" +
+			"                                \"name\": \"Software Developer\"\n" +
+			"                            },\n" +
+			"                            \"time\": \"week\",\n" +
+			"                            \"value\": 22\n" +
+			"                        },\n" +
+			"                        {\n" +
+			"                            \"@attributes\":\n" +
+			"                            {\n" +
+			"                                \"name\": \"Multimedia\"\n" +
+			"                            },\n" +
+			"                            \"time\": \"week\",\n" +
+			"                            \"value\": 7\n" +
+			"                        }\n" +
+			"                    ]\n" +
+			"                }\n" +
+			"            }";
 }
