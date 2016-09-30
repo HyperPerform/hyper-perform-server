@@ -231,11 +231,18 @@ public class RestTest
 		MockHttpRequest req = MockHttpRequest.post("/forecast/updateForecasts");
 		req.contentType(MediaType.APPLICATION_JSON_TYPE);
 
+// First update to check if it changes
 		req.content(MockEvent.forecastUpdateEvent.getBytes());
-
 		MockHttpResponse resp = new MockHttpResponse();
 		dispatcher.invoke(req, resp);
-		System.out.println(resp.getStatus());
+
+		Assert.assertEquals(resp.getStatus(), 200);
+
+// Second update to see if another thing changes and the first update persists in the json string
+		req.content(MockEvent.altForecastUpdateEvent.getBytes());
+		resp = new MockHttpResponse();
+		dispatcher.invoke(req, resp);
+
 		Assert.assertEquals(resp.getStatus(), 200);
 	}
 }
