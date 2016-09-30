@@ -54,6 +54,8 @@ public class LoginRest
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
+        log.setUserEmail(log.getUserEmail().toLowerCase());
+
         System.out.print("\n"+log.getUserEmail() + " " + log.getUserPassword() + "\n");
 
         VerifyLoginResponse res = null;
@@ -97,14 +99,17 @@ public class LoginRest
         VerifySignUpRequest sign = new VerifySignUpRequest();
         sign.setUserName((String)json.get("userName"));
         sign.setUserSurname((String)json.get("userSurname"));
+
         sign.setUserEmail((String)json.get("userEmail"));
+        sign.setUserEmail(sign.getUserEmail().toLowerCase());
+
         sign.setUserPassword((String)json.get("userPassword"));
         sign.setPosition((String)json.get("position"));
         sign.setRole((String)json.get("role"));
 
-//        System.out.println("--------------------------------------------------");
-//        System.out.println(sign);
-//        System.out.println("--------------------------------------------------");
+        System.out.println("--------------------------------------------------");
+        System.out.println(sign);
+        System.out.println("--------------------------------------------------");
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
@@ -113,35 +118,35 @@ public class LoginRest
         VerifySignUpResponse res = null;
 
         if (sign.getUserName() == null || sign.getUserName().equals(""))
-            return  Response.status(400).entity("Invalid Name").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: name").header("Access-Control-Allow-Origin", "*").build();
 
         if (sign.getUserSurname() == null || sign.getUserSurname().equals(""))
-            return  Response.status(400).entity("Invalid Surname").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: surname").header("Access-Control-Allow-Origin", "*").build();
 
         if (sign.getUserEmail() == null || sign.getUserEmail().equals(""))
-            return  Response.status(400).entity("Invalid Email").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: email").header("Access-Control-Allow-Origin", "*").build();
 
         if (sign.getUserPassword() == null || sign.getUserPassword().equals(""))
-            return  Response.status(400).entity("Invalid Password").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: password").header("Access-Control-Allow-Origin", "*").build();
 
         if (sign.getRole() == null || sign.getRole().equals(""))
-            return  Response.status(400).entity("No role found").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: role").header("Access-Control-Allow-Origin", "*").build();
 
         if (sign.getPosition() == null || sign.getPosition().equals(""))
-            return  Response.status(400).entity("No position found").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: position").header("Access-Control-Allow-Origin", "*").build();
 
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
         List<User> result = query.getResultList();
 
         if (result.size() != 0)
-            return  Response.status(400).entity("Email Already Exists").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: Email already exists").header("Access-Control-Allow-Origin", "*").build();
 
         try {
             EmployeeRole.valueOf(sign.getRole());
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Role doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: Role does not exist").header("Access-Control-Allow-Origin", "*").build();
         }
 
         try {
@@ -149,7 +154,7 @@ public class LoginRest
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Position doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(200).entity("Error: Position does not exist").header("Access-Control-Allow-Origin", "*").build();
         }
 
         User user = new User();
@@ -164,7 +169,7 @@ public class LoginRest
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-        return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity("Success").header("Access-Control-Allow-Origin", "*").build();
 
     }
 
@@ -220,6 +225,22 @@ public class LoginRest
         for (int k = 0; k < positions.length; k++)
             list.add(positions[k].getType());
 
+        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+    }
+
+    @GET
+    @Path("/getRoles")
+    @Produces("application/json")
+    public Response getRoles()
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        EmployeeRole[] roles = EmployeeRole.values();
+
+        for (int k = 0; k < roles.length; k++)
+        {
+            if (!roles[k].getType().equals("Super"))
+            list.add(roles[k].getType());
+        }
         return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
     }
 }

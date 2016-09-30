@@ -13,11 +13,14 @@ import java.util.ArrayList;
 public class AccessDetails
 {
     private ArrayList<AccessEvent> data;
+    private GraphData<String, Long> graphData;
 
-    public AccessDetails(ArrayList<AccessEvent> data)
+    public AccessDetails(ArrayList<AccessEvent> data, GraphData<String, Long> graphData)
     {
         this.data = data;
+        this.graphData = graphData;
     }
+
     public ArrayList<AccessEvent> getData()
     {
         return data;
@@ -28,5 +31,11 @@ public class AccessDetails
         this.data = data;
     }
 
+    public GraphData<String, Long> getGraphData() {
+        return graphData;
+    }
 
+    public void setGraphData(GraphData<String, Long> graphData) {
+        this.graphData = graphData;
+    }
 }
