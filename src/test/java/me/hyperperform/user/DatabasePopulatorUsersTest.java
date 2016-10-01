@@ -5,11 +5,9 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DatabasePopulatorUsersTest
 {
@@ -32,7 +30,7 @@ public class DatabasePopulatorUsersTest
         entityManagerFactory.close();
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void populateTest()
     {
@@ -45,9 +43,24 @@ public class DatabasePopulatorUsersTest
         users.add(new User("claudio.da.silva@live.com", "Claudio", "claudiodasilva", "Claudio", "da Silva", "1234", null, EmployeeRole.Employee, Position.Multimedia));
 
         entityTransaction.begin();
-        for (int k = 0; k < users.size(); k++)
-            entityManager.persist(users.get(k));
+        entityManager.createQuery("DELETE FROM User").executeUpdate();
+        entityTransaction.commit();
 
+//        Query query = entityManager.createQuery("FROM User", User.class);
+//        List<User> result = query.getResultList();
+
+        entityTransaction.begin();
+        for (int k = 0; k < users.size(); k++)
+        {
+//            boolean flag = true;
+//
+//            for (int j = 0; j < users.size(); j++)
+//            for (int i = 0; i < result.size(); i++)
+//                if (result.get(i).getUserEmail().equals(users.get(j).getUserEmail()))
+//                    flag = false;
+//            if (flag)
+            entityManager.persist(users.get(k));
+        }
         entityTransaction.commit();
     }
 }
