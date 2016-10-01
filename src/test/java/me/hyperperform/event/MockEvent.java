@@ -672,6 +672,7 @@ public class MockEvent
 			"   \"@attributes\": \n" +
 			"    {\n" +
 			"      \"name\": \"TravisBuild\"\n" +
+            "      \"color\": \"#8BC34A\"" +
 			"     },\n" +
 			"     \"positions\": \n" +
 			"     {\n" +
@@ -709,6 +710,7 @@ public class MockEvent
 			"                \"@attributes\":\n" +
 			"                {\n" +
 			"                    \"name\": \"GitCommits\"\n" +
+            "                    \"color\": \"#40AFEF\"\n" +
 			"                },\n" +
 			"                \"positions\":\n" +
 			"                {\n" +
