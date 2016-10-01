@@ -13,6 +13,8 @@ import me.hyperperform.user.Position;
  */
 public class VerifySignUpRequest
 {
+
+    private String managerEmail;
     private String userName;
     private String userSurname;
     private String userEmail;
@@ -80,10 +82,21 @@ public class VerifySignUpRequest
         this.position = position;
     }
 
+    public String getManagerEmail()
+    {
+        return managerEmail;
+    }
+
+    public void setManagerEmail(String managerEmail)
+    {
+        this.managerEmail = managerEmail;
+    }
+
+
     public String toString()
     {
         String s = "";
-
+        s += "Manager: " + managerEmail + "\n";
         s += "Name: " + userName + "\n";
         s += "Surname: " + userSurname + "\n";
         s += "Email: " + userEmail + "\n";

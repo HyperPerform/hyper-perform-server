@@ -97,6 +97,7 @@ public class LoginRest
         JSONObject json = (JSONObject)new JSONParser().parse(jsonStr);
 
         VerifySignUpRequest sign = new VerifySignUpRequest();
+        sign.setManagerEmail((String) json.get("managerEmail"));
         sign.setUserName((String)json.get("userName"));
         sign.setUserSurname((String)json.get("userSurname"));
 
@@ -135,11 +136,13 @@ public class LoginRest
         if (sign.getPosition() == null || sign.getPosition().equals(""))
             return  Response.status(200).entity("Error: position").header("Access-Control-Allow-Origin", "*").build();
 
-        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
-        List<User> result = query.getResultList();
+//        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
+//        List<User> result = query.getResultList();
+//
+//        if (result.size() != 0)
+//            return  Response.status(200).entity("Error: Email already exists").header("Access-Control-Allow-Origin", "*").build();
 
-        if (result.size() != 0)
-            return  Response.status(200).entity("Error: Email already exists").header("Access-Control-Allow-Origin", "*").build();
+
 
         try {
             EmployeeRole.valueOf(sign.getRole());
@@ -157,6 +160,13 @@ public class LoginRest
             return  Response.status(200).entity("Error: Position does not exist").header("Access-Control-Allow-Origin", "*").build();
         }
 
+//        query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:e").setParameter("e", sign.getManagerEmail());
+//        result = query.getResultList();
+
+//        if (result.size() != 1)
+//            return  Response.status(200).entity("Error: Only authorized people may perform this operation").header("Access-Control-Allow-Origin", "*").build();
+
+
         User user = new User();
         user.setName(sign.getUserName());
         user.setSurname(sign.getUserSurname());
@@ -165,11 +175,16 @@ public class LoginRest
         user.setPosition(Position.valueOf(sign.getPosition()));
         user.setRole(EmployeeRole.valueOf(sign.getRole()));
 
-        entityManager.getTransaction().begin();
-        entityManager.persist(user);
-        entityManager.getTransaction().commit();
+//        if (result.get(0).getPosition().getType().equals("Manager") || result.get(0).getRole().getType().equals("Super") || result.get(0).getRole().getType().equals("Administrator"))
+//        {
+            entityManager.getTransaction().begin();
 
-        return Response.status(200).entity("Success").header("Access-Control-Allow-Origin", "*").build();
+            entityManager.persist(user);
+            entityManager.getTransaction().commit();
+
+            return Response.status(200).entity("Success").header("Access-Control-Allow-Origin", "*").build();
+//        }
+//        return  Response.status(200).entity("Error: You are not authorized to perform this operation").header("Access-Control-Allow-Origin", "*").build();
 
     }
 
