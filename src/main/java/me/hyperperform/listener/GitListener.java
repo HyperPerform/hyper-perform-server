@@ -126,7 +126,7 @@ public class GitListener implements IListener
             gitIssue.setAssignee((assignee == null) ? null : (String)assignee.get("login"));
             gitIssue.setCreatedBy((String)user.get("login"));
 
-            gitIssue.setUrl((String)issue.get("url"));
+            gitIssue.setUrl((String)issue.get("html_url"));
             gitIssue.setTitle((String)issue.get("title"));
 
             if (queueConnection != null)
