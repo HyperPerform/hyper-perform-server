@@ -1,9 +1,11 @@
 package me.hyperperform.forecasting;
 
 import me.hyperperform.forecasting.request.AddIntegrationRequest;
+import me.hyperperform.forecasting.request.DeleteIntegrationRequest;
 import me.hyperperform.forecasting.request.GetIntegrationsRequest;
 import me.hyperperform.forecasting.request.UpdateIntegrationRequest;
 import me.hyperperform.forecasting.response.AddIntegrationResponse;
+import me.hyperperform.forecasting.response.DeleteIntegrationResponse;
 import me.hyperperform.forecasting.response.GetIntegrationsResponse;
 import me.hyperperform.forecasting.response.UpdateIntegrationResponse;
 import org.json.simple.JSONArray;
@@ -64,6 +66,13 @@ public class Forecasting implements IForecasting
         AddIntegrationResponse addIntegrationResponse = new AddIntegrationResponse();
 
         return addIntegrationResponse;
+    }
+
+    public DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
+    {
+        DeleteIntegrationResponse deleteIntegrationResponse = new DeleteIntegrationResponse();
+
+        return deleteIntegrationResponse;
     }
 
     private JSONObject getForecastData()
