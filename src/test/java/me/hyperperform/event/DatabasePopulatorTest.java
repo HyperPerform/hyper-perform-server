@@ -266,14 +266,18 @@ public class DatabasePopulatorTest
         entityTransaction.begin();
 
         for (int k = 0; k < gitPushes.size(); k++)
+        {
+            gitPushes.get(k).setUrl("https://github.com/HyperPerform/hyper-perform-web-application");
             entityManager.persist(gitPushes.get(k));
-
+        }
         for (int k = 0; k < travisEvents.size(); k++)
             entityManager.persist(travisEvents.get(k));
 
         for (int k = 0; k < issueEvents.size(); k++)
+        {
+            issueEvents.get(k).setUrl("https://github.com/HyperPerform/hyper-perform-web-application");
             entityManager.persist(issueEvents.get(k));
-
+        }
         for (int k = 0; k < accessEvents.size(); k++)
             entityManager.persist(accessEvents.get(k));
 
