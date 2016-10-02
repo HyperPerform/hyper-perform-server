@@ -275,7 +275,8 @@ public class DatabasePopulatorTest
 
         for (int k = 0; k < issueEvents.size(); k++)
         {
-            issueEvents.get(k).setUrl("https://github.com/HyperPerform/hyper-perform-web-application");
+            issueEvents.get(k).setUrl("https://github.com/HyperPerform/hyper-perform-server/issues");
+            issueEvents.get(k).setTitle("<<Mock Title Here>>");
             entityManager.persist(issueEvents.get(k));
         }
         for (int k = 0; k < accessEvents.size(); k++)
