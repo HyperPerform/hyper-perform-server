@@ -21,6 +21,17 @@ public class VerifySignUpRequest
     private String userPassword;
     private String role;
     private String position;
+    private String gitUserName;
+
+    public String getGitUserName()
+    {
+        return gitUserName;
+    }
+
+    public void setGitUserName(String gitUserName)
+    {
+        this.gitUserName = gitUserName;
+    }
 
     public String getUserName()
     {
