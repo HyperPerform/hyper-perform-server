@@ -5,6 +5,7 @@ package me.hyperperform.forecasting.response;
  */
 public class GetIntegrationsResponse
 {
+    private int size;
     private String data;
 
     public String getData() {
@@ -13,5 +14,13 @@ public class GetIntegrationsResponse
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 }
