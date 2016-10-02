@@ -25,6 +25,9 @@
     <!-- User -->
     <class>me.hyperperform.user.User</class>
 
+    <!-- Forecasting -->
+    <class>me.hyperperform.forecasting.ForecastData</class>
+
     <properties>
       <property name="hibernate.archive.autodetection" value="class" />
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />

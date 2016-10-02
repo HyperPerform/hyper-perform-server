@@ -25,6 +25,8 @@
     <!-- Entry/Exit -->
     <class>me.hyperperform.event.EntryExit.AccessEvent</class>
 
+    <!-- Forecasting -->
+    <class>me.hyperperform.forecasting.ForecastData</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class" />
