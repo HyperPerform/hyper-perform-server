@@ -85,7 +85,7 @@ public class UserTest
 
         entityTransaction.begin();
         entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "tashan.avi@gmail.com").executeUpdate();
-        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "admin@hyperperform.me").executeUpdate();
+        entityManager.createQuery("DELETE FROM User where userEmail = :email").setParameter("email", "user@hyperperform.me").executeUpdate();
         entityTransaction.commit();
     }
 
