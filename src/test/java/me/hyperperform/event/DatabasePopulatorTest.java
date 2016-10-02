@@ -268,6 +268,7 @@ public class DatabasePopulatorTest
         for (int k = 0; k < gitPushes.size(); k++)
         {
             gitPushes.get(k).setUrl("https://github.com/HyperPerform/hyper-perform-web-application");
+            gitPushes.get(k).setMessage("<<Mock Message>>");
             entityManager.persist(gitPushes.get(k));
         }
         for (int k = 0; k < travisEvents.size(); k++)
