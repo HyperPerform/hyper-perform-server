@@ -17,6 +17,11 @@ public class ForecastData
     @Column(name = "data", length = 10485760)
     private String data;
 
+    public ForecastData()
+    {
+
+    }
+
     public ForecastData(String data) {
         this.data = data;
     }
