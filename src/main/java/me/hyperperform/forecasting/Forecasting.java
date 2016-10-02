@@ -37,17 +37,25 @@ public class Forecasting implements IForecasting
         entityManager.close();
         entityManagerFactory.close();
     }
+    
+    public GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest)
+    {
+        GetIntegrationsResponse getIntegrationsResponse = new GetIntegrationsResponse();
 
-
-    public GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest) {
-        return null;
+        return getIntegrationsResponse;
     }
 
-    public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest) {
-        return null;
+    public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
+    {
+        UpdateIntegrationResponse updateIntegrationResponse = new UpdateIntegrationResponse();
+
+        return updateIntegrationResponse;
     }
 
-    public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest) {
-        return null;
+    public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest)
+    {
+        AddIntegrationResponse addIntegrationResponse = new AddIntegrationResponse();
+
+        return addIntegrationResponse;
     }
 }
