@@ -112,6 +112,7 @@ public class GitListener implements IListener
             JSONObject issue = (JSONObject)json.get("issue");
             JSONObject user = (JSONObject)issue.get("user");
             JSONObject repo = (JSONObject)json.get("repository");
+            JSONObject assignee = (JSONObject)issue.get("assignee");
 
             gitIssue.setIssueId((Long)issue.get("id"));
             gitIssue.setAction((String)json.get("action"));
@@ -122,7 +123,7 @@ public class GitListener implements IListener
 
             gitIssue.setTimestamp(new Timestamp(System.currentTimeMillis()));
 
-            gitIssue.setAssignee((String)issue.get("assignee"));
+            gitIssue.setAssignee((assignee == null) ? null : (String)assignee.get("login"));
             gitIssue.setCreatedBy((String)user.get("login"));
 
             gitIssue.setUrl((String)issue.get("url"));
