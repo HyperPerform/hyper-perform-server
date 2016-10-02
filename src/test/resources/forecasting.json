@@ -1,0 +1,152 @@
+{
+	"hpForecast":
+	{
+		"integrations": 
+		[
+            {
+                "@attributes":
+                {
+                    "name": "GitCommits"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "time": "week",
+                            "value": 20
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "time": "week",
+                            "value": 20
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "time": "week",
+                            "value": 10
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "GitIssues"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "time": "week",
+                            "value": 5
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "time": "week",
+                            "value": 5
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "time": "week",
+                            "value": 0
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "TravisBuild"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "time": "week",
+                            "value": 90
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "time": "week",
+                            "value": 80
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "time": "week",
+                            "value": 95
+                        }
+                    ]
+                }
+            },
+            {
+                "@attributes":
+                {
+                    "name": "EntryExit"
+                },
+                "positions":
+                {
+                    "position":
+                    [
+                        {
+                            "@attributes":
+                            {
+                                "name": "Web Developer"
+                            },
+                            "time": "week",
+                            "value": 5
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Software Developer"
+                            },
+                            "time": "week",
+                            "value": 5
+                        },
+                        {
+                            "@attributes":
+                            {
+                                "name": "Multimedia"
+                            },
+                            "time": "week",
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ]
+	}
+}
