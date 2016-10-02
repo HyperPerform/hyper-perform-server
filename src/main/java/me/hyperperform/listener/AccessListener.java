@@ -20,6 +20,13 @@ import javax.ws.rs.core.Response;
  * Date: 2016/09/20
  * Feature:
  */
+
+/**
+ * Access event listener class which exposes a REST link for any entry/exit system to send events to.
+ * Each event received will be stored in a database and will be processed at a later stage. Each
+ * access event must comply with the event POJO defined at {@see me.hyperperform.event.EntryExit.AccessEvent}
+ * This class implements the {@see me.hyperperform.listener.IListener} interface.
+ */
 @Path("/AccessEvent")
 public class AccessListener implements IListener
 {
@@ -44,11 +51,17 @@ public class AccessListener implements IListener
         }
 
 
-        @POST
+    /**
+     * Listener function which waits for events. Each received event is automatically mapped onto a
+     * {@see me.hyperperform.event.EntryExit.AccessEvent} POJO. The events come in primarily as JSON objects.
+     * @param accessEvent The access event event that has taken place. The JSON object is mapped to this Java object
+     *                    automatically.
+     * @return Returns a HTTP 200 response code if the event was successfully mapped and persisted.
+     */
+    @POST
         @Consumes("application/json")
         public Response listen(AccessEvent accessEvent) throws Exception {
         System.out.println("\nAccess Event\n\n");
-//            System.out.println(accessEvent.getName());
 
             if (accessEvent != null)
             {
