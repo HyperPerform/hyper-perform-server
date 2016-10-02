@@ -36,4 +36,4 @@ after_success:
   
 notifications:
   slack: codusmaximus:TfshAEu8LRkjOGkyZnOQq5ys
-  webhooks: http://hyperperform.me:8080/hyperperform-system-1.0-SNAPSHOT/rs/TravisEvent
+  webhooks: https://travis.hyperperform.me
