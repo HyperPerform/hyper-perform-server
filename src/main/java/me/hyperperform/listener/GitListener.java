@@ -92,7 +92,7 @@ public class GitListener implements IListener
 
            GitPush push = new GitPush(name, extractDate(date) + " " + extractTime(date), user, commits.size());
            push.setUrl(url);
-
+           push.setMessage((String)headCommit.get("message"));
 
             if (queueConnection != null)
                 queueConnection.sendObject(push);
