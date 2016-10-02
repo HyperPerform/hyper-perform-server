@@ -6,12 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 /**
  * Created by rohan on 2016/10/02.
@@ -40,16 +38,22 @@ public class forecastingTest
     @Test
     public void AddJsonToDBTest() throws Exception
     {
-        ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream("forecasting.json");
+        Query query = entityManager.createQuery("FROM ForecastData ", ForecastData.class);
+        List<ForecastData> result = query.getResultList();
 
-        JSONObject forecastObject = (JSONObject)(new JSONParser()).parse(new InputStreamReader(inputStream));
-        ForecastData forecastData = new ForecastData(forecastObject.toString());
+        if (result.size() == 0)
+        {
+            ClassLoader classLoader = getClass().getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("forecasting.json");
+
+            JSONObject forecastObject = (JSONObject) (new JSONParser()).parse(new InputStreamReader(inputStream));
+            ForecastData forecastData = new ForecastData(forecastObject.toString());
 
 //        System.out.println(forecastData.getData());
 
-        entityTransaction.begin();
-        entityManager.persist(forecastData);
-        entityTransaction.commit();
+            entityTransaction.begin();
+            entityManager.persist(forecastData);
+            entityTransaction.commit();
+        }
     }
 }
