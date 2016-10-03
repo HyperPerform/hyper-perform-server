@@ -228,7 +228,7 @@ public class RestTest
 		Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
 
 		dispatcher.getRegistry().addResourceFactory(noDef);
-		MockHttpRequest req = MockHttpRequest.post("/forecast/updateForecasts");
+		MockHttpRequest req = MockHttpRequest.post("/forecast/updateIntegration");
 		req.contentType(MediaType.APPLICATION_JSON_TYPE);
 
 // First update to check if it changes
