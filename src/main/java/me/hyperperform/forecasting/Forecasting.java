@@ -71,6 +71,9 @@ public class Forecasting implements IForecasting
     public DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
         DeleteIntegrationResponse deleteIntegrationResponse = new DeleteIntegrationResponse();
+        deleteIntegrationResponse.setDeleted(false);
+
+        
 
         return deleteIntegrationResponse;
     }
@@ -91,5 +94,28 @@ public class Forecasting implements IForecasting
         }
 
         return null;
+    }
+
+    private void setForecastData(JSONObject j)
+    {
+        try
+        {
+            Query q = entityManager.createQuery("Update ForecastData set data=:jsonData")
+                    .setParameter("jsonData", j.toString());
+
+            entityTransaction.begin();
+            q.executeUpdate();
+            entityTransaction.commit();
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private <T> void log(T t)
+    {
+        System.out.println(t);
     }
 }
