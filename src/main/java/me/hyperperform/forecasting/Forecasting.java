@@ -73,7 +73,27 @@ public class Forecasting implements IForecasting
         DeleteIntegrationResponse deleteIntegrationResponse = new DeleteIntegrationResponse();
         deleteIntegrationResponse.setDeleted(false);
 
-        
+        JSONObject j = getForecastData();
+        j = (JSONObject)j.get("hpForecast");
+        JSONArray integrations = (JSONArray)j.get("integrations");
+
+        int n = integrations.size();
+        for (int k = 0; k < n; k++)
+        {
+            JSONObject curr = (JSONObject)integrations.get(k);
+            curr = (JSONObject)curr.get("@attributes");
+
+            String integrationName = (String)curr.get("name");
+
+            if (integrationName.equals(deleteIntegrationRequest.getIntegrationName())) {
+                integrations.remove(k);
+
+                setForecastData(j);
+
+                deleteIntegrationResponse.setDeleted(true);
+                return deleteIntegrationResponse;
+            }
+        }
 
         return deleteIntegrationResponse;
     }
