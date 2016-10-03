@@ -3,10 +3,6 @@ package me.hyperperform.rest;
 
 import me.hyperperform.forecasting.IForecasting;
 import me.hyperperform.forecasting.request.DeleteIntegrationRequest;
-import org.apache.camel.Produce;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import me.hyperperform.forecasting.request.UpdateIntegrationRequest;
 
 import javax.inject.Inject;
@@ -55,6 +51,7 @@ public class ForecastRest
 
     @POST
     @Path("/deleteIntegration")
+    @Consumes("application/json")
     @Produces("application/json")
     public Response deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
