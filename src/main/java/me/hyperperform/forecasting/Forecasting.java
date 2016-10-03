@@ -57,6 +57,44 @@ public class Forecasting implements IForecasting
     public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
     {
         UpdateIntegrationResponse updateIntegrationResponse = new UpdateIntegrationResponse();
+        String jsonStr = updateIntegrationRequest.getData();
+        System.out.println("jsonStr: " + jsonStr);
+        try
+        {
+            System.out.println("jsonStr: " + jsonStr);
+            JSONParser j = new JSONParser();
+
+            JSONObject json = (JSONObject)j.parse(jsonStr);
+//            System.out.println(json.toString());
+
+            JSONObject fFile = getForecastData();
+
+            JSONObject hpForecast = (JSONObject)fFile.get("hpForecast");
+//            System.out.println("fFile 1:\n" + fFile.toJSONString());
+            JSONArray integrations = (JSONArray)hpForecast.get("integrations");
+            JSONObject att, jsonAtt;
+//            System.out.println("Can Write? " + file.canWrite() + "\n filename: " + file.toString());
+
+
+            for (int i = 0; i < integrations.size(); i++)
+            {
+                att = (JSONObject) ((JSONObject) integrations.get(i)).get("@attributes");
+                jsonAtt = (JSONObject) json.get("@attributes");
+                System.out.println(att.get("name") + " " + jsonAtt.get("name"));
+                if (att.get("name").equals(jsonAtt.get("name")))
+                {
+                    integrations.set(i, json);
+                    updateIntegrationResponse.setData(fFile.toJSONString());
+                    setForecastData(fFile);
+//                        System.out.println("fFile 2:\n" + fFile.toJSONString());
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         return updateIntegrationResponse;
     }
