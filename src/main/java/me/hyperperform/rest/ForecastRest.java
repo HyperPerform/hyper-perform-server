@@ -32,12 +32,10 @@ public class ForecastRest
      */
     @POST
     @Path("/updateForecasts")
-    @Consumes("application/json")
     @Produces("application/json")
-    public Response updateForecasts(UpdateIntegrationRequest update) throws Exception
+    public Response updateForecasts(String str) throws Exception
     {
-//        UpdateIntegrationRequest update = new UpdateIntegrationRequest(jsonStr);
-        log("IS HERE");
+        UpdateIntegrationRequest update = new UpdateIntegrationRequest(str);
         return Response.status(200).entity(forecasting.updateIntegration(update)).header("Access-Control-Allow-Origin", "*").build();
     }
 
