@@ -15,6 +15,10 @@ import org.json.simple.parser.JSONParser;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
+import javax.ws.rs.core.Response;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 /**
  * Created by rohan on 2016/10/02.
@@ -57,6 +61,44 @@ public class Forecasting implements IForecasting
     public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
     {
         UpdateIntegrationResponse updateIntegrationResponse = new UpdateIntegrationResponse();
+        String jsonStr = updateIntegrationRequest.getData();
+        System.out.println("jsonStr: " + jsonStr);
+        try
+        {
+            System.out.println("jsonStr: " + jsonStr);
+            JSONParser j = new JSONParser();
+
+            JSONObject json = (JSONObject)j.parse(jsonStr);
+//            System.out.println(json.toString());
+
+            JSONObject fFile = getForecastData();
+
+            JSONObject hpForecast = (JSONObject)fFile.get("hpForecast");
+//            System.out.println("fFile 1:\n" + fFile.toJSONString());
+            JSONArray integrations = (JSONArray)hpForecast.get("integrations");
+            JSONObject att, jsonAtt;
+//            System.out.println("Can Write? " + file.canWrite() + "\n filename: " + file.toString());
+
+
+            for (int i = 0; i < integrations.size(); i++)
+            {
+                att = (JSONObject) ((JSONObject) integrations.get(i)).get("@attributes");
+                jsonAtt = (JSONObject) json.get("@attributes");
+                System.out.println(att.get("name") + " " + jsonAtt.get("name"));
+                if (att.get("name").equals(jsonAtt.get("name")))
+                {
+                    integrations.set(i, json);
+                    updateIntegrationResponse.setData(fFile.toJSONString());
+                    updateForecastData(fFile.toJSONString());
+//                        System.out.println("fFile 2:\n" + fFile.toJSONString());
+                    break;
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
         return updateIntegrationResponse;
     }
@@ -91,5 +133,12 @@ public class Forecasting implements IForecasting
         }
 
         return null;
+    }
+
+    private void updateForecastData(String updatedData)
+    {
+        String query = "";
+        Query q = entityManager.createQuery("update ForecastData a set a.data = :newData where 1=1");
+        q.setParameter("newData", updatedData).executeUpdate();
     }
 }
