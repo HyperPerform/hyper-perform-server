@@ -2,13 +2,17 @@ package me.hyperperform.forecasting.response;
 
 public class UpdateIntegrationResponse
 {
-    private String data;
+    private boolean updated;
 
-    public String getData() {
-        return data;
+    public UpdateIntegrationResponse() {
+        this.updated = false;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
     }
 }
