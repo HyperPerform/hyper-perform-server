@@ -104,9 +104,9 @@ public class ForecastRest
     @POST
     @Path("/deleteIntegration")
     @Produces("application/json")
-    public Response deleteIntegration()
+    public Response deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
-        DeleteIntegrationRequest deleteIntegrationRequest = new DeleteIntegrationRequest("GitIssues");
+//        DeleteIntegrationRequest deleteIntegrationRequest = new DeleteIntegrationRequest("GitIssues");
         return Response.status(200).entity(forecasting.deleteIntegration(deleteIntegrationRequest)).build();
     }
 
