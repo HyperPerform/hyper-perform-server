@@ -1,7 +1,11 @@
 package me.hyperperform.forecasting.request;
 
-/**
- * Created by rohan on 2016/10/02.
- */
-public class UpdateIntegrationRequest {
+public class UpdateIntegrationRequest
+{
+    private String data;
+
+    public String getData()
+    {
+        return data;
+    }
 }
