@@ -70,6 +70,12 @@ public class TravisListener implements IListener
         t.setTimestamp(parseTimeStamp((String)json.get("committed_at")));
         t.setRepo((String)((JSONObject)json.get("repository")).get("name"));
 
+        if (t.getStatus().equals("Fixed"))
+            t.setStatus("Passed");
+        else
+        if (t.getStatus().equals("Broken") || t.getStatus().equals("Failed") || t.getStatus().equals("Still Failing"))
+            t.setStatus("Failed");
+
            if (queueConnection != null)
                queueConnection.sendObject(t);
 

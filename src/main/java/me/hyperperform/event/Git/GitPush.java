@@ -37,6 +37,9 @@ public class GitPush implements IGitEvent
     @Column(name = "url")
     String url;
 
+    @Column(name = "message")
+    String message;
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -129,6 +132,14 @@ public class GitPush implements IGitEvent
     public String getDate()
     {
         return timestamp.toString();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String toString()

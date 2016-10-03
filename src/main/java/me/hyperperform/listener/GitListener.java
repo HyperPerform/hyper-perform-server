@@ -92,7 +92,7 @@ public class GitListener implements IListener
 
            GitPush push = new GitPush(name, extractDate(date) + " " + extractTime(date), user, commits.size());
            push.setUrl(url);
-
+           push.setMessage((String)headCommit.get("message"));
 
             if (queueConnection != null)
                 queueConnection.sendObject(push);
@@ -126,7 +126,7 @@ public class GitListener implements IListener
             gitIssue.setAssignee((assignee == null) ? null : (String)assignee.get("login"));
             gitIssue.setCreatedBy((String)user.get("login"));
 
-            gitIssue.setUrl((String)issue.get("url"));
+            gitIssue.setUrl((String)issue.get("html_url"));
             gitIssue.setTitle((String)issue.get("title"));
 
             if (queueConnection != null)
