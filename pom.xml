@@ -235,6 +235,12 @@
 			<version>v3-rev201-1.22.0</version>
 		</dependency>
 
+		<!-- CORS -->
+		<dependency>
+			<groupId>com.thetransactioncompany</groupId>
+			<artifactId>cors-filter</artifactId>
+			<version>2.5</version>
+		</dependency>
 
 	</dependencies>
 	<build>
