@@ -7,6 +7,9 @@ public class DeleteIntegrationRequest
 {
     private String integrationName;
 
+    public DeleteIntegrationRequest() {
+    }
+
     public DeleteIntegrationRequest(String integrationName) {
         this.integrationName = integrationName;
     }
