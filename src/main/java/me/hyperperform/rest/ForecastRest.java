@@ -2,6 +2,7 @@ package me.hyperperform.rest;
 
 
 import me.hyperperform.forecasting.IForecasting;
+import me.hyperperform.forecasting.request.DeleteIntegrationRequest;
 import org.apache.camel.Produce;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -92,27 +93,21 @@ public class ForecastRest
         return Response.status(200).entity("Failed to update forecasting").header("Access-Control-Allow-Origin", "*").build();
     }
 
-//    @GET
     @POST
     @Path("/getIntegrations")
     @Produces("application/json")
     public Response getIntegrations() throws Exception
     {
-//        ClassLoader classLoader = getClass().getClassLoader();
-//        InputStream inputStream = classLoader.getResourceAsStream("forecasting.json");
-//
-//        JSONObject forecastObject = (JSONObject)(new JSONParser()).parse(new InputStreamReader(inputStream));
-//
-//        forecastObject = (JSONObject)forecastObject.get("hpForecast");
-//        JSONArray integrations = (JSONArray)forecastObject.get("integrations");
-//
-//        return Response.status(200).entity(integrations.toString()).build();
-//
-//        log("-------------------------------------");
-//        log(forecasting);
-//        log("-------------------------------------");
-
         return Response.status(200).entity(forecasting.getIntegrations(null)).build();
+    }
+
+    @GET
+    @Path("/deleteIntegration")
+    @Produces("application/json")
+    public Response deleteIntegration()
+    {
+        DeleteIntegrationRequest deleteIntegrationRequest = new DeleteIntegrationRequest("GitIssues");
+        return Response.status(200).entity(forecasting.deleteIntegration(deleteIntegrationRequest)).build();
     }
 
     private <T> void log(T t)
