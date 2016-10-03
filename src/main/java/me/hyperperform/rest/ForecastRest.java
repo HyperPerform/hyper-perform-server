@@ -101,7 +101,7 @@ public class ForecastRest
         return Response.status(200).entity(forecasting.getIntegrations(null)).build();
     }
 
-    @GET
+    @POST
     @Path("/deleteIntegration")
     @Produces("application/json")
     public Response deleteIntegration()
