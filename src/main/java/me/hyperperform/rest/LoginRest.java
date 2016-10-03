@@ -76,11 +76,11 @@ public class LoginRest
                 }
             }
         }
-	
-	if (res != null)
-		System.out.println("Response: " + res.getLoggedin());
-	else System.out.println("Response: null");
-        return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
+
+        if (res != null)
+            System.out.println("Response: " + res.getLoggedin());
+        else System.out.println("Response: null");
+        return Response.status(200).entity(res).build();
 
     }
 
@@ -118,35 +118,35 @@ public class LoginRest
         VerifySignUpResponse res = null;
 
         if (sign.getUserName() == null || sign.getUserName().equals(""))
-            return  Response.status(400).entity("Invalid Name").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Invalid Name").build();
 
         if (sign.getUserSurname() == null || sign.getUserSurname().equals(""))
-            return  Response.status(400).entity("Invalid Surname").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Invalid Surname").build();
 
         if (sign.getUserEmail() == null || sign.getUserEmail().equals(""))
-            return  Response.status(400).entity("Invalid Email").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Invalid Email").build();
 
         if (sign.getUserPassword() == null || sign.getUserPassword().equals(""))
-            return  Response.status(400).entity("Invalid Password").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Invalid Password").build();
 
         if (sign.getRole() == null || sign.getRole().equals(""))
-            return  Response.status(400).entity("No role found").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("No role found").build();
 
         if (sign.getPosition() == null || sign.getPosition().equals(""))
-            return  Response.status(400).entity("No position found").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("No position found").build();
 
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
         List<User> result = query.getResultList();
 
         if (result.size() != 0)
-            return  Response.status(400).entity("Email Already Exists").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Email Already Exists").build();
 
         try {
             EmployeeRole.valueOf(sign.getRole());
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Role doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Role doesn't exist").build();
         }
 
         try {
@@ -154,7 +154,7 @@ public class LoginRest
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Position doesn't exist").header("Access-Control-Allow-Origin", "*").build();
+            return  Response.status(400).entity("Position doesn't exist").build();
         }
 
         User user = new User();
@@ -169,7 +169,7 @@ public class LoginRest
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-        return Response.status(200).entity(res).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity(res).build();
 
     }
 
@@ -211,7 +211,7 @@ public class LoginRest
 
         getManagedListResponse.setSize(n);
 
-        return Response.status(200).entity(getManagedListResponse).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity(getManagedListResponse).build();
     }
 
     @GET
@@ -225,7 +225,7 @@ public class LoginRest
         for (int k = 0; k < positions.length; k++)
             list.add(positions[k].getType());
 
-        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity(list).build();
     }
 
     @GET
@@ -239,8 +239,8 @@ public class LoginRest
         for (int k = 0; k < roles.length; k++)
         {
             if (!roles[k].getType().equals("Super"))
-            list.add(roles[k].getType());
+                list.add(roles[k].getType());
         }
-        return Response.status(200).entity(list).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity(list).build();
     }
 }
