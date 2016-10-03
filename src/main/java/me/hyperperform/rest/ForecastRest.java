@@ -26,14 +26,14 @@ public class ForecastRest
     IForecasting forecasting;
 
     /**
-     * Finds the specific integration name and updates/adds the new data to the forecasting.json file.
-     //* @param jsonStr - The JSON String that is sent from the front-end with data of the updated forecasting values.
+     * Finds the specific integration name and updates/adds the new data to the database.
+     * @param str - The JSON String that is sent from the front-end with data of the updated forecasting values.
      * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
      */
     @POST
-    @Path("/updateForecasts")
+    @Path("/updateIntegration")
     @Produces("application/json")
-    public Response updateForecasts(String str) throws Exception
+    public Response updateIntegrations(String str) throws Exception
     {
         UpdateIntegrationRequest update = new UpdateIntegrationRequest(str);
         return Response.status(200).entity(forecasting.updateIntegration(update)).header("Access-Control-Allow-Origin", "*").build();
