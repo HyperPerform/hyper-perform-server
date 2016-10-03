@@ -19,9 +19,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * A realization of the {@see me.hyperperform.reporting.IReport} interface. All three contracts defined in IReport have
+ * been met. Report generators can be easily plugged in and out as long as the contract is met.
+ *
  * Created by rohan on 2016/08/10.
  */
-
 public class ReportGenerator implements IReport
 {
     private EntityManagerFactory entityManagerFactory;
@@ -46,6 +48,15 @@ public class ReportGenerator implements IReport
     public ReportGenerator() {
     }
 
+    /**
+     * Generates a summary for all the event data received within a specific time span. Summaries are generated for
+     * each integration which currently exist. Each summary is independent from the others.
+     *
+     * @param getSummaryRequest Request object which contains the necessary details for the summary, this includes the
+     *                          name of the user for whom the summary will be for as well as a time period.
+     *
+     * @return The response object contains the summaries for each individual integration.
+     */
     public GetSummaryResponse getSummary(GetSummaryRequest getSummaryRequest)
     {
         GetSummaryResponse getSummaryResponse = new GetSummaryResponse();
@@ -105,6 +116,15 @@ public class ReportGenerator implements IReport
         return getSummaryResponse;
     }
 
+    /**
+     * Generates a detailed report for a specified integration. These reports also require a user and time span.
+     * The type of integration for which the detailed report is required must be specified every time a request is made.
+     *
+     * @param getDetailsRequest Request object which contains the necessary details for the summary, this includes the
+     *                          name of the user for whom the summary will be for as well as a time period.
+     *
+     * @return Returns an object which contains detailed information for a specific integration.
+     */
     public GetDetailsResponse getDetails(GetDetailsRequest getDetailsRequest) {
 
         /*-------------------Mapping Email to name----------------------*/
@@ -279,6 +299,15 @@ public class ReportGenerator implements IReport
         return getDetailsResponse;
     }
 
+    /**
+     * Generates a performance score for a specified user. Score generation also requires a user and time span.
+     * Each score is generated using an {@see me.hyperperform.reporting.algorithm.Algorithm}.
+     *
+     * @param getScoreRequest Request object which contains the necessary details for the summary, this includes the
+     *                          name of the user for whom the score will be for as well as a time period.
+     *
+     * @return Returns an object which contains the performance score for a particular employee.
+     */
     public GetScoreResponse getScore(GetScoreRequest getScoreRequest)
     {
 
