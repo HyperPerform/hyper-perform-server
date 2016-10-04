@@ -20,8 +20,8 @@
 
         <init-param>
             <param-name>cors.allowOrigin</param-name>
-            <!--<param-value>http://localhost:3000</param-value>-->
-            <param-value>https://hyperperform.me</param-value>
+            <param-value>http://localhost:3000</param-value>
+            <!--<param-value>https://hyperperform.me</param-value>-->
         </init-param>
 
         <init-param>
