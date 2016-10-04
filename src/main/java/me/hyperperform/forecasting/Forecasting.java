@@ -16,9 +16,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
 
-/**
- * Created by rohan on 2016/10/02.
- */
 public class Forecasting implements IForecasting
 {
     private EntityManagerFactory entityManagerFactory;
