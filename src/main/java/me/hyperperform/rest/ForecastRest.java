@@ -58,8 +58,11 @@ public class ForecastRest
     @POST
     @Path("/addIntegration")
     @Produces("application/json")
-    public Response addIntegration(AddIntegrationRequest addIntegrationRequest)
+    public Response addIntegration(String str)
     {
+        AddIntegrationRequest addIntegrationRequest = new AddIntegrationRequest();
+        addIntegrationRequest.setData(str);
+
         return Response.status(200).entity(forecasting.addIntegration(addIntegrationRequest)).build();
     }
 
