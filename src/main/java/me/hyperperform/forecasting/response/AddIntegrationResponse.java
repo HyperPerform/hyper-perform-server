@@ -7,6 +7,9 @@ public class AddIntegrationResponse
 {
     private boolean added;
 
+    public AddIntegrationResponse() {
+    }
+
     public boolean isAdded() {
         return added;
     }
