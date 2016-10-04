@@ -7,6 +7,9 @@ public class AddIntegrationRequest
 {
     private String data;
 
+    public AddIntegrationRequest() {
+    }
+
     public String getData() {
         return data;
     }
