@@ -93,6 +93,41 @@ public class Forecasting implements IForecasting
     public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest)
     {
         AddIntegrationResponse addIntegrationResponse = new AddIntegrationResponse();
+        addIntegrationResponse.setAdded(true);
+
+        try
+        {
+            JSONObject json = getForecastData();
+            JSONObject j = (JSONObject) json.get("hpForecast");
+            JSONArray integrations = (JSONArray) j.get("integrations");
+
+            JSONObject addJson = (JSONObject) new JSONParser().parse(addIntegrationRequest.getData());
+            String addName = (String)(((JSONObject)addJson.get("@attributes")).get("name"));
+
+            int n = integrations.size();
+            for (int k = 0; k < n; k++)
+            {
+                JSONObject curr = (JSONObject) integrations.get(k);
+                curr = (JSONObject) curr.get("@attributes");
+
+                String integrationName = (String) curr.get("name");
+
+                if (integrationName.equals(addName))
+                {
+                    addIntegrationResponse.setAdded(false);
+                    return addIntegrationResponse;
+                }
+            }
+
+            integrations.add(addJson);
+            setForecastData(json);
+        }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            addIntegrationResponse.setAdded(false);
+        }
 
         return addIntegrationResponse;
     }
