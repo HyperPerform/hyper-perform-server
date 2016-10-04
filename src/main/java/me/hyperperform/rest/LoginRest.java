@@ -118,28 +118,28 @@ public class LoginRest
         VerifySignUpResponse res = null;
 
         if (sign.getUserName() == null || sign.getUserName().equals(""))
-            return  Response.status(200).entity("Invalid Name").build();
+            return  Response.status(200).entity("Error: name").build();
 
         if (sign.getUserSurname() == null || sign.getUserSurname().equals(""))
-            return  Response.status(200).entity("Invalid Surname").build();
+            return  Response.status(200).entity("Error: surname").build();
 
         if (sign.getUserEmail() == null || sign.getUserEmail().equals(""))
-            return  Response.status(200).entity("Invalid Email").build();
+            return  Response.status(200).entity("Error: email").build();
 
         if (sign.getUserPassword() == null || sign.getUserPassword().equals(""))
-            return  Response.status(200).entity("Invalid Password").build();
+            return  Response.status(200).entity("Error: password").build();
 
         if (sign.getRole() == null || sign.getRole().equals(""))
-            return  Response.status(200).entity("No role found").build();
+            return  Response.status(200).entity("Error: role").build();
 
         if (sign.getPosition() == null || sign.getPosition().equals(""))
-            return  Response.status(200).entity("No position found").build();
+            return Response.status(200).entity("Error: position").build();
 
-        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
-        List<User> result = query.getResultList();
+//        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
+//        List<User> result = query.getResultList();
 
-        if (result.size() != 0)
-            return  Response.status(200).entity("Email Already Exists").build();
+//        if (result.size() != 0)
+//            return  Response.status(200).entity("Email Already Exists").build();
 
         try {
             EmployeeRole.valueOf(sign.getRole());
