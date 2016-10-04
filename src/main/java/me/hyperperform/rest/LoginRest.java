@@ -118,35 +118,35 @@ public class LoginRest
         VerifySignUpResponse res = null;
 
         if (sign.getUserName() == null || sign.getUserName().equals(""))
-            return  Response.status(400).entity("Invalid Name").build();
+            return  Response.status(200).entity("Invalid Name").build();
 
         if (sign.getUserSurname() == null || sign.getUserSurname().equals(""))
-            return  Response.status(400).entity("Invalid Surname").build();
+            return  Response.status(200).entity("Invalid Surname").build();
 
         if (sign.getUserEmail() == null || sign.getUserEmail().equals(""))
-            return  Response.status(400).entity("Invalid Email").build();
+            return  Response.status(200).entity("Invalid Email").build();
 
         if (sign.getUserPassword() == null || sign.getUserPassword().equals(""))
-            return  Response.status(400).entity("Invalid Password").build();
+            return  Response.status(200).entity("Invalid Password").build();
 
         if (sign.getRole() == null || sign.getRole().equals(""))
-            return  Response.status(400).entity("No role found").build();
+            return  Response.status(200).entity("No role found").build();
 
         if (sign.getPosition() == null || sign.getPosition().equals(""))
-            return  Response.status(400).entity("No position found").build();
+            return  Response.status(200).entity("No position found").build();
 
         Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
         List<User> result = query.getResultList();
 
         if (result.size() != 0)
-            return  Response.status(400).entity("Email Already Exists").build();
+            return  Response.status(200).entity("Email Already Exists").build();
 
         try {
             EmployeeRole.valueOf(sign.getRole());
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Role doesn't exist").build();
+            return  Response.status(200).entity("Role doesn't exist").build();
         }
 
         try {
@@ -154,7 +154,7 @@ public class LoginRest
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(400).entity("Position doesn't exist").build();
+            return  Response.status(200).entity("Position doesn't exist").build();
         }
 
         User user = new User();
