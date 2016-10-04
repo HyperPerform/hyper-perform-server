@@ -146,7 +146,7 @@ public class LoginRest
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(200).entity("Role doesn't exist").build();
+            return  Response.status(200).entity("Error: Role does not exist").build();
         }
 
         try {
@@ -154,7 +154,7 @@ public class LoginRest
         }
 
         catch (IllegalArgumentException e) {
-            return  Response.status(200).entity("Position doesn't exist").build();
+            return  Response.status(200).entity("Error: Position does not exist").build();
         }
 
         User user = new User();
