@@ -173,15 +173,17 @@ public class LoginRest
 
     }
 
-    @GET
+    @POST
     @Path("/getManagedList")
+    @Consumes("application/json")
     @Produces("application/json")
+
 //    public Response getManagedList(GetManagedListRequest getManagedListRequest)
-    public Response getManagedList()
+    public Response getManagedList(GetManagedListRequest getManagedListRequest)
     {
-        GetManagedListRequest getManagedListRequest = new GetManagedListRequest();
-        getManagedListRequest.setStartDate("2016-01-01 00:00:01");
-        getManagedListRequest.setEndDate("2016-12-30 23:59:59");
+//        GetManagedListRequest getManagedListRequest = new GetManagedListRequest();
+//        getManagedListRequest.setStartDate("2016-01-01 00:00:01");
+//        getManagedListRequest.setEndDate("2016-12-30 23:59:59");
 
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
