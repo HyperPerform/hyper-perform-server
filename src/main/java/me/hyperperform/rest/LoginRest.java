@@ -106,6 +106,7 @@ public class LoginRest
         sign.setUserPassword((String)json.get("userPassword"));
         sign.setPosition((String)json.get("position"));
         sign.setRole((String)json.get("role"));
+        sign.setGitUserName((String) json.get("gitUserName"));
 
 //        System.out.println("--------------------------------------------------");
 //        System.out.println(sign);
@@ -164,6 +165,7 @@ public class LoginRest
         user.setUserPassword(sign.getUserPassword());
         user.setPosition(Position.valueOf(sign.getPosition()));
         user.setRole(EmployeeRole.valueOf(sign.getRole()));
+        user.setGitUserName(sign.getGitUserName());
 
         entityManager.getTransaction().begin();
         entityManager.persist(user);
