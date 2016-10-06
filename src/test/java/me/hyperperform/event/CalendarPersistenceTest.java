@@ -4,6 +4,8 @@ import me.hyperperform.event.Calendar.AttendeeState;
 import me.hyperperform.event.Calendar.CalendarMeeting;
 import me.hyperperform.event.Calendar.CalendarProject;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.LogManager;
 import org.junit.*;
 
 import javax.persistence.*;
@@ -18,6 +20,7 @@ import java.util.*;
  */
 public class CalendarPersistenceTest
 {
+    private static final Logger logger = LogManager.getLogger(CalendarPersistenceTest.class);
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
@@ -29,6 +32,7 @@ public class CalendarPersistenceTest
     @Before
     public void init()
     {
+        logger.info("Setting up Entity Manager");
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();

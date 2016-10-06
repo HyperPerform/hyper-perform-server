@@ -11,6 +11,7 @@ import java.util.List;
 
 public class DatabasePopulatorUsersTest
 {
+
     EntityManagerFactory entityManagerFactory;
     EntityManager entityManager;
     EntityTransaction entityTransaction;
@@ -30,7 +31,7 @@ public class DatabasePopulatorUsersTest
         entityManagerFactory.close();
     }
 
-//    @Ignore
+    @Ignore
     @Test
     public void populateTest()
     {

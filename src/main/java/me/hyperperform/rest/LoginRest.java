@@ -106,6 +106,7 @@ public class LoginRest
         sign.setUserPassword((String)json.get("userPassword"));
         sign.setPosition((String)json.get("position"));
         sign.setRole((String)json.get("role"));
+        sign.setGitUserName((String) json.get("gitUserName"));
 
 //        System.out.println("--------------------------------------------------");
 //        System.out.println(sign);
@@ -135,11 +136,11 @@ public class LoginRest
         if (sign.getPosition() == null || sign.getPosition().equals(""))
             return Response.status(200).entity("Error: position").build();
 
-//        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
-//        List<User> result = query.getResultList();
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
+        List<User> result = query.getResultList();
 
-//        if (result.size() != 0)
-//            return  Response.status(200).entity("Email Already Exists").build();
+        if (result.size() != 0)
+            return  Response.status(200).entity("Error: Email Already Exists").build();
 
         try {
             EmployeeRole.valueOf(sign.getRole());
@@ -164,12 +165,13 @@ public class LoginRest
         user.setUserPassword(sign.getUserPassword());
         user.setPosition(Position.valueOf(sign.getPosition()));
         user.setRole(EmployeeRole.valueOf(sign.getRole()));
+        user.setGitUserName(sign.getGitUserName());
 
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
 
-        return Response.status(200).entity(res).build();
+        return Response.status(200).entity("Success").build();
 
     }
 
