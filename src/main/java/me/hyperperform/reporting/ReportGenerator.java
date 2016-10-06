@@ -4,6 +4,7 @@ import me.hyperperform.event.EntryExit.AccessEvent;
 import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
+import me.hyperperform.forecasting.IForecasting;
 import me.hyperperform.reporting.algorithm.Algorithm;
 import me.hyperperform.reporting.algorithm.StandardAlgorithm;
 import me.hyperperform.reporting.request.*;
@@ -11,6 +12,7 @@ import me.hyperperform.reporting.response.*;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Inject;
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -30,6 +32,9 @@ public class ReportGenerator implements IReport
     private EntityManager entityManager;
 
     private Algorithm algorithm;
+
+    @Inject
+    IForecasting forecasting;
 
     @PostConstruct
     private void initConnection()
