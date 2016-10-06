@@ -1,6 +1,7 @@
 package me.hyperperform.rest;
 
 import me.hyperperform.Hash;
+import me.hyperperform.notifications.Email;
 import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.reporting.request.GetScoreRequest;
@@ -42,6 +43,9 @@ public class LoginRest
 
     @Inject
     IReport reportGenerator;
+
+    @Inject
+    Email mail;
 
     @POST
     @Path("/verifyDetails")
@@ -170,6 +174,25 @@ public class LoginRest
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
+        String body = "<!DOCTYPE html>" +
+                "<html>" +
+                "" +
+                "<body>" +
+                "<h2>Dear: <span style='color: #3C878D'>" + sign.getUserName() + "</span></h2>" +
+                "You have recently been added to our system.<br/>" +
+                "Please find your password at the bottom<br/>" +
+                "<br/>" +
+                "<a href='https://dashboard.hyperperform.me'><i>Visit Dashboard</i></a><br/><br/>" +
+                "Password: <b>" + sign.getUserPassword() + " </b>" +
+                "<br/><br/><br/>" +
+                "Kind Regards<br/>" +
+                "<b>Hyperperformteam</b><br/>" +
+                "<img src='https://dashboard.hyperperform.me/assets/Logo2.png' height='30' width='30' style='top: 2%;text-align: center;'>" +
+                "</body>" +
+                "</html>";
+
+
+        mail.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
 
         return Response.status(200).entity("Success").build();
 
