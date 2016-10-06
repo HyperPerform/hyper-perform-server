@@ -193,7 +193,7 @@ public class LoginRest
 
         GetManagedListResponse getManagedListResponse = new GetManagedListResponse();
 
-        Query q = entityManager.createQuery("select u from User u");
+        Query q = entityManager.createQuery("select u from User u where position != 3");
         List<User> list = q.getResultList();
 
         int n = list.size();
