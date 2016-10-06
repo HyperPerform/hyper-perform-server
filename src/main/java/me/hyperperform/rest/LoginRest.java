@@ -140,12 +140,6 @@ public class LoginRest
         if (sign.getPosition() == null || sign.getPosition().equals(""))
             return Response.status(200).entity("Error: position").build();
 
-        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
-        List<User> result = query.getResultList();
-
-        if (result.size() != 0)
-            return  Response.status(200).entity("Error: Email Already Exists").build();
-
         try {
             EmployeeRole.valueOf(sign.getRole());
         }
@@ -161,6 +155,14 @@ public class LoginRest
         catch (IllegalArgumentException e) {
             return  Response.status(200).entity("Error: Position does not exist").build();
         }
+
+
+        Query query = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", sign.getUserEmail());
+        List<User> result = query.getResultList();
+
+        if (result.size() != 0)
+            return  Response.status(200).entity("Error: Email Already Exists").build();
+
 
         User user = new User();
         user.setName(sign.getUserName());
