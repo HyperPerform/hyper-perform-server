@@ -9,6 +9,8 @@ import me.hyperperform.reporting.algorithm.Algorithm;
 import me.hyperperform.reporting.algorithm.StandardAlgorithm;
 import me.hyperperform.reporting.request.*;
 import me.hyperperform.reporting.response.*;
+import me.hyperperform.user.EmployeeRole;
+import me.hyperperform.user.Position;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -348,4 +350,13 @@ public class ReportGenerator implements IReport
 
         return new GetScoreResponse(score, performance);
     }
+
+    private String getPosition(String user)
+    {
+        Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
+        Position p = (Position)q.getSingleResult();
+
+        return (p == null) ? null : p.getType();
+    }
+
 }
