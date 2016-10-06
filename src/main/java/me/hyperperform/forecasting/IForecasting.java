@@ -12,5 +12,7 @@ public interface IForecasting
     UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest);
     AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest);
     DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest);
+
     GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest);
+    GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest);
 }
