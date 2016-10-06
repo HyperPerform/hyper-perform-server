@@ -183,6 +183,36 @@ public class Forecasting implements IForecasting
         return new GetForecastValueResponse(-1);
     }
 
+    public GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest)
+    {
+        String integration = getForecastTimeRequest.getIntegration();
+        String position = getForecastTimeRequest.getPosition();
+
+        JSONObject j = getForecastData();
+        j = (JSONObject)j.get("hpForecast");
+        JSONArray integrations = (JSONArray)j.get("integrations");
+
+        for (int k = 0; k < integrations.size(); k++)
+        {
+            JSONObject curr = (JSONObject)integrations.get(k);
+            JSONObject attr = (JSONObject)curr.get("@attributes");
+
+            if (((String)attr.get("name")).equals(integration))
+            {
+                JSONArray positions = (JSONArray) ((JSONObject)curr.get("positions")).get("position");
+                for (int i = 0; i < positions.size(); i++)
+                {
+                    JSONObject pos = (JSONObject)positions.get(i);
+
+                    if (((String)((JSONObject)pos.get("@attributes")).get("name")).equals(position))
+                        return new GetForecastTimeResponse((String)pos.get("time"));
+                }
+            }
+        }
+
+        return null;
+    }
+
     private JSONObject getForecastData()
     {
         try
