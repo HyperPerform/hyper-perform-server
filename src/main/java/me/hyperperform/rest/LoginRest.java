@@ -44,8 +44,8 @@ public class LoginRest
     @Inject
     IReport reportGenerator;
 
-//    @Inject
-//    Email mail;
+    @Inject
+    Email mail;
 
     @POST
     @Path("/verifyDetails")
@@ -193,8 +193,13 @@ public class LoginRest
                 "</body>" +
                 "</html>";
 
-        Email e = new Email();
-        e.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
+        if (mail == null)
+        {
+            mail = new Email();
+            mail.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
+        }
+        else mail.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
+
 
         return Response.status(200).entity("Success").build();
 
