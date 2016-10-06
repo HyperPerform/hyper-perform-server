@@ -73,16 +73,6 @@ public class ReportGenerator implements IReport
         long days = TimeUnit.MILLISECONDS.toDays(getSummaryRequest.getEndDate().getTime() - getSummaryRequest.getStartDate().getTime());
         Long totalCommits = (Long)q.getSingleResult();
 
-        System.out.println("------------------------------");
-        System.out.println(totalCommits);
-        System.out.println(days);
-        System.out.println("------------------------------");
-
-//        if (totalCommits != null)
-//            getSummaryResponse.setGithub((Long)totalCommits);
-
-//        getSummaryResponse.setGithub((totalCommits == null) ? 0 : totalCommits/days);
-
         if (totalCommits != null)
         {
             double avg = (double)totalCommits/(double)days;
