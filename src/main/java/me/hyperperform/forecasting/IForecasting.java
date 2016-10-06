@@ -1,13 +1,7 @@
 package me.hyperperform.forecasting;
 
-import me.hyperperform.forecasting.request.AddIntegrationRequest;
-import me.hyperperform.forecasting.request.DeleteIntegrationRequest;
-import me.hyperperform.forecasting.request.GetIntegrationsRequest;
-import me.hyperperform.forecasting.request.UpdateIntegrationRequest;
-import me.hyperperform.forecasting.response.AddIntegrationResponse;
-import me.hyperperform.forecasting.response.DeleteIntegrationResponse;
-import me.hyperperform.forecasting.response.GetIntegrationsResponse;
-import me.hyperperform.forecasting.response.UpdateIntegrationResponse;
+import me.hyperperform.forecasting.request.*;
+import me.hyperperform.forecasting.response.*;
 
 /**
  * Created by rohan on 2016/10/02.
@@ -18,4 +12,7 @@ public interface IForecasting
     UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest);
     AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest);
     DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest);
+
+    GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest);
+    GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest);
 }

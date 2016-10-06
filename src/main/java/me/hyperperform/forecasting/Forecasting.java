@@ -1,13 +1,7 @@
 package me.hyperperform.forecasting;
 
-import me.hyperperform.forecasting.request.AddIntegrationRequest;
-import me.hyperperform.forecasting.request.DeleteIntegrationRequest;
-import me.hyperperform.forecasting.request.GetIntegrationsRequest;
-import me.hyperperform.forecasting.request.UpdateIntegrationRequest;
-import me.hyperperform.forecasting.response.AddIntegrationResponse;
-import me.hyperperform.forecasting.response.DeleteIntegrationResponse;
-import me.hyperperform.forecasting.response.GetIntegrationsResponse;
-import me.hyperperform.forecasting.response.UpdateIntegrationResponse;
+import me.hyperperform.forecasting.request.*;
+import me.hyperperform.forecasting.response.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -157,6 +151,66 @@ public class Forecasting implements IForecasting
         }
 
         return deleteIntegrationResponse;
+    }
+
+    public GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest)
+    {
+        String integration = getForecastValueRequest.getIntegration();
+        String position = getForecastValueRequest.getPosition();
+
+        JSONObject j = getForecastData();
+        j = (JSONObject)j.get("hpForecast");
+        JSONArray integrations = (JSONArray)j.get("integrations");
+
+        for (int k = 0; k < integrations.size(); k++)
+        {
+            JSONObject curr = (JSONObject)integrations.get(k);
+            JSONObject attr = (JSONObject)curr.get("@attributes");
+
+            if (((String)attr.get("name")).equals(integration))
+            {
+                JSONArray positions = (JSONArray) ((JSONObject)curr.get("positions")).get("position");
+                for (int i = 0; i < positions.size(); i++)
+                {
+                    JSONObject pos = (JSONObject)positions.get(i);
+
+                    if (((String)((JSONObject)pos.get("@attributes")).get("name")).equals(position))
+                        return new GetForecastValueResponse(((Long)pos.get("value")).doubleValue());
+                }
+            }
+        }
+
+        return new GetForecastValueResponse(-1);
+    }
+
+    public GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest)
+    {
+        String integration = getForecastTimeRequest.getIntegration();
+        String position = getForecastTimeRequest.getPosition();
+
+        JSONObject j = getForecastData();
+        j = (JSONObject)j.get("hpForecast");
+        JSONArray integrations = (JSONArray)j.get("integrations");
+
+        for (int k = 0; k < integrations.size(); k++)
+        {
+            JSONObject curr = (JSONObject)integrations.get(k);
+            JSONObject attr = (JSONObject)curr.get("@attributes");
+
+            if (((String)attr.get("name")).equals(integration))
+            {
+                JSONArray positions = (JSONArray) ((JSONObject)curr.get("positions")).get("position");
+                for (int i = 0; i < positions.size(); i++)
+                {
+                    JSONObject pos = (JSONObject)positions.get(i);
+
+                    if (((String)((JSONObject)pos.get("@attributes")).get("name")).equals(position))
+                        return new GetForecastTimeResponse((String)pos.get("time"));
+                }
+            }
+        }
+
+        return null;
     }
 
     private JSONObject getForecastData()
