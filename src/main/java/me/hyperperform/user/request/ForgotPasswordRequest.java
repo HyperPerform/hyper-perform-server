@@ -12,6 +12,11 @@ public class ForgotPasswordRequest
 
     private String Email;
 
+    public ForgotPasswordRequest()
+    {
+
+    }
+
     public ForgotPasswordRequest(String email)
     {
         Email = email;
