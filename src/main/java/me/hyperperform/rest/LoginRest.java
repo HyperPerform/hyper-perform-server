@@ -9,9 +9,11 @@ import me.hyperperform.reporting.response.GetScoreResponse;
 import me.hyperperform.user.EmployeeRole;
 import me.hyperperform.user.Position;
 import me.hyperperform.user.User;
+import me.hyperperform.user.request.ForgotPasswordRequest;
 import me.hyperperform.user.request.GetManagedListRequest;
 import me.hyperperform.user.request.VerifyLoginRequest;
 import me.hyperperform.user.request.VerifySignUpRequest;
+import me.hyperperform.user.response.ForgotPasswordResponse;
 import me.hyperperform.user.response.GetManagedListResponse;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
@@ -277,4 +279,49 @@ public class LoginRest
         }
         return Response.status(200).entity(list).build();
     }
+
+    @POST
+    @Path("/forgotPassword")
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response forgotPassword(ForgotPasswordRequest forgot)
+    {
+        entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+        entityManager = entityManagerFactory.createEntityManager();
+        entityTransaction = entityManager.getTransaction();
+
+        Query q = entityManager.createQuery("SELECT u FROM User u WHERE userEmail=:email").setParameter("email", forgot.getEmail());
+        List<User> list = q.getResultList();
+
+        ForgotPasswordResponse res = null;
+        String pass = Hash.randPass(6);
+        if (list.size() == 1)
+        {
+            q = entityManager.createQuery("UPDATE User SET userPassword=:pass WHERE userEmail=:email")
+                    .setParameter("email", forgot.getEmail())
+                    .setParameter( "pass", pass);
+
+            entityTransaction.begin();
+            q.executeUpdate();
+            entityTransaction.commit();
+
+            if (mail == null )
+             mail = new Email();
+
+            String body = "Some test : " + pass;
+            res = new ForgotPasswordResponse("Success, you will shortly receive an email");
+            mail.sendMail(forgot.getEmail(), "Hello there ", body);
+
+        }
+        else
+        {
+            res = new ForgotPasswordResponse("Error: You are not registered with Hyperperform");
+
+
+        }
+
+
+        return Response.status(200).entity(res).build();
+    }
+
 }
