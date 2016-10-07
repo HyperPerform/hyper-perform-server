@@ -1,6 +1,7 @@
 package me.hyperperform;
 
 import java.security.MessageDigest;
+import java.util.Random;
 
 /**
  * hyperperform-system
@@ -35,4 +36,19 @@ public class Hash
         }
         return "";
     }
+
+    public static String randPass(int length)
+    {
+        String alphabet = new String("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
+        int n = alphabet.length();
+
+        String result = new String();
+        Random r = new Random();
+
+        for (int i=0; i<length; i++)
+            result = result + alphabet.charAt(r.nextInt(n));
+
+        return result;
+    }
+
 }
