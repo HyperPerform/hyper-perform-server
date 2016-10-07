@@ -10,6 +10,10 @@ public class ForgotPasswordResponse
 {
     String result;
 
+    public ForgotPasswordResponse()
+    {
+
+    }
     public ForgotPasswordResponse(String result)
     {
         this.result = result;
