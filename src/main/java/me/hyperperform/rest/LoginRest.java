@@ -3,7 +3,6 @@ package me.hyperperform.rest;
 import me.hyperperform.Hash;
 import me.hyperperform.notifications.Email;
 import me.hyperperform.reporting.IReport;
-import me.hyperperform.reporting.request.GetDetailsRequest;
 import me.hyperperform.reporting.request.GetScoreRequest;
 import me.hyperperform.reporting.response.GetScoreResponse;
 import me.hyperperform.user.EmployeeRole;
@@ -15,7 +14,6 @@ import me.hyperperform.user.request.VerifySignUpRequest;
 import me.hyperperform.user.response.GetManagedListResponse;
 import me.hyperperform.user.response.VerifyLoginResponse;
 import me.hyperperform.user.response.VerifySignUpResponse;
-import org.jboss.logging.annotations.Pos;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -176,22 +174,67 @@ public class LoginRest
         entityManager.getTransaction().begin();
         entityManager.persist(user);
         entityManager.getTransaction().commit();
-        String body = "<!DOCTYPE html>" +
-                "<html>" +
-                "" +
-                "<body>" +
-                "<h2>Dear: <span style='color: #3C878D'>" + sign.getUserName() + "</span></h2>" +
-                "You have recently been added to our system.<br/>" +
-                "Please find your password at the bottom<br/>" +
-                "<br/>" +
-                "<a href='https://dashboard.hyperperform.me'><i>Visit Dashboard</i></a><br/><br/>" +
-                "Password: <b>" + sign.getUserPassword() + " </b>" +
+
+        String body = "<div>" +
+        "<div class=\"center\">" +
+        "<table cellpadding=\"0\" cellspacing=\"0\" width=\"682px\">" +
+            "<tbody>" +
+        "<tr>" +
+        "<td>" +
+        "<div class=\"log-title\" align=\"center\">" +
+            "<img class=\"main-logo\" src=\"assets/Logo2.png\" height=\"50px\" alt=\"Logo\" style=\"display: inline;\">" +
+        "<span id=\"hyper\" style=\"color: #1F968B;\"> Hyper</span><span id=\"perform\">Perform</span>" +
+        "</div>" +
+            "</td>" +
+        "</tr>" +
+        "<tr>" +
+        "<td valign=\"top\">" +
+            "<table cellpadding=\"0\" cellspacing=\"0\" width=\"682px\" style=\"width:682px;height:263px;background-color:#fff;border-left:solid 1px #999894;border-right:solid 1px #999894\">" +
+            "<tbody>" +
+        "<tr>" +
+        "<td valign=\"top\" align=\"left\">" +
+            "<table cellpadding=\"25\" width=\"90%\">" +
+            "<tbody>" +
+        "<tr>" +
+        "<td>" +
+        "<h3> Dear " + sign.getUserName() + " </h3>" +
+        "<p> You have been added to the HyperPerform system please find your details below to login:</p>" +
+        "<p>Email: " + sign.getUserEmail() + "</p>" +
+        "<p>Password: " + sign.getUserPassword() + "</p>" +
                 "<br/><br/><br/>" +
                 "Kind Regards<br/>" +
                 "<b>Hyperperformteam</b><br/>" +
                 "<img src='https://dashboard.hyperperform.me/assets/Logo2.png' height='30' width='30' style='top: 2%;text-align: center;'>" +
-                "</body>" +
-                "</html>";
+        "</td>" +
+        "</tr>" +
+        "</tbody>" +
+        "</table>" +
+        "</td>" +
+        "</tr>" +
+        "</tbody>" +
+        "</table>" +
+        "</td>" +
+        "</tr>" +
+        "</tbody>" +
+        "</table>" +
+        "</div>" +
+        "</div>";
+//        String body = "<!DOCTYPE html>" +
+//                "<html>" +
+//                "" +
+//                "<body>" +
+//                "<h2>Dear: <span style='color: #3C878D'>" + sign.getUserName() + "</span></h2>" +
+//                "You have recently been added to our system.<br/>" +
+//                "Please find your password at the bottom<br/>" +
+//                "<br/>" +
+//                "<a href='https://dashboard.hyperperform.me'><i>Visit Dashboard</i></a><br/><br/>" +
+//                "Password: <b>" + sign.getUserPassword() + " </b>" +
+//                "<br/><br/><br/>" +
+//                "Kind Regards<br/>" +
+//                "<b>Hyperperformteam</b><br/>" +
+//                "<img src='https://dashboard.hyperperform.me/assets/Logo2.png' height='30' width='30' style='top: 2%;text-align: center;'>" +
+//                "</body>" +
+//                "</html>";
 
         if (mail == null)
         {
