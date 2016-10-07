@@ -180,14 +180,14 @@ public class LoginRest
         "<table cellpadding=\"0\" cellspacing=\"0\" width=\"682px\">" +
             "<tbody>" +
         "<tr>" +
-        "<td>" +
-        "<div class=\"log-title\" align=\"center\">" +
-            "<img class=\"main-logo\" src=\"assets/Logo2.png\" height=\"50px\" alt=\"Logo\" style=\"display: inline;\">" +
-        "<span id=\"hyper\" style=\"color: #1F968B;\"> Hyper</span><span id=\"perform\">Perform</span>" +
-        "</div>" +
+             "<td style=\"background-color: rgba(0,0,0, 0.85);\">" +
+                "<div style=\"margin-left:28%;\">" +
+                     "<img src=\"https://dashboard.hyperperform.me/assets/hyperperform_text.png\" height=\"100px\" alt=\"Logo\" style=\"display: inline; alt=\"HyperPerform\" margin-left: -1.5%;\">" +
+                "</div>" +
+                    "<br/><br/>" +
             "</td>" +
         "</tr>" +
-        "<tr>" +
+        "<tr style=\"position: absolute; margin-top: -2%\">" +
         "<td valign=\"top\">" +
             "<table cellpadding=\"0\" cellspacing=\"0\" width=\"682px\" style=\"width:682px;height:263px;background-color:#fff;border-left:solid 1px #999894;border-right:solid 1px #999894\">" +
             "<tbody>" +
@@ -203,8 +203,7 @@ public class LoginRest
         "<p>Password: " + sign.getUserPassword() + "</p>" +
                 "<br/><br/><br/>" +
                 "Kind Regards<br/>" +
-                "<b>Hyperperformteam</b><br/>" +
-                "<img src='https://dashboard.hyperperform.me/assets/Logo2.png' height='30' width='30' style='top: 2%;text-align: center;'>" +
+                "<b>HyperPerform Team</b><br/>" +
         "</td>" +
         "</tr>" +
         "</tbody>" +
