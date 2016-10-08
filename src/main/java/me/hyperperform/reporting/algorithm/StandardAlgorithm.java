@@ -49,7 +49,6 @@ public class StandardAlgorithm implements Algorithm
 
         /*-------------------Mapping Email to name----------------------*/
         Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", calculateScoreRequest.getName());
-//        getScoreRequest.setName((String)q.getSingleResult());
         String gitUserName = (String)q.getSingleResult();
         //*--------------------------------------------------------------*
 
@@ -72,13 +71,12 @@ public class StandardAlgorithm implements Algorithm
 
         double avg = (double) totalCommits / (double) time;
         avg /= forecastValue;
-        long tmp = (long) (avg * 10000.0);
+        tmp = (long) (avg * 10000.0);
 
-        getSummaryResponse.setGithub((double) (tmp) / 100.0);
-
-
-
+        double git = (double) (tmp) / 100.0;
         /*---------------------------------------------------------------------*/
+
+
 
         /*----------------------   Travis   -----------------------------------*/
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
@@ -90,7 +88,12 @@ public class StandardAlgorithm implements Algorithm
         long failed = (tmp == null) ? 1 : tmp;
         /*---------------------------------------------------------------------*/
 
-        double score = (0.5*(sumCommits/(5.0*numOfDays))) + (0.5*((double)passed/(passed+failed)));
+
+
+        /*---------------------------------------------------------------------*/
+        /*-------------------      Score  Generation    -----------------------*/
+        /*---------------------------------------------------------------------*/
+        double score = (0.5*(git/(5.0*numOfDays))) + (0.5*((double)passed/(passed+failed)));
 
         score = scale(score, 0.0, 5.0);
 
@@ -99,6 +102,8 @@ public class StandardAlgorithm implements Algorithm
 
         return new CalculateScoreResponse((Double.isNaN(score)) ? 0.0 : score);
     }
+
+
     private String getPosition(String user) {
         Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
         Position p = (Position) q.getSingleResult();
@@ -111,6 +116,11 @@ public class StandardAlgorithm implements Algorithm
         if (time.equals("week"))
         {
             return days/7;
+        }
+
+        if (time.equals("month"))
+        {
+            return days/30;
         }
 
         return days;
