@@ -54,26 +54,26 @@ public class StandardAlgorithm implements Algorithm
 
 
         long numOfDays = TimeUnit.DAYS.convert(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime(), TimeUnit.MILLISECONDS);
+        long time = TimeUnit.MILLISECONDS.toDays(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime());
 
         /*----------------------   GitHub   -----------------------------------*/
         q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
 
         Long tmp = (Long)q.getSingleResult();
         long totalCommits = (tmp == null) ? 0 : tmp;
-        long time = TimeUnit.MILLISECONDS.toDays(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime());
-
 
         GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
-        time = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+        long timeGit = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
         GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
         double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
-        double avg = (double) totalCommits / (double) time;
+        double avg = (double) totalCommits / (double) timeGit;
         avg /= forecastValue;
         tmp = (long) (avg * 10000.0);
 
         double git = (double) (tmp) / 100.0;
+        System.out.println("\n\nGit: " + git );
         /*---------------------------------------------------------------------*/
 
 
@@ -86,6 +86,24 @@ public class StandardAlgorithm implements Algorithm
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Failed')").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
         tmp = (Long)q.getSingleResult();
         long failed = (tmp == null) ? 1 : tmp;
+
+
+        getForecastTimeRequest = new GetForecastTimeRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
+        long timeTravis = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+
+        getForecastValueRequest = new GetForecastValueRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
+        forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
+
+        avg = (double) passed / (double)(passed+failed);
+        avg *= 100.0;
+
+        double travis = avg - forecastValue;
+//        avg = (double) passed / (double) timeTravis;
+//        avg /= forecastValue;
+//        tmp = (long) (avg * 10000.0);
+//
+//        double travis = (double) (tmp) / 100.0;
+//        System.out.println("\n\nTravis: " + travis );
         /*---------------------------------------------------------------------*/
 
 
@@ -93,7 +111,7 @@ public class StandardAlgorithm implements Algorithm
         /*---------------------------------------------------------------------*/
         /*-------------------      Score  Generation    -----------------------*/
         /*---------------------------------------------------------------------*/
-        double score = (0.5*(git/(5.0*numOfDays))) + (0.5*((double)passed/(passed+failed)));
+        double score = (0.5*(git)) + (0.5*(travis));
 
         score = scale(score, 0.0, 5.0);
 
@@ -113,13 +131,16 @@ public class StandardAlgorithm implements Algorithm
 
     private long convertDays(long days, String time)
     {
+        System.out.println("D: " + days + "  " + time);
         if (time.equals("week"))
         {
+            if (days != 0)
             return days/7;
         }
 
         if (time.equals("month"))
         {
+            if (days != 0)
             return days/30;
         }
 
