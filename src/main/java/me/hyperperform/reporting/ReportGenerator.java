@@ -121,8 +121,8 @@ public class ReportGenerator implements IReport {
 //        double closeRate = ((double) closed / (double) assigned) * 100.0;
 //        int roundTmp2 = (int) (closeRate * 100.0);
 //        closeRate = roundTmp2 / 100.0;
-        double ratio = ( (assigned == null) || (assigned == 0) ) ? 0 : ((double)(closed/assigned) * 100.0);
-
+        double ratio = ( (assigned == null) || (assigned == 0) ) ? 0 : (((double)closed/(double)assigned) * 100.0);
+//        System.out.println("\n\n" +assigned + "\n\n" + closed + "\n\n" + ratio);
         getSummaryResponse.setIssues(ratio );
         /*--------------------------------------------------------------*/
 
