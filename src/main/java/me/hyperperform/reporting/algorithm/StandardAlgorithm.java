@@ -47,7 +47,7 @@ public class StandardAlgorithm implements Algorithm
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
-        if (forecasting == null) forecasting = new Forecasting();
+//        if (forecasting == null) forecasting = new Forecasting();
 
         /*-------------------Mapping Email to name----------------------*/
         Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", calculateScoreRequest.getName());
@@ -105,7 +105,7 @@ public class StandardAlgorithm implements Algorithm
 //        tmp = (long) (avg * 10000.0);
 //
 //        double travis = (double) (tmp) / 100.0;
-//        System.out.println("\n\nTravis: " + travis );
+        System.out.println("\n\nTravis: " + travis );
         /*---------------------------------------------------------------------*/
 
 
