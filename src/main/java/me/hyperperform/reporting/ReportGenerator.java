@@ -76,24 +76,24 @@ public class ReportGenerator implements IReport {
         /*---------------------------Github-----------------------------*/
         q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
 
-        long time = TimeUnit.MILLISECONDS.toDays(getSummaryRequest.getEndDate().getTime() - getSummaryRequest.getStartDate().getTime());
+//        long time = TimeUnit.MILLISECONDS.toDays(getSummaryRequest.getEndDate().getTime() - getSummaryRequest.getStartDate().getTime());
         Long totalCommits = (Long) q.getSingleResult();
 
-        if (totalCommits != null)
-        {
-            GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", getPosition(getSummaryRequest.getName()));
-            time = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
-
-            GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", getPosition(getSummaryRequest.getName()));
-            double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
-
-            double avg = (double) totalCommits / (double) time;
-            avg /= forecastValue;
-            long tmp = (long) (avg * 10000.0);
-
-            getSummaryResponse.setGithub((double) (tmp) / 100.0);
-        }
-
+//        if (totalCommits != null)
+//        {
+//            GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", getPosition(getSummaryRequest.getName()));
+//            time = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+//
+//            GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", getPosition(getSummaryRequest.getName()));
+//            double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
+//
+//            double avg = (double) totalCommits / (double) time;
+//            avg /= forecastValue;
+//            long tmp = (long) (avg * 10000.0);
+//
+//            getSummaryResponse.setGithub((double) (tmp) / 100.0);
+//        }
+          getSummaryResponse.setGithub( totalCommits == null ? 0 : totalCommits);
         /*--------------------------------------------------------------*/
 
         /*----------------------------Travis-----------------------------*/
@@ -125,13 +125,35 @@ public class ReportGenerator implements IReport {
         /*--------------------------------------------------------------*/
 
         /*--------------------------Entry Exit------------------------*/
-        q = entityManager.createQuery("SELECT COUNT(*) FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
-        long loghours = (Long) q.getSingleResult();
+        q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname)").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", getSummaryRequest.getName());
+        List<AccessEvent> list = q.getResultList();
 
+        long val = 0;
+        for (int k = 0; k < list.size(); k += 2) {
+            Timestamp a = Timestamp.valueOf(list.get(k).getTimestamp());
+            Timestamp b = Timestamp.valueOf(list.get((k + 1 < list.size()) ? k + 1 : k).getTimestamp());
 
-        //@TODO Get management forecast and update
-        System.out.println("\n\n LOG: " + loghours + "\n\n" + "Email: " + getSummaryRequest.getName());
-        getSummaryResponse.setEntryExit(loghours);
+            val += TimeUnit.MILLISECONDS.toHours(b.getTime() - a.getTime());
+        }
+
+//        Long loghours = (Long) q.getSingleResult();
+//        double hours = 0;
+//        if (loghours != null)
+//        {
+//            GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("EntryExit", getPosition(getSummaryRequest.getName()));
+//            time = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+//
+//            GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("EntryExit", getPosition(getSummaryRequest.getName()));
+//            double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
+//
+//
+//            double avg = (double) loghours / (double) time;
+//            avg /= forecastValue;
+//            long tmp = (long) (avg * 10000.0);
+//            hours = (double) tmp / 100.0;
+//            System.out.println("\n\n LOG: " + tmp + "\n\n" + "Email: " + getSummaryRequest.getName());
+//        }
+        getSummaryResponse.setEntryExit( val);
         /*--------------------------------------------------------------*/
 
         return getSummaryResponse;
