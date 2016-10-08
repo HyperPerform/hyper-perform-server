@@ -5,6 +5,7 @@ import me.hyperperform.forecasting.request.GetForecastTimeRequest;
 import me.hyperperform.forecasting.request.GetForecastValueRequest;
 import me.hyperperform.reporting.request.CalculateScoreRequest;
 import me.hyperperform.reporting.response.CalculateScoreResponse;
+import me.hyperperform.user.Position;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -98,7 +99,22 @@ public class StandardAlgorithm implements Algorithm
 
         return new CalculateScoreResponse((Double.isNaN(score)) ? 0.0 : score);
     }
+    private String getPosition(String user) {
+        Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
+        Position p = (Position) q.getSingleResult();
 
+        return (p == null) ? null : p.getType();
+    }
+
+    private long convertDays(long days, String time)
+    {
+        if (time.equals("week"))
+        {
+            return days/7;
+        }
+
+        return days;
+    }
     private double scale(double value, double start, double end)
     {
         return (value*(end-start)) + start;
