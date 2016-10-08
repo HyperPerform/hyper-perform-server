@@ -1,11 +1,15 @@
 package me.hyperperform.reporting.algorithm;
 
+import me.hyperperform.forecasting.IForecasting;
+import me.hyperperform.forecasting.request.GetForecastTimeRequest;
+import me.hyperperform.forecasting.request.GetForecastValueRequest;
 import me.hyperperform.reporting.request.CalculateScoreRequest;
 import me.hyperperform.reporting.response.CalculateScoreResponse;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -24,6 +28,10 @@ public class StandardAlgorithm implements Algorithm
 {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
+
+    @Inject
+    IForecasting forecasting;
+
 
     /**
      * Implementation of the calculateScore found in {@see me.hyperperform.reporting.algorithm.Algorithm}.
@@ -47,14 +55,31 @@ public class StandardAlgorithm implements Algorithm
 
         long numOfDays = TimeUnit.DAYS.convert(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime(), TimeUnit.MILLISECONDS);
 
-        /*---------------------------------------------------------------------*/
+        /*----------------------   GitHub   -----------------------------------*/
         q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
 
         Long tmp = (Long)q.getSingleResult();
-        long sumCommits = (tmp == null) ? 0 : tmp;
-        /*---------------------------------------------------------------------*/
+        long totalCommits = (tmp == null) ? 0 : tmp;
+        long time = TimeUnit.MILLISECONDS.toDays(calculateScoreRequest.getEndDate().getTime() - calculateScoreRequest.getStartDate().getTime());
+
+
+        GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
+        time = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+
+        GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
+        double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
+
+        double avg = (double) totalCommits / (double) time;
+        avg /= forecastValue;
+        long tmp = (long) (avg * 10000.0);
+
+        getSummaryResponse.setGithub((double) (tmp) / 100.0);
+
+
 
         /*---------------------------------------------------------------------*/
+
+        /*----------------------   Travis   -----------------------------------*/
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Passed')").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
         tmp = (Long)q.getSingleResult();
         long passed = (tmp == null) ? 0 : tmp;
