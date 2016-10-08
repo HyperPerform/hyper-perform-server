@@ -199,11 +199,11 @@ public class LoginRest
             "<tbody>" +
         "<tr>" +
         "<td>" +
-        "<h3> Dear " + sign.getUserName() + " </h3>" +
-        "<p> You have been added to the HyperPerform system please find your details below to login:</p>" +
+        "<h3> Dear <span style=\"color: #999894\">" + sign.getUserName() + "</span></h3>" +
+        "<p> You have been added to the HyperPerform system. To view your performance, please navigate <a href=\"https://dashboard.hyperperform.me\"> here </a> and login with the details given below:</p>" +
         "<p>Email: " + sign.getUserEmail() + "</p>" +
         "<p>Password: " + sign.getUserPassword() + "</p>" +
-                "<br/><br/><br/>" +
+                "<br/><br/>" +
                 "Kind Regards<br/>" +
                 "<b>HyperPerform Team</b><br/>" +
         "</td>" +
@@ -240,9 +240,9 @@ public class LoginRest
         if (mail == null)
         {
             mail = new Email();
-            mail.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
+            mail.sendMail(sign.getUserEmail(), "Welcome to HyperPerform " + sign.getUserName(), body);
         }
-        else mail.sendMail(sign.getUserEmail(), "Welcome to Hyperperform " + sign.getUserName(), body);
+        else mail.sendMail(sign.getUserEmail(), "Welcome to HyperPerform " + sign.getUserName(), body);
 
 
         return Response.status(200).entity("Success").build();
@@ -374,11 +374,11 @@ public class LoginRest
                     "<tbody>" +
                     "<tr>" +
                     "<td>" +
-                    "<h3> Dear " + list.get(0).getName() + " </h3>" +
-                    "<p> You have requested a new password for our HyperPerform system please find your details below to login:</p>" +
+                    "<h3> Dear <span style=\"color: #999894\">" + list.get(0).getName() + "</span> </h3>" +
+                    "<p> You have requested a new password for our HyperPerform system. Please find your details below to login:</p>" +
                     "<p>Email: " + list.get(0).getUserEmail() + "</p>" +
                     "<p>Password: " + pass + "</p>" +
-                    "<br/><br/><br/>" +
+                    "<br/>" +
                     "Kind Regards<br/>" +
                     "<b>HyperPerform Team</b><br/>" +
                     "</td>" +
@@ -401,9 +401,7 @@ public class LoginRest
         }
         else
         {
-            res = new ForgotPasswordResponse("Error: You are not registered with Hyperperform");
-
-
+            res = new ForgotPasswordResponse("Error: You are not registered with HyperPerform");
         }
 
 
