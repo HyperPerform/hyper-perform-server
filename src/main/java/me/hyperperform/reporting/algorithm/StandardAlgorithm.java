@@ -1,5 +1,6 @@
 package me.hyperperform.reporting.algorithm;
 
+import me.hyperperform.forecasting.Forecasting;
 import me.hyperperform.forecasting.IForecasting;
 import me.hyperperform.forecasting.request.GetForecastTimeRequest;
 import me.hyperperform.forecasting.request.GetForecastValueRequest;
@@ -46,6 +47,7 @@ public class StandardAlgorithm implements Algorithm
     {
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
+        if (forecasting == null) forecasting = new Forecasting();
 
         /*-------------------Mapping Email to name----------------------*/
         Query q = entityManager.createQuery("SELECT a.gitUserName FROM User a WHERE userEmail=:email").setParameter("email", calculateScoreRequest.getName());
@@ -107,11 +109,20 @@ public class StandardAlgorithm implements Algorithm
         /*---------------------------------------------------------------------*/
 
 
+        /*----------------------   Issues   -----------------------------------*/
+        double issues = 0.0;
+        /*---------------------------------------------------------------------*/
+
+        /*----------------------   Entry   -----------------------------------*/
+         double entry = 0.0;
+        /*---------------------------------------------------------------------*/
+
+
 
         /*---------------------------------------------------------------------*/
         /*-------------------      Score  Generation    -----------------------*/
         /*---------------------------------------------------------------------*/
-        double score = (0.5*(git)) + (0.5*(travis));
+        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
 
         score = scale(score, 0.0, 5.0);
 
