@@ -93,6 +93,7 @@ public class ReportGenerator implements IReport {
 //
 //            getSummaryResponse.setGithub((double) (tmp) / 100.0);
 //        }
+
           getSummaryResponse.setGithub( totalCommits == null ? 0 : totalCommits);
         /*--------------------------------------------------------------*/
 
@@ -112,16 +113,17 @@ public class ReportGenerator implements IReport {
 
         /*--------------------------Bug Tracking------------------------*/
         q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'assigned')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
-        long assigned = (Long) q.getSingleResult();
+        Long assigned = (Long) q.getSingleResult();
 
         q = entityManager.createQuery("SELECT COUNT(a.action) FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action LIKE 'closed')").setParameter("startDate", getSummaryRequest.getStartDate()).setParameter("endDate", getSummaryRequest.getEndDate()).setParameter("uname", gitUserName);
-        long closed = (Long) q.getSingleResult();
+        Long closed = (Long) q.getSingleResult();
+//
+//        double closeRate = ((double) closed / (double) assigned) * 100.0;
+//        int roundTmp2 = (int) (closeRate * 100.0);
+//        closeRate = roundTmp2 / 100.0;
+        double ratio = ( (assigned == null) || (assigned == 0) ) ? 0 : ((double)(closed/assigned) * 100.0);
 
-        double closeRate = ((double) closed / (double) assigned) * 100.0;
-        int roundTmp2 = (int) (closeRate * 100.0);
-        closeRate = roundTmp2 / 100.0;
-
-        getSummaryResponse.setIssues(closeRate);
+        getSummaryResponse.setIssues(ratio );
         /*--------------------------------------------------------------*/
 
         /*--------------------------Entry Exit------------------------*/
