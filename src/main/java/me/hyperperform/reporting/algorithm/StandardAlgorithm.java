@@ -71,7 +71,7 @@ public class StandardAlgorithm implements Algorithm
         double avg = (double) totalCommits / (double) timeGit;
         double git = avg/forecastValue;
 
-        System.out.println("\n\nGit: " + git );
+        System.out.println("\n\nGit: " + git + " forecasted: " + forecastValue + " average: " + avg);
         /*---------------------------------------------------------------------*/
 
 
@@ -86,13 +86,13 @@ public class StandardAlgorithm implements Algorithm
         long failed = (tmp == null) ? 1 : tmp;
 
         getForecastValueRequest = new GetForecastValueRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
-        forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
+        forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue()/100.0;
 
         avg = (double) passed / (double)(passed+failed);
 
         double travis = avg/forecastValue;
 
-        System.out.println("\n\nTravis: " + travis );
+        System.out.println("\n\nTravis: " + travis + " forecasted: " + forecastValue + " Average: " + avg);
         /*---------------------------------------------------------------------*/
 
         /*----------------------   Issues   -----------------------------------*/
