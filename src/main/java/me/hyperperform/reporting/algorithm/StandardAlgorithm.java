@@ -1,5 +1,6 @@
 package me.hyperperform.reporting.algorithm;
 
+import me.hyperperform.event.EntryExit.AccessEvent;
 import me.hyperperform.forecasting.Forecasting;
 import me.hyperperform.forecasting.IForecasting;
 import me.hyperperform.forecasting.request.GetForecastTimeRequest;
@@ -18,6 +19,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -101,6 +104,29 @@ public class StandardAlgorithm implements Algorithm
 
         /*----------------------   Entry   -----------------------------------*/
          double entry = 0.0;
+
+        q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname) order by timestamp").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", calculateScoreRequest.getName());
+        List<AccessEvent> list = (List<AccessEvent>) q.getResultList();
+
+        double totalHours = 0.0;
+        for (int k = 0; k < list.size(); k += 2)
+        {
+            Timestamp checkIn = Timestamp.valueOf(list.get(k).getTimestamp());
+            Timestamp checkOut = Timestamp.valueOf(list.get(k+1).getTimestamp());
+
+            totalHours += (double) TimeUnit.MILLISECONDS.toHours(checkOut.getTime() - checkIn.getTime());
+        }
+
+        getForecastTimeRequest.setIntegration("EntryExit");
+        double entryExitTime = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+
+        getForecastValueRequest.setIntegration("EntryExit");
+        double entryExitForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
+
+        entry = totalHours/entryExitTime;
+        entry /= entryExitForecast;
+
+        System.out.println("Value: " + entry + " forecast: " + entryExitForecast + " average: " + totalHours/entryExitTime);
         /*---------------------------------------------------------------------*/
 
 
