@@ -12,6 +12,7 @@ public class TravisDetails
 {
     private int size;
     private ArrayList<ArrayList<TravisEvent>> data;
+    private ArrayList<GraphData> graphData;
 
     public TravisDetails(int size, ArrayList<ArrayList<TravisEvent>> data) {
         this.size = size;
