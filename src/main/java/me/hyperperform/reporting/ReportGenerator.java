@@ -189,7 +189,7 @@ public class ReportGenerator implements IReport {
 
             ArrayList<String> repos = new ArrayList<String>();
             ArrayList<ArrayList<TravisEvent>> data = new ArrayList<ArrayList<TravisEvent>>();
-            ArrayList<Double> graphData = new ArrayList<Double>();
+            ArrayList<Double[]> graphData = new ArrayList<Double[]>();
 
             for (int k = 0; k < result.size(); k++) {
                 TravisEvent curr = result.get(k);
@@ -222,14 +222,7 @@ public class ReportGenerator implements IReport {
                         failed++;
                 }
 
-                if ((passed+failed) == 0)
-                    failed = 1;
-
-                double successRate = ((double) passed / (double) (passed + failed)) * 100.0;
-                int roundTmp = (int) (successRate * 100.0);
-                successRate = roundTmp / 100.0;
-
-                graphData.add(successRate);
+                graphData.add(new Double[] {passed, failed});
             }
 
             getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data, graphData));
