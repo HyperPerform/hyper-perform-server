@@ -70,7 +70,7 @@ public class StandardAlgorithm implements Algorithm
 
         double avg = (double) totalCommits / (double) timeGit;
         double git = avg/forecastValue;
-        
+
         System.out.println("\n\nGit: " + git );
         /*---------------------------------------------------------------------*/
 
@@ -84,10 +84,6 @@ public class StandardAlgorithm implements Algorithm
         q = entityManager.createQuery("SELECT COUNT(a.status) FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (status LIKE 'Failed')").setParameter("startDate", calculateScoreRequest.getStartDate()).setParameter("endDate", calculateScoreRequest.getEndDate()).setParameter("uname", gitUserName);
         tmp = (Long)q.getSingleResult();
         long failed = (tmp == null) ? 1 : tmp;
-
-
-        getForecastTimeRequest = new GetForecastTimeRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
-        long timeTravis = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
         getForecastValueRequest = new GetForecastValueRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
         forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
