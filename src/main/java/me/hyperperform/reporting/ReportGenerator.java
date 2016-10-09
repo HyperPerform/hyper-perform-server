@@ -362,10 +362,10 @@ public class ReportGenerator implements IReport {
         calculateScoreRequest.setStartDate(getScoreRequest.getStartDate());
         calculateScoreRequest.setEndDate(getScoreRequest.getEndDate());
 
-        String userPosition = getPosition(getScoreRequest.getName());
+        Position userPosition = getPosition(getScoreRequest.getName());
         Algorithm algorithm = null;
 
-        if (userPosition.equals(Position.SoftwareDeveloper.getType()))
+        if (userPosition == Position.SoftwareDeveloper)
             algorithm = new StandardAlgorithm();
 
         CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
@@ -383,11 +383,11 @@ public class ReportGenerator implements IReport {
         return new GetScoreResponse(score, performance);
     }
 
-    private String getPosition(String user) {
+    private Position getPosition(String user) {
         Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
         Position p = (Position) q.getSingleResult();
 
-        return (p == null) ? null : p.getType();
+        return (p == null) ? null : p;
     }
 
     private long convertDays(long days, String time)
