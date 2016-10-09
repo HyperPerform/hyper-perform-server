@@ -222,6 +222,9 @@ public class ReportGenerator implements IReport {
                         failed++;
                 }
 
+                if ((passed+failed) == 0)
+                    failed = 1;
+
                 double successRate = ((double) passed / (double) (passed + failed)) * 100.0;
                 int roundTmp = (int) (successRate * 100.0);
                 successRate = roundTmp / 100.0;
