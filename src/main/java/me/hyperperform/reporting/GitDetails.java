@@ -15,9 +15,9 @@ public class GitDetails
     private int size;
     private ArrayList<ArrayList<GitPush>> data;
     private ArrayList<GraphData<String, Long>> graphData;
-    private int totalCommits;
+    private long totalCommits;
 
-    public GitDetails(int size, ArrayList<ArrayList<GitPush>> data, ArrayList<GraphData<String, Long>> graphData, int totalCommits) {
+    public GitDetails(int size, ArrayList<ArrayList<GitPush>> data, ArrayList<GraphData<String, Long>> graphData, long totalCommits) {
         this.size = size;
         this.data = data;
         this.graphData = graphData;
@@ -48,11 +48,11 @@ public class GitDetails
         this.graphData = graphData;
     }
 
-    public int getTotalCommits() {
+    public long getTotalCommits() {
         return totalCommits;
     }
 
-    public void setTotalCommits(int totalCommits) {
+    public void setTotalCommits(long totalCommits) {
         this.totalCommits = totalCommits;
     }
 }
