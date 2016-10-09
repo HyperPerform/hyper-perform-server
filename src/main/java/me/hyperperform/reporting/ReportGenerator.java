@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.persistence.*;
 import java.sql.Time;
@@ -35,8 +36,6 @@ import java.util.concurrent.TimeUnit;
 public class ReportGenerator implements IReport {
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-
-    private Algorithm algorithm;
 
     @Inject
     IForecasting forecasting;
@@ -222,7 +221,7 @@ public class ReportGenerator implements IReport {
                         failed++;
                 }
 
-                graphData.add(new Double[] {passed, failed});
+                graphData.add(new Double[]{passed, failed});
             }
 
             getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data, graphData));
@@ -363,7 +362,7 @@ public class ReportGenerator implements IReport {
         calculateScoreRequest.setStartDate(getScoreRequest.getStartDate());
         calculateScoreRequest.setEndDate(getScoreRequest.getEndDate());
 
-        algorithm = new StandardAlgorithm();
+        Algorithm algorithm = new StandardAlgorithm();
 
         CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
 
