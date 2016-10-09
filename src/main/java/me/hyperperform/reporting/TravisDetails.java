@@ -14,9 +14,10 @@ public class TravisDetails
     private ArrayList<ArrayList<TravisEvent>> data;
     private ArrayList<Double> graphData;
 
-    public TravisDetails(int size, ArrayList<ArrayList<TravisEvent>> data) {
+    public TravisDetails(int size, ArrayList<ArrayList<TravisEvent>> data, ArrayList<Double> graphData) {
         this.size = size;
         this.data = data;
+        this.graphData = graphData;
     }
 
     public int getSize() {
