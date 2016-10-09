@@ -95,7 +95,6 @@ public class StandardAlgorithm implements Algorithm
         System.out.println("\n\nTravis: " + travis );
         /*---------------------------------------------------------------------*/
 
-
         /*----------------------   Issues   -----------------------------------*/
         double issues = 0.0;
         /*---------------------------------------------------------------------*/
@@ -109,9 +108,11 @@ public class StandardAlgorithm implements Algorithm
         /*---------------------------------------------------------------------*/
         /*-------------------      Score  Generation    -----------------------*/
         /*---------------------------------------------------------------------*/
-        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
+//        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
+        double score = git + travis + issues + entry;
 
-        score = scale(score, 0.0, 5.0);
+
+        score = scale(score, 4.0, 0.0, 5.0);
 
         entityManager.close();
         entityManagerFactory.close();
@@ -146,8 +147,9 @@ public class StandardAlgorithm implements Algorithm
 
         return days;
     }
-    private double scale(double value, double start, double end)
+    private double scale(double value, double total, double start, double end)
     {
+        value /= total;
         return (value*(end-start)) + start;
     }
 }
