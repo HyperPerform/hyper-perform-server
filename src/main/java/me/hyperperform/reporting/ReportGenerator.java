@@ -362,7 +362,11 @@ public class ReportGenerator implements IReport {
         calculateScoreRequest.setStartDate(getScoreRequest.getStartDate());
         calculateScoreRequest.setEndDate(getScoreRequest.getEndDate());
 
-        Algorithm algorithm = new StandardAlgorithm();
+        String userPosition = getPosition(getScoreRequest.getName());
+        Algorithm algorithm = null;
+
+        if (userPosition.equals(Position.SoftwareDeveloper.getType()))
+            algorithm = new StandardAlgorithm();
 
         CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
 
