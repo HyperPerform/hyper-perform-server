@@ -33,6 +33,13 @@ public class Forecasting implements IForecasting
     
     public GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         GetIntegrationsResponse getIntegrationsResponse = new GetIntegrationsResponse();
 
         JSONObject j = getForecastData();
@@ -47,6 +54,13 @@ public class Forecasting implements IForecasting
 
     public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         UpdateIntegrationResponse updateIntegrationResponse = new UpdateIntegrationResponse();
 
         try
@@ -83,6 +97,13 @@ public class Forecasting implements IForecasting
 
     public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         AddIntegrationResponse addIntegrationResponse = new AddIntegrationResponse();
         addIntegrationResponse.setAdded(true);
 
@@ -125,6 +146,13 @@ public class Forecasting implements IForecasting
 
     public DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         DeleteIntegrationResponse deleteIntegrationResponse = new DeleteIntegrationResponse();
         deleteIntegrationResponse.setDeleted(false);
 
@@ -155,6 +183,13 @@ public class Forecasting implements IForecasting
 
     public GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         String integration = getForecastValueRequest.getIntegration();
         String position = getForecastValueRequest.getPosition();
 
@@ -185,6 +220,13 @@ public class Forecasting implements IForecasting
 
     public GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest)
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         String integration = getForecastTimeRequest.getIntegration();
         String position = getForecastTimeRequest.getPosition();
 
@@ -215,6 +257,13 @@ public class Forecasting implements IForecasting
 
     private JSONObject getForecastData()
     {
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         try
         {
             Query q = entityManager.createQuery("select a.data from ForecastData a");
@@ -233,6 +282,14 @@ public class Forecasting implements IForecasting
 
     private void setForecastData(JSONObject j)
     {
+
+        if (entityManager == null)
+        {
+            entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+            entityManager = entityManagerFactory.createEntityManager();
+            entityTransaction = entityManager.getTransaction();
+        }
+
         try
         {
             Query q = entityManager.createQuery("Update ForecastData set data=:jsonData")
