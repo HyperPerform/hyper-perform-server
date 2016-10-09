@@ -89,14 +89,9 @@ public class StandardAlgorithm implements Algorithm
         forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
         avg = (double) passed / (double)(passed+failed);
-        avg *= 100.0;
 
-        double travis = avg - forecastValue;
-//        avg = (double) passed / (double) timeTravis;
-//        avg /= forecastValue;
-//        tmp = (long) (avg * 10000.0);
-//
-//        double travis = (double) (tmp) / 100.0;
+        double travis = avg/forecastValue;
+
         System.out.println("\n\nTravis: " + travis );
         /*---------------------------------------------------------------------*/
 
