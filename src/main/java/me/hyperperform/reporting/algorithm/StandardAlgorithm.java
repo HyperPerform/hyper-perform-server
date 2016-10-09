@@ -65,10 +65,10 @@ public class StandardAlgorithm implements Algorithm
         Long tmp = (Long)q.getSingleResult();
         long totalCommits = (tmp == null) ? 0 : tmp;
 
-        GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
+        GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", Position.SoftwareDeveloper.getType());
         long timeGit = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
-        GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", getPosition(calculateScoreRequest.getName()));
+        GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", Position.SoftwareDeveloper.getType());
         double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
         double avg = (double) totalCommits / (double) timeGit;
@@ -88,7 +88,7 @@ public class StandardAlgorithm implements Algorithm
         tmp = (Long)q.getSingleResult();
         long failed = (tmp == null) ? 1 : tmp;
 
-        getForecastValueRequest = new GetForecastValueRequest("TravisBuild", getPosition(calculateScoreRequest.getName()));
+        getForecastValueRequest.setIntegration("TravisBuild");
         forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue()/100.0;
 
         avg = (double) passed / (double)(passed+failed);
@@ -149,13 +149,11 @@ public class StandardAlgorithm implements Algorithm
         /*---------------------------------------------------------------------*/
 
 
-
         /*---------------------------------------------------------------------*/
         /*-------------------      Score  Generation    -----------------------*/
         /*---------------------------------------------------------------------*/
 //        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
         double score = git + travis + issues + entry;
-
 
         score = scale(score, 4.0, 0.0, 5.0);
 
@@ -163,8 +161,7 @@ public class StandardAlgorithm implements Algorithm
         entityManagerFactory.close();
 
         return new CalculateScoreResponse((Double.isNaN(score)) ? 0.0 : score);
-
-//        return new CalculateScoreResponse(0.0);
+        
     }
 
 
