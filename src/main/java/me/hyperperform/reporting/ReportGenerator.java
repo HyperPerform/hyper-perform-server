@@ -180,7 +180,9 @@ public class ReportGenerator implements IReport {
 
         if (getDetailsRequest.getType().equals("travis")) {
             System.out.println("------------------------------------------------");
-            System.out.println("Generating report for travis");
+            System.out.println("Generating report for travis: " + gitUserName);
+            System.out.println("Start: " + getDetailsRequest.getStartDate());
+            System.out.println("End: " + getDetailsRequest.getEndDate());
             System.out.println("------------------------------------------------");
 
             Query q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
@@ -227,6 +229,13 @@ public class ReportGenerator implements IReport {
             getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data, graphData));
 
         } else if (getDetailsRequest.getType().equals("git")) {
+            System.out.println("------------------------------------------------");
+            System.out.println("Generating report for Git: " + gitUserName);
+            System.out.println("Start: " + getDetailsRequest.getStartDate());
+            System.out.println("End: " + getDetailsRequest.getEndDate());
+            System.out.println("------------------------------------------------");
+
+
             Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<GitPush> result = q.getResultList();
 
@@ -283,6 +292,13 @@ public class ReportGenerator implements IReport {
             getDetailsResponse.setGitDetails(new GitDetails(data.size(), data, graphData, (totalCommits == null) ? 0 : totalCommits));
 
         } else if (getDetailsRequest.getType().equals("issues")) {
+            System.out.println("------------------------------------------------");
+            System.out.println("Generating report for Issues: " + gitUserName);
+            System.out.println("Start: " + getDetailsRequest.getStartDate());
+            System.out.println("End: " + getDetailsRequest.getEndDate());
+            System.out.println("------------------------------------------------");
+
+
             Query q = entityManager.createQuery("SELECT a FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action='closed' OR action='assigned')").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<GitIssue> result = q.getResultList();
 
@@ -302,6 +318,13 @@ public class ReportGenerator implements IReport {
 
             getDetailsResponse.setGitIssueDetails(new GitIssueDetails(data.size(), data));
         } else if (getDetailsRequest.getType().equals("entry")) {
+            System.out.println("------------------------------------------------");
+            System.out.println("Generating report for Entry: " + getDetailsRequest.getName());
+            System.out.println("Start: " + getDetailsRequest.getStartDate());
+            System.out.println("End: " + getDetailsRequest.getEndDate());
+            System.out.println("------------------------------------------------");
+
+
             Query q = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (email=:uname) order by timestamp").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", getDetailsRequest.getName());
             List<AccessEvent> result = q.getResultList();
 
