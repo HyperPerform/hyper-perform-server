@@ -69,10 +69,8 @@ public class StandardAlgorithm implements Algorithm
         double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
         double avg = (double) totalCommits / (double) timeGit;
-        avg /= forecastValue;
-        tmp = (long) (avg * 10000.0);
-
-        double git = (double) (tmp) / 100.0;
+        double git = avg/forecastValue;
+        
         System.out.println("\n\nGit: " + git );
         /*---------------------------------------------------------------------*/
 
