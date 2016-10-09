@@ -34,4 +34,12 @@ public class TravisDetails
     public void setData(ArrayList<ArrayList<TravisEvent>> data) {
         this.data = data;
     }
+
+    public ArrayList<GraphData> getGraphData() {
+        return graphData;
+    }
+
+    public void setGraphData(ArrayList<GraphData> graphData) {
+        this.graphData = graphData;
+    }
 }
