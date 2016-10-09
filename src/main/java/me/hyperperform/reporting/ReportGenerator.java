@@ -277,7 +277,10 @@ public class ReportGenerator implements IReport {
                 graphData.add(new GraphData<String, Long>(xAxis, yAxis));
             }
 
-            getDetailsResponse.setGitDetails(new GitDetails(data.size(), data, graphData));
+            q = entityManager.createQuery("SELECT sum(a.commitSize) FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
+            Long totalCommits = (Long) q.getSingleResult();
+
+            getDetailsResponse.setGitDetails(new GitDetails(data.size(), data, graphData, (totalCommits == null) ? 0 : totalCommits));
 
         } else if (getDetailsRequest.getType().equals("issues")) {
             Query q = entityManager.createQuery("SELECT a FROM GitIssue a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (assignee=:uname) AND (action='closed' OR action='assigned')").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
