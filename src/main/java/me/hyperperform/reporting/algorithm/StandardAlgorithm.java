@@ -100,6 +100,25 @@ public class StandardAlgorithm implements Algorithm
 
         /*----------------------   Issues   -----------------------------------*/
         double issues = 0.0;
+
+        q = entityManager.createQuery("select count(*) from GitIssue where (timestamp between :startDate and :endDate) and (action like 'closed') and (createdBy = :uname or assignee = :uname)")
+                .setParameter("startDate", calculateScoreRequest.getStartDate())
+                .setParameter("endDate", calculateScoreRequest.getEndDate())
+                .setParameter("uname", gitUserName);
+
+        Long totalClosed = (Long)q.getSingleResult();
+        totalClosed = (totalClosed == null) ? 0 : totalClosed;
+
+        getForecastTimeRequest.setIntegration("GitIssues");
+        double issuesTime = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+
+        getForecastValueRequest.setIntegration("GitIssues");
+        double issuesForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
+
+        issues = totalClosed/issuesTime;
+        issues /= issuesForecast;
+
+        System.out.println("\n\n Issue value: " + issues + " forecast: " + issuesForecast + " average: " + totalClosed/issuesTime);
         /*---------------------------------------------------------------------*/
 
         /*----------------------   Entry   -----------------------------------*/
@@ -126,7 +145,7 @@ public class StandardAlgorithm implements Algorithm
         entry = totalHours/entryExitTime;
         entry /= entryExitForecast;
 
-        System.out.println("Value: " + entry + " forecast: " + entryExitForecast + " average: " + totalHours/entryExitTime);
+        System.out.println("\n\n Entry value: " + entry + " forecast: " + entryExitForecast + " average: " + totalHours/entryExitTime);
         /*---------------------------------------------------------------------*/
 
 
