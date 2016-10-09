@@ -189,6 +189,7 @@ public class ReportGenerator implements IReport {
 
             ArrayList<String> repos = new ArrayList<String>();
             ArrayList<ArrayList<TravisEvent>> data = new ArrayList<ArrayList<TravisEvent>>();
+            ArrayList<Double> graphData = new ArrayList<Double>();
 
             for (int k = 0; k < result.size(); k++) {
                 TravisEvent curr = result.get(k);
@@ -199,6 +200,33 @@ public class ReportGenerator implements IReport {
                 }
 
                 data.get(repos.indexOf(curr.getRepo())).add(curr);
+            }
+
+            for (int k = 0; k < repos.size(); k++)
+            {
+                q = entityManager.createQuery("SELECT a FROM TravisEvent a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (commiter=:uname) AND (repo=:repoName))")
+                        .setParameter("startDate", getDetailsRequest.getStartDate())
+                        .setParameter("endDate", getDetailsRequest.getEndDate())
+                        .setParameter("uname", gitUserName)
+                        .setParameter("repoName", repos.get(k));
+
+                double passed = 0;
+                double failed = 0;
+
+                List<TravisEvent> tmp = q.getResultList();
+                for (int i = 0; i < tmp.size(); i++)
+                {
+                    if (tmp.get(i).getStatus().equals("Passed"))
+                        passed++;
+                    else
+                        failed++;
+                }
+
+                double successRate = ((double) passed / (double) (passed + failed)) * 100.0;
+                int roundTmp = (int) (successRate * 100.0);
+                successRate = roundTmp / 100.0;
+
+                graphData.add(successRate);
             }
 
             getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data));
