@@ -12,9 +12,9 @@ public class TravisDetails
 {
     private int size;
     private ArrayList<ArrayList<TravisEvent>> data;
-    private ArrayList<Double> graphData;
+    private ArrayList<Double[]> graphData;
 
-    public TravisDetails(int size, ArrayList<ArrayList<TravisEvent>> data, ArrayList<Double> graphData) {
+    public TravisDetails(int size, ArrayList<ArrayList<TravisEvent>> data, ArrayList<Double[]> graphData) {
         this.size = size;
         this.data = data;
         this.graphData = graphData;
@@ -36,11 +36,11 @@ public class TravisDetails
         this.data = data;
     }
 
-    public ArrayList<Double> getGraphData() {
+    public ArrayList<Double[]> getGraphData() {
         return graphData;
     }
 
-    public void setGraphData(ArrayList<Double> graphData) {
+    public void setGraphData(ArrayList<Double[]> graphData) {
         this.graphData = graphData;
     }
 }
