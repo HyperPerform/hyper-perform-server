@@ -40,7 +40,11 @@ public class StandardAlgorithm implements Algorithm
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-
+    @PreDestroy
+    private void disconnect() {
+        entityManager.close();
+        entityManagerFactory.close();
+    }
 
     /**
      * Implementation of the calculateScore found in {@see me.hyperperform.reporting.algorithm.Algorithm}.
