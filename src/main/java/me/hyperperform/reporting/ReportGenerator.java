@@ -229,7 +229,8 @@ public class ReportGenerator implements IReport {
                 graphData.add(successRate);
             }
 
-            getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data));
+            getDetailsResponse.setTravisDetails(new TravisDetails(data.size(), data, graphData));
+
         } else if (getDetailsRequest.getType().equals("git")) {
             Query q = entityManager.createQuery("SELECT a FROM GitPush a WHERE (timestamp BETWEEN :startDate AND :endDate) AND (username=:uname)").setParameter("startDate", getDetailsRequest.getStartDate()).setParameter("endDate", getDetailsRequest.getEndDate()).setParameter("uname", gitUserName);
             List<GitPush> result = q.getResultList();
