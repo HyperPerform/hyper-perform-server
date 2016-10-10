@@ -3,11 +3,13 @@ package me.hyperperform.user.response;
 import me.hyperperform.user.Position;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/09
- * Feature:
+ * Response object for verifyLogin method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/09
  */
+
 public class VerifyLoginResponse
 {
 

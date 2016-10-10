@@ -14,10 +14,18 @@ import java.io.Serializable;
 /**
  * Provides a connection to the messaging queue handled by application server. Queues are looked up using JNDI lookups.
  * This components is only used by message producers, i.e the event listeners.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/05
+ *
  */
 
 public class QueueConnection
 {
+    /**
+     * This uses JavaEE to pull the configuration from the wildfly application server
+     */
     @Resource(lookup = "java:/ConnectionFactory")
     private ConnectionFactory connectionFactory;
 

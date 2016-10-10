@@ -1,11 +1,13 @@
 package me.hyperperform.user.request;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/09
- * Feature:
+ * Request object for verifyLogin method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/09
  */
+
 public class VerifyLoginRequest
 {
     private String userEmail;

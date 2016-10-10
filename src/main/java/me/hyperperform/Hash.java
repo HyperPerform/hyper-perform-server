@@ -4,13 +4,19 @@ import java.security.MessageDigest;
 import java.util.Random;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/26
- * Feature:
+ * This class is a util class providing useful functions to the system
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/26
  */
 public class Hash
 {
+    /**
+     * Takes a string and generates a SHA-256 hash
+     * @param password - the password string to hash
+     * @return string - the hashed password
+     */
     public static String gethash(String password)
     {
         try
@@ -37,6 +43,11 @@ public class Hash
         return "";
     }
 
+    /**
+     * Generates random characters of the length provided
+     * @param length - the number of random characters to be generated
+     * @return string of random characters to the provided length
+     */
     public static String randPass(int length)
     {
         String alphabet = new String("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
