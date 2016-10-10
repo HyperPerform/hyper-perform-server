@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Git Issues POJO used to store data from github issue object. That data is then used for event processing.
+ * GitHub Issues Event POJO to store the data for an issue that was created on GitHUb
+ * Contains Annotations for Persistence that stores the data via JPA
  *
- * @author  Rohan
+ * @author  CodusMaximus
  * @version 1.0
  * @since   2016/08/25
  */
+
 @Entity
 @Table(name = "\"GitIssue\"")
 public class GitIssue implements IGitEvent

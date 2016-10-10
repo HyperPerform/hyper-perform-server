@@ -4,12 +4,14 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Git Push
+ * Git Push Event POJO that stores the data for commits and pushes made by an employee
+ * Contains Annotations for Persistence that stores the data via JPA
  *
  * @author  CodusMaximus
  * @version 1.0
  * @since   2016/07/02
  */
+
 
 
 @Entity
