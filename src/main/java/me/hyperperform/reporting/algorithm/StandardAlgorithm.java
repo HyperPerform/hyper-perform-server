@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * A concrete realization of the {@see me.hyperperform.reporting.algorithm.Algorithm} interface. This class serves as
- * a ConcreteStrategy in the strategy design pattern.
+ * a ConcreteStrategy in the strategy design pattern. This is used for the calculation of the score for a Multimedia position scaling * it with regard to the forecasts given.
  */
 public class StandardAlgorithm implements Algorithm
 {
