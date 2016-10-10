@@ -1,7 +1,4 @@
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/06
- * Feature: Calendar
+ * Calendar module that stores information from google calendar API
  */
 package me.hyperperform.event.Calendar;
