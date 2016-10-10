@@ -4,7 +4,11 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 /**
- * Created by rohan on 2016/08/10.
+ * Request object for GetSummary method found in {@see me.hyperperform.reporting.IReport}.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/10
  */
 public class GetSummaryRequest {
 

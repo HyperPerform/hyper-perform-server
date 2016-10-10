@@ -8,10 +8,9 @@ import me.hyperperform.reporting.response.CalculateScoreResponse;
  * scores. This interface is the Strategy component of the design pattern, any realizations of this interface with
  * be the ConcreteStrategy.
  *
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/08/19
- * Feature: Algorithm Strategy
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/19
  */
 public interface Algorithm {
 

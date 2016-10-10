@@ -6,7 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by rohan on 2016/08/13.
+ * Object which is populated with processed Travis build data. This object is usually encapsulated within
+ * a {@see me.hyperperform.reporting.response.GetDetailsResponse} and is populated by the GetDetails method
+ * in {@see me.hyperperform.reporting.IReport}.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/13
  */
 public class TravisDetails
 {

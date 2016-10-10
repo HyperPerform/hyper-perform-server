@@ -3,7 +3,12 @@ package me.hyperperform.reporting;
 import java.util.ArrayList;
 
 /**
- * Created by rohan on 2016/09/06.
+ * Common class used to store data necessary to construct a graph. The axis of the graphs can be of any
+ * valid types.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/09/06
  */
 public class GraphData<T, U>
 {

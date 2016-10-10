@@ -33,7 +33,9 @@ import java.util.concurrent.TimeUnit;
  * A realization of the {@see me.hyperperform.reporting.IReport} interface. All three contracts defined in IReport have
  * been met. Report generators can be easily plugged in and out as long as the contract is met.
  *
- * Created by rohan on 2016/08/10.
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/10
  */
 public class ReportGenerator implements IReport {
     private EntityManagerFactory entityManagerFactory;
