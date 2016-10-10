@@ -3,14 +3,15 @@ package me.hyperperform.user.request;
 import me.hyperperform.user.EmployeeRole;
 import me.hyperperform.user.Position;
 
-
-
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/09
- * Feature:
+ * Request object for verifySignup method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/09
  */
+
+
 public class VerifySignUpRequest
 {
 
