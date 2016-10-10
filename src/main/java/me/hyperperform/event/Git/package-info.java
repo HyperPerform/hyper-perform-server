@@ -1,7 +1,4 @@
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/05
- * Feature: Git
+ * All GitHub processing and events
  */
 package me.hyperperform.event.Git;
