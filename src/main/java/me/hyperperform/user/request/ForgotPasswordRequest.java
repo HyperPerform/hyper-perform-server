@@ -1,10 +1,11 @@
 package me.hyperperform.user.request;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/10/07
- * Feature:
+ * Request object for forgotPassword method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/10/07
  */
 public class ForgotPasswordRequest
 {
