@@ -11,7 +11,7 @@ import javax.annotation.PreDestroy;
 import javax.persistence.*;
 
 /**
- * A class that realises the (@see me.hyperperform.forecasting.IForecasting) interface. Used to interface with the json string that holds the forecast data.
+ * A class that realises the {@see me.hyperperform.forecasting.IForecasting} interface. Used to interface with the json string that holds the forecast data.
  *
  * @author  CodusMaximus
  * @version 1.0
@@ -41,8 +41,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that retrieves all the data from the database and returns an object that includes the
-     * @param getIntegrationsRequest - Accepts a (@see me.hyperperform.forecasting.request.getIntegrationsRequest).
-     * @return GetIntegrationsResponse - An object of type (@see me.hyperperform.forecasting.response.GetIntegrationsResponse).
+     * @param getIntegrationsRequest - Accepts a {@see me.hyperperform.forecasting.request.getIntegrationsRequest}
+     * @return GetIntegrationsResponse - An object of type {@see me.hyperperform.forecasting.response.GetIntegrationsResponse}.
      */
     public GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest)
     {
@@ -67,8 +67,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that changes the data within an integration specified by the data previously mapped onto the parameter object.
-     * @param updateIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.UpdateIntegrationRequest).
-     * @return UpdateIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.UpdateIntegrationResponse).
+     * @param updateIntegrationRequest - Accepts a {@see me.hyperperform.forecasting.request.UpdateIntegrationRequest}
+     * @return UpdateIntegrationResponse - An object of type {@see me.hyperperform.forecasting.response.UpdateIntegrationResponse}.
      */
     public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
     {
@@ -115,8 +115,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that adds an extra integration to the forecasting, specified by the data previously mapped onto the parameter object.
-     * @param addIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.AddIntegrationRequest).
-     * @return AddIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.AddIntegrationResponse).
+     * @param addIntegrationRequest - Accepts a {@see me.hyperperform.forecasting.request.AddIntegrationRequest}
+     * @return AddIntegrationResponse - An object of type {@see me.hyperperform.forecasting.response.AddIntegrationResponse}.
      */
     public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest)
     {
@@ -169,8 +169,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that deletes an integration from the forecasting, specified by the data previously mapped onto the parameter object.
-     * @param deleteIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.DeleteIntegrationRequest).
-     * @return DeleteIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.DeleteIntegrationResponse).
+     * @param deleteIntegrationRequest - Accepts a {@see me.hyperperform.forecasting.request.DeleteIntegrationRequest}
+     * @return DeleteIntegrationResponse - An object of type {@see me.hyperperform.forecasting.response.DeleteIntegrationResponse}.
      */
     public DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
@@ -211,8 +211,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that returns the value for a specified position, previously mapped onto the parameter object, in a specified integration, also previously mapped onto the parameter object.
-     * @param getForecastValueRequest - Accepts a (@see me.hyperperform.forecasting.request.GetForecastValueRequest).
-     * @return GetForecastValueResponse - An object of type (@see me.hyperperform.forecasting.response.GetForecastValueResponse).
+     * @param getForecastValueRequest - Accepts a {@see me.hyperperform.forecasting.request.GetForecastValueRequest}
+     * @return GetForecastValueResponse - An object of type {@see me.hyperperform.forecasting.response.GetForecastValueResponse}.
      */
     public GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest)
     {
@@ -253,8 +253,8 @@ public class Forecasting implements IForecasting
 
     /**
      * A method that returns the time for a specified position, previously mapped onto the parameter object, in a specified integration, also previously mapped onto the parameter object.
-     * @param getForecastTimeRequest - Accepts a (@see me.hyperperform.forecasting.request.GetForecastTimeRequest).
-     * @return GetForecastTimeResponse - An object of type (@see me.hyperperform.forecasting.response.GetForecastTimeResponse).
+     * @param getForecastTimeRequest - Accepts a {@see me.hyperperform.forecasting.request.GetForecastTimeRequest}
+     * @return GetForecastTimeResponse - An object of type {@see me.hyperperform.forecasting.response.GetForecastTimeResponse}.
      */
     public GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest)
     {

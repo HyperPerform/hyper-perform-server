@@ -1,7 +1,7 @@
 package me.hyperperform.forecasting.response;
 
 /**
- * A POJO for the response to be sent back to the caller after the respective request (@see me.hyperperform.forecasting.request.AddIntegrationRequest) and addition to the database has been made.
+ * A POJO for the response to be sent back to the caller after the respective request {@see me.hyperperform.forecasting.request.AddIntegrationRequest} and addition to the database has been made.
  *
  * @author  CodusMaximus
  * @version 1.0
