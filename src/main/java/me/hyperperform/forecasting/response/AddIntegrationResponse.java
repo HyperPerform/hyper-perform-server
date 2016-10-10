@@ -1,8 +1,13 @@
 package me.hyperperform.forecasting.response;
 
 /**
- * Created by rohan on 2016/10/02.
+ * A POJO for the response to be sent back to the caller after the respective request (@see me.hyperperform.forecasting.request.AddIntegrationRequest) and addition to the database has been made.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/10/05
  */
+
 public class AddIntegrationResponse
 {
     private boolean added;
