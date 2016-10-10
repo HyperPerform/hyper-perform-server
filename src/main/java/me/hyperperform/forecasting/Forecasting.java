@@ -38,7 +38,12 @@ public class Forecasting implements IForecasting
         entityManager.close();
         entityManagerFactory.close();
     }
-    
+
+    /**
+     * A method that retrieves all the data from the database and returns an object that includes the
+     * @param getIntegrationsRequest - Accepts a (@see me.hyperperform.forecasting.request.getIntegrationsRequest).
+     * @return GetIntegrationsResponse - An object of type (@see me.hyperperform.forecasting.response.GetIntegrationsResponse).
+     */
     public GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest)
     {
         if (entityManager == null)
@@ -60,6 +65,11 @@ public class Forecasting implements IForecasting
         return getIntegrationsResponse;
     }
 
+    /**
+     * A method that changes the data within an integration specified by the data previously mapped onto the parameter object.
+     * @param updateIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.UpdateIntegrationRequest).
+     * @return UpdateIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.UpdateIntegrationResponse).
+     */
     public UpdateIntegrationResponse updateIntegration(UpdateIntegrationRequest updateIntegrationRequest)
     {
         if (entityManager == null)
@@ -103,6 +113,11 @@ public class Forecasting implements IForecasting
         return updateIntegrationResponse;
     }
 
+    /**
+     * A method that adds an extra integration to the forecasting, specified by the data previously mapped onto the parameter object.
+     * @param addIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.AddIntegrationRequest).
+     * @return AddIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.AddIntegrationResponse).
+     */
     public AddIntegrationResponse addIntegration(AddIntegrationRequest addIntegrationRequest)
     {
         if (entityManager == null)
@@ -152,6 +167,11 @@ public class Forecasting implements IForecasting
         return addIntegrationResponse;
     }
 
+    /**
+     * A method that deletes an integration from the forecasting, specified by the data previously mapped onto the parameter object.
+     * @param deleteIntegrationRequest - Accepts a (@see me.hyperperform.forecasting.request.DeleteIntegrationRequest).
+     * @return DeleteIntegrationResponse - An object of type (@see me.hyperperform.forecasting.response.DeleteIntegrationResponse).
+     */
     public DeleteIntegrationResponse deleteIntegration(DeleteIntegrationRequest deleteIntegrationRequest)
     {
         if (entityManager == null)
@@ -189,6 +209,11 @@ public class Forecasting implements IForecasting
         return deleteIntegrationResponse;
     }
 
+    /**
+     * A method that returns the value for a specified position, previously mapped onto the parameter object, in a specified integration, also previously mapped onto the parameter object.
+     * @param getForecastValueRequest - Accepts a (@see me.hyperperform.forecasting.request.GetForecastValueRequest).
+     * @return GetForecastValueResponse - An object of type (@see me.hyperperform.forecasting.response.GetForecastValueResponse).
+     */
     public GetForecastValueResponse getForecastValue(GetForecastValueRequest getForecastValueRequest)
     {
         if (entityManager == null)
@@ -226,6 +251,11 @@ public class Forecasting implements IForecasting
         return new GetForecastValueResponse(-1);
     }
 
+    /**
+     * A method that returns the time for a specified position, previously mapped onto the parameter object, in a specified integration, also previously mapped onto the parameter object.
+     * @param getForecastTimeRequest - Accepts a (@see me.hyperperform.forecasting.request.GetForecastTimeRequest).
+     * @return GetForecastTimeResponse - An object of type (@see me.hyperperform.forecasting.response.GetForecastTimeResponse).
+     */
     public GetForecastTimeResponse getForecastTime(GetForecastTimeRequest getForecastTimeRequest)
     {
         if (entityManager == null)
@@ -263,6 +293,10 @@ public class Forecasting implements IForecasting
         return null;
     }
 
+    /**
+     * A method that queries the database and returns forecast data from the database.
+     * @return JSONObject - A JSON Object containing the full JSON forecast data from the database.
+     */
     private JSONObject getForecastData()
     {
         if (entityManager == null)
@@ -288,7 +322,11 @@ public class Forecasting implements IForecasting
         return null;
     }
 
-    private void setForecastData(JSONObject j)
+    /**
+     * A method that updates the database with the data in the parameter.
+     * @param json - A JSON Object with the data that will be updated in the database
+     */
+    private void setForecastData(JSONObject json)
     {
 
         if (entityManager == null)
@@ -301,7 +339,7 @@ public class Forecasting implements IForecasting
         try
         {
             Query q = entityManager.createQuery("Update ForecastData set data=:jsonData")
-                    .setParameter("jsonData", j.toString());
+                    .setParameter("jsonData", json.toString());
 
             entityTransaction.begin();
             q.executeUpdate();
