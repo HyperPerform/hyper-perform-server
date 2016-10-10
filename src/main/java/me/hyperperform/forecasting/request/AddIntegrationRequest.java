@@ -1,7 +1,11 @@
 package me.hyperperform.forecasting.request;
 
 /**
- * Created by rohan on 2016/10/02.
+ * A POJO for the request data coming from the front end, for an integration to be added to the json string.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/10/05
  */
 public class AddIntegrationRequest
 {

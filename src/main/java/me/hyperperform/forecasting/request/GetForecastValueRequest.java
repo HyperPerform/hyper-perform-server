@@ -1,8 +1,11 @@
 package me.hyperperform.forecasting.request;
 
 /**
- * Created by rohan on 2016/10/06.
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/10/05
  */
+
 public class GetForecastValueRequest
 {
     private String integration;
