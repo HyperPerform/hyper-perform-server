@@ -3,6 +3,13 @@ package me.hyperperform.reporting.response;
 /**
  * Created by rohan on 2016/08/10.
  */
+/**
+ * Response object for GetSummary method found in {@see me.hyperperform.reporting.IReport}.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/10
+ */
 public class GetSummaryResponse {
 
     private double Github;

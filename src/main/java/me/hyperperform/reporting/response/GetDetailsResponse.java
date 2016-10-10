@@ -7,7 +7,11 @@ import me.hyperperform.reporting.GitIssueDetails;
 import me.hyperperform.reporting.TravisDetails;
 
 /**
- * Created by rohan on 2016/08/23.
+ * Response object for GetDetails method found in {@see me.hyperperform.reporting.IReport}.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/23
  */
 public class GetDetailsResponse {
 
