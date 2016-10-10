@@ -21,6 +21,7 @@ import java.util.*;
 
 /**
  * Listener for the calendar that pulls data from the web hook
+ * Listener Class to listen for Google Calendar Events
  *
  * @author  CodusMaximus
  * @version 1.0
@@ -28,12 +29,6 @@ import java.util.*;
  */
 
 
-
-/**
- * Listener Class to listen for Google Calendar Events
- * @author CodusMaximus
- * @version 1.0
- */
 @Path("/calendar")
 public class CalendarListener implements IListener
 {
