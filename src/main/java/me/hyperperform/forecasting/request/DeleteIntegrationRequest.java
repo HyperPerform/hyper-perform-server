@@ -1,7 +1,7 @@
 package me.hyperperform.forecasting.request;
 
 /**
- * A POJO for the request data coming from the front end for an integration to be deleted from the json string.
+ * A POJO for the request data coming from the caller for an integration to be deleted from the json string.
  *
  * @author  CodusMaximus
  * @version 1.0
