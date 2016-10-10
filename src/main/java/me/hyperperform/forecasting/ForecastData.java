@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 /**
- * Created by rohan on 2016/10/02.
- */
-
+ * A POJO that holds the forecasting data as a string.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/30
+*/
 @Entity
 @Table(name = "\"ForecastData\"")
 public class ForecastData

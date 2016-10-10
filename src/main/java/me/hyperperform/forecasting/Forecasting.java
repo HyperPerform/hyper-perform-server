@@ -10,6 +10,14 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.persistence.*;
 
+/**
+ * A class that realises the (@see me.hyperperform.forecasting.IForecasting) interface. Used to interface with the json string that holds the forecast data.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/30
+ */
+
 public class Forecasting implements IForecasting
 {
     private EntityManagerFactory entityManagerFactory;

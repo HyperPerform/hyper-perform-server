@@ -4,8 +4,13 @@ import me.hyperperform.forecasting.request.*;
 import me.hyperperform.forecasting.response.*;
 
 /**
- * Created by rohan on 2016/10/02.
+ * The interface for the forecasting module.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/29
  */
+
 public interface IForecasting
 {
     GetIntegrationsResponse getIntegrations(GetIntegrationsRequest getIntegrationsRequest);
