@@ -1,15 +1,13 @@
 package me.hyperperform.event.Calendar;
 
 /**
- * hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/25
- * Feature: Attendee State
+ * Status of Google Calendar Invites
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/06
  */
 
-/**
- * Status of Google Calendar Invites
- */
 public enum AttendeeState
 {
     /**
