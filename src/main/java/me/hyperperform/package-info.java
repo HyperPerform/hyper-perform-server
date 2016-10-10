@@ -1,7 +1,4 @@
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/07/24
- * Feature:
+ * The root package for the entire hyperperform system
  */
 package me.hyperperform;
