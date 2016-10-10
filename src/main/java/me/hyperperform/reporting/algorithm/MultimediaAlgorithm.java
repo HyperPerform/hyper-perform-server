@@ -18,16 +18,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/10/10
- * Feature:
- */
-
-/**
  * A concrete realization of the {@see me.hyperperform.reporting.algorithm.Algorithm} interface. This class serves as
  * a ConcreteStrategy in the strategy design pattern. This is used for the calculation of the score for a Multimedia position scaling * it with regard to the forecasts given.
  *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/10/10
  */
 public class MultimediaAlgorithm implements Algorithm
 {
