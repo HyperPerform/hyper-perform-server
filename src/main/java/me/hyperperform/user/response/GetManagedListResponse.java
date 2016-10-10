@@ -3,8 +3,13 @@ package me.hyperperform.user.response;
 import java.util.ArrayList;
 
 /**
- * Created by rohan on 2016/09/24.
+ * Response object for getManagedList method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/24
  */
+
 public class GetManagedListResponse
 {
     private class ListUnit

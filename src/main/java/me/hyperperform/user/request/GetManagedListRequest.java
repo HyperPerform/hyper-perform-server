@@ -3,8 +3,13 @@ package me.hyperperform.user.request;
 import java.sql.Timestamp;
 
 /**
- * Created by rohan on 2016/09/24.
+ * Request object for getManagedList method found in {@see me.hyperperform.rest.LoginRest}.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/24
  */
+
 public class GetManagedListRequest
 {
     private Timestamp startDate;
