@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by rohan on 2016/08/13.
  */
+
 public class GetTravisRequest
 {
     private String name;

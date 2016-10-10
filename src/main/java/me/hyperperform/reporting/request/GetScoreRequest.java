@@ -3,7 +3,11 @@ package me.hyperperform.reporting.request;
 import java.sql.Timestamp;
 
 /**
- * Created by rohan on 2016/08/19.
+ * Request object for GetScore method found in {@see me.hyperperform.reporting.IReport}.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/19
  */
 public class GetScoreRequest {
 
