@@ -14,18 +14,16 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-/**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/20
- * Feature:
- */
 
 /**
  * Access event listener class which exposes a REST link for any entry/exit system to send events to.
  * Each event received will be stored in a database and will be processed at a later stage. Each
  * access event must comply with the event POJO defined at {@see me.hyperperform.event.EntryExit.AccessEvent}
  * This class implements the {@see me.hyperperform.listener.IListener} interface.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/20
  */
 @Path("/AccessEvent")
 public class AccessListener implements IListener
