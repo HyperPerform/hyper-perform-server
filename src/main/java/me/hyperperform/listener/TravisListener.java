@@ -20,14 +20,14 @@ import javax.annotation.PreDestroy;
 import java.lang.StringBuilder;
 
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/05
- * Feature: Github Listener
- *
  * Provides a URL for Travis to push build events to. From here the events are persisted and placed onto a queue
  * for CEP at a later stage.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/05
  */
+
 @Path("/TravisEvent")
 public class TravisListener implements IListener
 {
