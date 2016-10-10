@@ -8,8 +8,14 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
 /**
- * Created by rohan on 2016/07/29.
+ * Esper CEP event listener that finds patterns in performance based on a given criteria at real-time
+ * This feature is still under development and is a future enhancement.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/06
  */
+
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
         @ActivationConfigProperty(propertyName = "destination", propertyValue = "hyperperform")
