@@ -25,10 +25,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * hyperperform-system
+ * Group: CodusMaximus
+ * Date: 2016/09/10
+ * Feature:
+ */
+
+/**
  * A concrete realization of the {@see me.hyperperform.reporting.algorithm.Algorithm} interface. This class serves as
- * the ConcreteStrategy in the strategy design pattern.
- *
- * Created by rohan on 2016/08/19.
+ * a ConcreteStrategy in the strategy design pattern.
  */
 public class StandardAlgorithm implements Algorithm
 {
