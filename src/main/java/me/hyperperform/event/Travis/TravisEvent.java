@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * Travis Event POJO which contains build information
+ * Contains Annotations for Persistence that stores the data via JPA
  *
  * @author  CodusMaximus
  * @version 1.0
