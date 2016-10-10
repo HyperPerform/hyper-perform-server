@@ -21,15 +21,14 @@ import java.sql.Timestamp;
 
 
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/05
- * Feature: Github Listener
- *
  * Provides a URL for GitHub to push events to. From here the events are persisted and placed onto a queue
  * for CEP at a later stage. This listener handle two types of events: push and issues. Both events are mapped to
  * the {@see me.hyperperform.event.Git.Push} and {@see me.hyperperform.event.Git.GitIssue} respectively. This class
  * implements the {@see me.hyperperform.event.listener.IListener} interface.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/05
  */
 
 @Path("/gitEvent")
