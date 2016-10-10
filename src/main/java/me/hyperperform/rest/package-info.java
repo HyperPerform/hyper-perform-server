@@ -1,7 +1,4 @@
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/05
- * Feature:
+ * Restful services to communicate between front-end and back-end
  */
 package me.hyperperform.rest;
