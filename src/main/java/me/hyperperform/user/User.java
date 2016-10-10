@@ -6,20 +6,20 @@ import javax.persistence.*;
 import java.awt.*;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/05
- * Feature:
+ * User POJO that stores all the users information that uses the hyperperform system
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/09/05
  */
 
 @Entity
 @Table(name = "\"User\"")
 public class User implements IPerson
 {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @Column(name = "id")
-//    private String id = null;
+    /**
+     * Primary key because a single user can only have one email address
+     */
     @Id
     @Column(name = "Email")
     private String userEmail = null;
@@ -39,12 +39,23 @@ public class User implements IPerson
     @Column(name = "Password")
     private String userPassword = null;
 
+    /**
+     *  Attribute that stores the users profile at a byte level
+     */
     @Column(name = "ProfilePicture")
     private Byte[] profilePicture = null;
 
+    /**
+     * Enum that defines roles for the system
+     * {@see me.hyperperform.user.EmployeeRole}
+     */
     @Column(name = "Role")
     private EmployeeRole role;
 
+    /**
+     * Enum that defines positions of the user\
+     * {@see me.hyperperform.user.Position}
+     */
     @Column(name = "Position")
     private Position position;
 
@@ -56,6 +67,18 @@ public class User implements IPerson
 
     }
 
+    /**
+     * Constructor initializing the user pojo
+     * @param userEmail - email of the new user
+     * @param gitUserName - the users GitHub username
+     * @param userName - an optional username for the business
+     * @param name - name of the new user
+     * @param surname - surname of the new user
+     * @param userPassword - password of the user that is hashed {@see me.hyperperform.user.Hash}
+     * @param profilePicture - sets the profile picture of the user at a byte level
+     * @param role - the role given so permissions can be checked accordingly
+     * @param position - the position of the user {@see me.hyperperform.user.Position}
+     */
     public User(String userEmail, String gitUserName, String userName, String name, String surname, String userPassword, Byte[] profilePicture, EmployeeRole role, Position position)
     {
         this.userEmail = userEmail;
