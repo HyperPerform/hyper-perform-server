@@ -7,6 +7,10 @@ import javax.ws.rs.ext.Provider;
 
 /**
  * Allows for intercepting exceptions that occur through REST api. Intercepted exceptions can be handled appropriately.
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/07/10
  */
 
 @Provider
