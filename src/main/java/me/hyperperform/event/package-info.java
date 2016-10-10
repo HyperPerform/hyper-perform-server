@@ -1,7 +1,4 @@
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/07/24
- * Feature: Events
+ * Events from various different integrations
  */
 package me.hyperperform.event;
