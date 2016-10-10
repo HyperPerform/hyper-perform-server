@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/08
- * Feature:
+ * Access Event POJO to store the data for an entry/exit systems
+ * Contains Annotations for Persistence that stores the data via JPA
+ *
+ * @author  CodusMaximus
+ * @version 1.0
+ * @since   2016/08/09
  */
 
 @Entity
@@ -15,6 +17,9 @@ import java.sql.Timestamp;
 public class AccessEvent implements IEntryExit
 {
 
+    /**
+     * Auto-generated primary key for the persistence
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -38,6 +43,9 @@ public class AccessEvent implements IEntryExit
     @Column(name = "Timestamp")
     Timestamp timestamp;
 
+    /**
+     * This attribute is based on the day so that it can easily be monitored when the employee entered and exited the building and how many times
+     */
     @Column(name = "Day")
     Long day;
 
@@ -46,6 +54,16 @@ public class AccessEvent implements IEntryExit
 
     }
 
+    /**
+     * Constructor initializing the POJO with all the attributes
+     * @param email - the email of the user that has entered or left the building
+     * @param employeeID - the employee ID of the user in the business
+     * @param deviceID  - the device or location in which the person gained access
+     * @param name - the name of the person
+     * @param surname - the surname of the person
+     * @param timestamp - the time the user gained access to the building
+     * @param day - the day number to validate performance in which one can check logs easier
+     */
     public AccessEvent(String email, String employeeID, String deviceID, String name, String surname, String timestamp, Long day)
     {
         this.email = email;
