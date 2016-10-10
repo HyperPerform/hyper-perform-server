@@ -1,7 +1,4 @@
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/29
- * Feature: onMessageListener
+ * CEP - complex event processing where patterns can be found in real-time
  */
 package me.hyperperform.esper;
