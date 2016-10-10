@@ -1,7 +1,4 @@
 /**
- * Hyper-perform
- * Group: CodusMaximus
- * Date: 2016/07/05
- * Feature:
+ * Webhooks for the various integrations come here where they processed and persisted
  */
 package me.hyperperform.listener;
