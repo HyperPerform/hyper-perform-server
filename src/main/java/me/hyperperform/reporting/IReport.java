@@ -8,7 +8,9 @@ import me.hyperperform.reporting.response.*;
  * interface for all report generators, this allows for consistency. Contains three contracts to be met by any
  * realization.
  *
- * Created by rohan on 2016/08/18.
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/08/18
  */
 public interface IReport {
 
