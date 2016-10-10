@@ -11,12 +11,14 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/28
- * Feature: Forecasting
+ * REST wraps the {@see me.hyperperform.forecasting.IForecasting} interface. A concrete realization is injected
+ * into the object. The services provided by the {@see me.hyperperform.forecasting.IForecasting} interface are then
+ * made available through REST endpoints.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/09/28
  */
-
 @Path("/forecast")
 public class ForecastRest
 {
@@ -37,6 +39,10 @@ public class ForecastRest
         return Response.status(200).entity(forecasting.updateIntegration(update)).header("Access-Control-Allow-Origin", "*").build();
     }
 
+    /**
+     * Returns list of all integrations along with positions and their corresponding forecast values.
+     * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
+     */
     @POST
     @Path("/getIntegrations")
     @Produces("application/json")
@@ -45,6 +51,11 @@ public class ForecastRest
         return Response.status(200).entity(forecasting.getIntegrations(null)).build();
     }
 
+    /**
+     * Finds the specific integration name and updates/adds the new data to the database.
+     * @param deleteIntegrationRequest - JSON object which contains the name of the integration to be deleted.
+     * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
+     */
     @POST
     @Path("/deleteIntegration")
     @Consumes("application/json")
@@ -55,6 +66,11 @@ public class ForecastRest
         return Response.status(200).entity(forecasting.deleteIntegration(deleteIntegrationRequest)).build();
     }
 
+    /**
+     * Finds the specific integration name and updates/adds the new data to the database.
+     * @param  str - JSON object which contains necessary data to be added to the forecast data
+     * @return A javax.ws.rs.core.Response object with the status of the response as a reply to the request sent to it.
+     */
     @POST
     @Path("/addIntegration")
     @Produces("application/json")

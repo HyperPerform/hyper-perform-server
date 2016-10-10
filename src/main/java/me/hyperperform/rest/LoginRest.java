@@ -27,13 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * hyperperform-system
- * Group: CodusMaximus
- * Date: 2016/09/09
- * Feature:
+ * Provides registration and login functionality through REST endpoints.
+ *
+ * @author : CodusMaximus
+ * @version : 1.0
+ * @since : 2016/09/09
  */
-
-
 @Path("/users")
 public class LoginRest
 {
@@ -47,6 +46,11 @@ public class LoginRest
     @Inject
     Email mail;
 
+    /**
+     * Allows for authentication of users. Authorized users are granted access while unauthorized users are not.
+     *
+     * @param log - Necessary user information that needs to be validated.
+     */
     @POST
     @Path("/verifyDetails")
     @Produces("application/json")
@@ -89,8 +93,12 @@ public class LoginRest
     }
 
 
+    /**
+     * Allows for new user to be registered. Once user details have been persisted they can login and use the system.
+     *
+     * @param jsonStr - Details of the new user to be added to the system.
+     */
     @POST
-//    @GET
     @Path("/verifySignUp")
     @Produces("application/json")
     @Consumes("application/json")
@@ -249,12 +257,14 @@ public class LoginRest
 
     }
 
+    /**
+     * Returns a list of all employees registered excluding the managers. A PA score is also calculated for each of the
+     * employees.
+     */
     @POST
     @Path("/getManagedList")
     @Consumes("application/json")
     @Produces("application/json")
-
-//    public Response getManagedList(GetManagedListRequest getManagedListRequest)
     public Response getManagedList(GetManagedListRequest getManagedListRequest)
     {
 //        GetManagedListRequest getManagedListRequest = new GetManagedListRequest();
@@ -292,6 +302,9 @@ public class LoginRest
         return Response.status(200).entity(getManagedListResponse).build();
     }
 
+    /**
+     * Returns a list of all developer positions within the system.
+     */
     @GET
     @Path("/getPositions")
     @Produces("application/json")
@@ -306,6 +319,9 @@ public class LoginRest
         return Response.status(200).entity(list).build();
     }
 
+    /**
+     * Returns a list of all the employee roles within the system.
+     */
     @GET
     @Path("/getRoles")
     @Produces("application/json")
@@ -322,6 +338,9 @@ public class LoginRest
         return Response.status(200).entity(list).build();
     }
 
+    /**
+     * Creates new password for user in the event they forget theirs.
+     */
     @POST
     @Path("/forgotPassword")
     @Consumes("application/json")
