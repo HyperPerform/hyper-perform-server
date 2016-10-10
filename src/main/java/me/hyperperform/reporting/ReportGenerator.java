@@ -8,6 +8,7 @@ import me.hyperperform.forecasting.IForecasting;
 import me.hyperperform.forecasting.request.GetForecastTimeRequest;
 import me.hyperperform.forecasting.request.GetForecastValueRequest;
 import me.hyperperform.reporting.algorithm.Algorithm;
+import me.hyperperform.reporting.algorithm.MultimediaAlgorithm;
 import me.hyperperform.reporting.algorithm.StandardAlgorithm;
 import me.hyperperform.reporting.algorithm.WebDeveloperAlgorithm;
 import me.hyperperform.reporting.request.*;
@@ -397,6 +398,9 @@ public class ReportGenerator implements IReport {
 
         if (userPosition == Position.WebDeveloper)
             algorithm = new WebDeveloperAlgorithm();
+
+        if (userPosition == Position.Multimedia)
+            algorithm = new MultimediaAlgorithm();
 
         CalculateScoreResponse calculateScoreResponse = algorithm.calculateScore(calculateScoreRequest);
 
