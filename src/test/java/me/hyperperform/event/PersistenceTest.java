@@ -1,5 +1,6 @@
 package me.hyperperform.event;
 
+import java.sql.Timestamp;
 import me.hyperperform.event.Git.GitIssue;
 import me.hyperperform.event.Git.GitPush;
 import me.hyperperform.event.Travis.TravisEvent;
@@ -67,7 +68,7 @@ public class PersistenceTest
 //        gitIssue.setCreatedAt("2016-07-28 22:42:44");
 //        gitIssue.setClosedAt(null);
 
-        gitIssue.setTimestamp("2016-07-28 22:42:44");
+        gitIssue.setTimestamp(Timestamp.valueOf("2016-07-28 22:42:44"));
 
         gitIssue.setAssignee("Sven Fuchs");
         gitIssue.setCreatedBy("baxterthehacker");
@@ -94,6 +95,9 @@ public class PersistenceTest
     @Test
     public void travisEventPojoTest()
     {
+        if(t == null)
+            createTravisEventTest();
+
         System.out.println("Running Travis POJO test...");
 
         Assert.assertEquals("Not the same committer", "Sven Fuchs", t.getCommiter());
@@ -106,13 +110,15 @@ public class PersistenceTest
     @Test
     public void gitIssuePojoTest()
     {
+        if(gitIssue == null)
+            createGitIssueTest();
         System.out.println("Running Git Issue POJO test...");
 
         Assert.assertEquals("Not the same issueID", 73464126, gitIssue.getIssueId());
         Assert.assertEquals("Not the same action", "opened", gitIssue.getAction());
         Assert.assertEquals("Not the same repo name", "public-repo", gitIssue.getRepository());
         Assert.assertNotNull("Timestamp cannot be null", gitIssue.getTimestamp());
-        Assert.assertEquals("Not the same timestamp", "2016-07-28 22:42:44", gitIssue.getTimestamp());
+        Assert.assertEquals("Not the same timestamp", "2016-07-28 22:42:44.0", gitIssue.getTimestamp());
         Assert.assertEquals("Not the same assignee", "Sven Fuchs", gitIssue.getAssignee());
         Assert.assertEquals("Not the same creator", "baxterthehacker", gitIssue.getCreatedBy());
     }
@@ -120,10 +126,12 @@ public class PersistenceTest
     @Test
     public void gitPushPojoTest()
     {
+        if(g == null)
+            createGitPushTest();
         System.out.println("Running Git Push POJO test...");
 
-        Assert.assertEquals("Not the same repo path", "baxterthehacker/public-repo", g.getRepoName());
-        Assert.assertEquals("Not the same timestamp", "2015-05-05 19:40:15.0", g.getTimestamp());
+        Assert.assertEquals("Not the same repo path", "baxterthehacker/public-repo", g.getRepository());
+        Assert.assertEquals("Not the same timestamp", "2015-05-05 19:40:15.0", g.getTimestamp().toString());
         Assert.assertEquals("Not the same git username", "baxterthehacker", g.getUsername());
         Assert.assertNotEquals("Commit size cannot be zero", 0, g.getCommitSize());
         Assert.assertEquals("Not the same commit size", 2, g.getCommitSize());
@@ -133,6 +141,9 @@ public class PersistenceTest
     @Test
     public void gitPushQueryTest()
     {
+        if(g == null)
+            createGitPushTest();
+
         System.out.println("Running Git Push QueryTest ...");
 
         // GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
@@ -151,6 +162,8 @@ public class PersistenceTest
         Assert.assertEquals(g.getUsername(), result.get(result.size()-1).getUsername());
         Assert.assertEquals(g.getCommitSize(), result.get(result.size()-1).getCommitSize());
     }
+
+  
 
     @After
     public void closeManager()
