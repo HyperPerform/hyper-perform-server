@@ -149,7 +149,7 @@ public class WebDeveloperAlgorithm implements Algorithm
 //        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
         double score = git + travis + issues + entry;
 
-        score = Scaler.scale(score, 4.0, 0.0, 5.0);
+        score = Utility.scale(score, 4.0, 0.0, 5.0);
 
         entityManager.close();
         entityManagerFactory.close();
