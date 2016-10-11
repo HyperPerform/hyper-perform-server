@@ -28,12 +28,14 @@ public class EntryExitTest
     @Before
     public void createAccessEventTest() throws Exception
     {
+    	System.out.println("Running createAccessEventTest...");
         access = new AccessEvent("tashan.avi@gmail.com", "u12345678", "ComboSmart", "Avinash", "Singh", "2007-09-23 10:10:10.0", (long) 0);
         entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         entityManager = entityManagerFactory.createEntityManager();
         entityTransaction = entityManager.getTransaction();
 
-        Query query = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE (email='tashan.avi@gmail.com')");
+// JUST BEING USED SO THE EXACT SAME EVENT DOESNT GET LOGGED EVERY TIME THE TEST IS RUN.
+        Query query = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE email='tashan.avi@gmail.com' AND timestamp='2007-09-23 10:10:10.0'");
         List<AccessEvent> result = query.getResultList();
 
         if (result.size() == 0)
@@ -42,6 +44,20 @@ public class EntryExitTest
             entityManager.persist(access);
             entityTransaction.commit();
         }
+////////////////////////////////////////////////////////////////////////////////
+
+     //    query = entityManager.createQuery("SELECT a FROM AccessEvent a WHERE email='tashan.avi@gmail.com' AND timestamp='2007-09-23 10:10:10.0'");
+     //    List<AccessEvent> res = query.getResultList();
+        
+     //    if(res.size() > 0)
+     //    {
+	    //     Assert.assertEquals("Incorrect email address", "tashan.avi@gmail.com", res.get(0).getEmail());
+	    //     Assert.assertEquals("Incorrect timestamp", "2007-09-23 10:10:10.0", res.get(0).getTimestamp());
+	    // }
+        // if(result.size() == 1)
+        // {
+
+        // }
 
     }
 
@@ -54,7 +70,7 @@ public class EntryExitTest
         Assert.assertEquals("Not the same userID", "u12345678", access.getEmployeeID());
         Assert.assertEquals("Not the same deviceID", "ComboSmart", access.getDeviceID());
         Assert.assertEquals("Not the same day", new Long(0), access.getDay());
-        Assert.assertEquals("Not the same userID", "2007-09-23 10:10:10.0", access.getTimestamp());
+        Assert.assertEquals("Not the same timestamp", "2007-09-23 10:10:10.0", access.getTimestamp());
 
 
     }
@@ -78,7 +94,7 @@ public class EntryExitTest
         Assert.assertEquals("Not the same userID", result.get(0).getEmployeeID(), access.getEmployeeID());
         Assert.assertEquals("Not the same deviceID", result.get(0).getDeviceID(), access.getDeviceID());
         Assert.assertEquals("Not the same day", result.get(0).getDay(), access.getDay());
-        Assert.assertEquals("Not the same userID", result.get(0).getTimestamp(), access.getTimestamp());
+        Assert.assertEquals("Not the same timestamp", result.get(0).getTimestamp(), access.getTimestamp());
 
     }
 
