@@ -148,6 +148,9 @@ public class LoginRest
         if (sign.getPosition() == null || sign.getPosition().equals(""))
             return Response.status(200).entity("Error: position").build();
 
+        if (sign.getGitUserName() == null || sign.getGitUserName().equals(""))
+            return Response.status(200).entity("Error: gitUserName").build();
+
         try {
             EmployeeRole.valueOf(sign.getRole());
         }
