@@ -26,7 +26,7 @@ import java.util.*;
  * Date: 2016/09/05
  * Feature:
  */
-//@Ignore
+
 public class UserTest
 {
     private User u;
@@ -89,15 +89,6 @@ public class UserTest
         entityTransaction.commit();
     }
 
-
-    @Test
-    @Ignore
-    public void queryTest() throws Exception
-    {
-        // query and test
-    }
-
-//    @Ignore
     @Test
     public void registrationTest() throws Exception
     {
@@ -185,7 +176,6 @@ public class UserTest
         Assert.assertEquals("Error: email", response.getContentAsString());
     }
 
-    @Ignore
     @Test
     public void invalidRoleTest() throws Exception
     {
@@ -203,12 +193,9 @@ public class UserTest
         MockHttpResponse response = new MockHttpResponse();
         dispatcher.invoke(request, response);
 
-//        Assert.assertEquals(400, response.getStatus());
-//        Assert.assertEquals("Role doesn't exist", response.getContentAsString());
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: Role does not exist", response.getContentAsString());
 
-        System.out.println("-----------------------------------");
-        System.out.println("here");
-        System.out.println("-----------------------------------");
     }
 
     @Test
@@ -230,6 +217,48 @@ public class UserTest
 
         Assert.assertEquals(200, response.getStatus());
         Assert.assertEquals("Error: Position does not exist", response.getContentAsString());
+    }
+
+    @Test
+    public void invalidGitUsernameTest() throws Exception
+    {
+        System.out.println("Running invalid GitUsername registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.noGitUsername.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: gitUserName", response.getContentAsString());
+    }
+
+    @Test
+    public void invalidPassword() throws Exception
+    {
+        System.out.println("Running invalid password registration test...");
+
+        POJOResourceFactory noDef = new POJOResourceFactory(LoginRest.class);
+        Dispatcher dispatcher = MockDispatcherFactory.createDispatcher();
+        dispatcher.getRegistry().addResourceFactory(noDef);
+
+        MockHttpRequest request = MockHttpRequest.post("users/verifySignUp");
+
+        request.contentType(MediaType.APPLICATION_JSON);
+        request.content(MockUsers.noPassword.getBytes());
+
+        MockHttpResponse response = new MockHttpResponse();
+        dispatcher.invoke(request, response);
+
+        Assert.assertEquals(200, response.getStatus());
+        Assert.assertEquals("Error: password", response.getContentAsString());
     }
 
     @After
