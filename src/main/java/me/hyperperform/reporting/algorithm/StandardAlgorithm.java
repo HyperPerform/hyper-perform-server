@@ -156,7 +156,7 @@ public class StandardAlgorithm implements Algorithm
 //        double score = (0.4*(git)) + (0.2*(travis) + (0.2*(issues)) + (0.2*(entry)));
         double score = git + travis + issues + entry;
 
-        score = scale(score, 4.0, 0.0, 5.0);
+        score = Scaler.scale(score, 4.0, 0.0, 5.0);
 
         entityManager.close();
         entityManagerFactory.close();
@@ -189,10 +189,5 @@ public class StandardAlgorithm implements Algorithm
         }
 
         return days;
-    }
-    private double scale(double value, double total, double start, double end)
-    {
-        value /= total;
-        return (value*(end-start)) + start;
     }
 }
