@@ -60,7 +60,7 @@ public class WebDeveloperAlgorithm implements Algorithm
         long totalCommits = (tmp == null) ? 0 : tmp;
 
         GetForecastTimeRequest getForecastTimeRequest = new GetForecastTimeRequest("GitCommits", Position.WebDeveloper.getType());
-        long timeGit = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+        long timeGit = Utility.convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
         GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", Position.WebDeveloper.getType());
         double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
@@ -104,7 +104,7 @@ public class WebDeveloperAlgorithm implements Algorithm
         totalClosed = (totalClosed == null) ? 0 : totalClosed;
 
         getForecastTimeRequest.setIntegration("GitIssues");
-        double issuesTime = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+        double issuesTime = Utility.convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
         getForecastValueRequest.setIntegration("GitIssues");
         double issuesForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
@@ -131,7 +131,7 @@ public class WebDeveloperAlgorithm implements Algorithm
         }
 
         getForecastTimeRequest.setIntegration("EntryExit");
-        double entryExitTime = convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
+        double entryExitTime = Utility.convertDays(time, forecasting.getForecastTime(getForecastTimeRequest).getTime());
 
         getForecastValueRequest.setIntegration("EntryExit");
         double entryExitForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
@@ -158,29 +158,4 @@ public class WebDeveloperAlgorithm implements Algorithm
 
     }
 
-
-    private String getPosition(String user) {
-        Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
-        Position p = (Position) q.getSingleResult();
-
-        return (p == null) ? null : p.getType();
-    }
-
-    private long convertDays(long days, String time)
-    {
-        System.out.println("D: " + days + "  " + time);
-        if (time.equals("week"))
-        {
-            if (days != 0)
-                return days/7;
-        }
-
-        if (time.equals("month"))
-        {
-            if (days != 0)
-                return days/30;
-        }
-
-        return days;
-    }
 }
