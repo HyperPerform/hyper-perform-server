@@ -2,6 +2,9 @@ package me.hyperperform.reporting.algorithm;
 
 import me.hyperperform.user.Position;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
@@ -18,8 +21,15 @@ public class Utility
     }
 
     public String getPosition(String user) {
+
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
         Query q = entityManager.createQuery("select position from User where userEmail=:email").setParameter("email", user);
         Position p = (Position) q.getSingleResult();
+
+        entityManager.close();
+        entityManagerFactory.close();
 
         return (p == null) ? null : p.getType();
     }
