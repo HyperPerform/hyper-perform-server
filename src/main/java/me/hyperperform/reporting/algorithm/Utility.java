@@ -20,7 +20,7 @@ public class Utility
         return (value > end) ? end : value;
     }
 
-    public String getPosition(String user) {
+    public static String getPosition(String user) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("PostgreJPA");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -34,7 +34,7 @@ public class Utility
         return (p == null) ? null : p.getType();
     }
 
-    public long convertDays(long days, String time)
+    public static long convertDays(long days, String time)
     {
         System.out.println("D: " + days + "  " + time);
         if (time.equals("week"))
