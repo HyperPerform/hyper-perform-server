@@ -13,7 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Created by rohan on 2016/07/19.
+ * hyperperform-system
+ * Group: CodusMaximus
+ * Date: 2016/07/19
+ * Feature:
  */
 
 //@RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +26,9 @@ public class PersistenceTest
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private EntityTransaction entityTransaction;
+    private TravisEvent t;
+    private GitIssue gitIssue;
+    private GitPush g;
 
     @Before
     public void init()
@@ -33,10 +39,10 @@ public class PersistenceTest
     }
 
     @Test
-    public void travisPojoTest()
+    public void createTravisEventTest()
     {
-        System.out.println("Running travis pojo test...");
-        TravisEvent t = new TravisEvent();
+        System.out.println("Running Create Travis Event test...");
+        t = new TravisEvent();
         t.setCommiter("Sven Fuchs");
         t.setBranch("master");
         t.setStatus("Passed");
@@ -49,10 +55,10 @@ public class PersistenceTest
     }
 
     @Test
-    public void gitIssuePojoTest()
+    public void createGitIssueTest()
     {
-        System.out.println("Running git pojo test...");
-        GitIssue gitIssue = new GitIssue();
+        System.out.println("Running Create Git Issue test...");
+        gitIssue = new GitIssue();
 
         gitIssue.setIssueId(73464126);
         gitIssue.setAction("opened");
@@ -61,9 +67,9 @@ public class PersistenceTest
 //        gitIssue.setCreatedAt("2016-07-28 22:42:44");
 //        gitIssue.setClosedAt(null);
 
-        gitIssue.setTimestamp(null);
+        gitIssue.setTimestamp("2016-07-28 22:42:44");
 
-        gitIssue.setAssignee(null);
+        gitIssue.setAssignee("Sven Fuchs");
         gitIssue.setCreatedBy("baxterthehacker");
 
         entityManager.getTransaction().begin();
@@ -72,11 +78,11 @@ public class PersistenceTest
     }
 
     @Test
-    public void jpaTest()
+    public void createGitPushTest()
     {
-        System.out.println("Running JPA test ...");
+        System.out.println("Running Create Git Push test ...");
 
-        GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
+        g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 2);
 
         entityTransaction.begin();
 
@@ -86,24 +92,64 @@ public class PersistenceTest
     }
 
     @Test
-    public void queryTest()
+    public void travisEventPojoTest()
     {
-        System.out.println("Running QueryTest ...");
+        System.out.println("Running Travis POJO test...");
 
-        GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
+        Assert.assertEquals("Not the same committer", "Sven Fuchs", t.getCommiter());
+        Assert.assertEquals("Not the same branch", "master", t.getBranch());
+        Assert.assertEquals("Not the same status", "Passed", t.getStatus());
+        Assert.assertEquals("Not the same timestamp", "2011-11-11 11:11:11.0", t.getTimestamp());
+        Assert.assertEquals("Not the same repo name", "minimal", t.getRepo());
+    }
 
-        entityTransaction.begin();
+    @Test
+    public void gitIssuePojoTest()
+    {
+        System.out.println("Running Git Issue POJO test...");
 
-        entityManager.persist(g);
+        Assert.assertEquals("Not the same issueID", 73464126, gitIssue.getIssueId());
+        Assert.assertEquals("Not the same action", "opened", gitIssue.getAction());
+        Assert.assertEquals("Not the same repo name", "public-repo", gitIssue.getRepository());
+        Assert.assertNotNull("Timestamp cannot be null", gitIssue.getTimestamp());
+        Assert.assertEquals("Not the same timestamp", "2016-07-28 22:42:44", gitIssue.getTimestamp());
+        Assert.assertEquals("Not the same assignee", "Sven Fuchs", gitIssue.getAssignee());
+        Assert.assertEquals("Not the same creator", "baxterthehacker", gitIssue.getCreatedBy());
+    }
 
-        entityTransaction.commit();
+    @Test
+    public void gitPushPojoTest()
+    {
+        System.out.println("Running Git Push POJO test...");
+
+        Assert.assertEquals("Not the same repo path", "baxterthehacker/public-repo", g.getRepoName());
+        Assert.assertEquals("Not the same timestamp", "2015-05-05 19:40:15.0", g.getTimestamp());
+        Assert.assertEquals("Not the same git username", "baxterthehacker", g.getUsername());
+        Assert.assertNotEquals("Commit size cannot be zero", 0, g.getCommitSize());
+        Assert.assertEquals("Not the same commit size", 2, g.getCommitSize());
+    }
+
+
+    @Test
+    public void gitPushQueryTest()
+    {
+        System.out.println("Running Git Push QueryTest ...");
+
+        // GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
+
+        // entityTransaction.begin();
+
+        // entityManager.persist(g);
+
+        // entityTransaction.commit();
 
         Query query = entityManager.createQuery("FROM GitPush", GitPush.class);
         List<GitPush> result = query.getResultList();
-        Assert.assertNotEquals(result.size(), 0);
+        Assert.assertNotEquals(0, result.size());
         Assert.assertEquals(g.getRepository(), result.get(result.size()-1).getRepository());
         Assert.assertEquals(g.getDate(), result.get(result.size()-1).getDate());
         Assert.assertEquals(g.getUsername(), result.get(result.size()-1).getUsername());
+        Assert.assertEquals(g.getCommitSize(), result.get(result.size()-1).getCommitSize());
     }
 
     @After
