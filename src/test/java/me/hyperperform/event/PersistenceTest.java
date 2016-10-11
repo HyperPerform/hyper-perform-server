@@ -65,9 +65,6 @@ public class PersistenceTest
         gitIssue.setAction("opened");
         gitIssue.setRepository("public-repo");
 
-//        gitIssue.setCreatedAt("2016-07-28 22:42:44");
-//        gitIssue.setClosedAt(null);
-
         gitIssue.setTimestamp(Timestamp.valueOf("2016-07-28 22:42:44"));
 
         gitIssue.setAssignee("Sven Fuchs");
@@ -146,24 +143,51 @@ public class PersistenceTest
 
         System.out.println("Running Git Push QueryTest ...");
 
-        // GitPush g = new GitPush("baxterthehacker/public-repo", "2015-05-05 19:40:15.0", "baxterthehacker", 0);
-
-        // entityTransaction.begin();
-
-        // entityManager.persist(g);
-
-        // entityTransaction.commit();
-
         Query query = entityManager.createQuery("FROM GitPush", GitPush.class);
         List<GitPush> result = query.getResultList();
         Assert.assertNotEquals(0, result.size());
         Assert.assertEquals(g.getRepository(), result.get(result.size()-1).getRepository());
         Assert.assertEquals(g.getDate(), result.get(result.size()-1).getDate());
         Assert.assertEquals(g.getUsername(), result.get(result.size()-1).getUsername());
+        Assert.assertNotEquals("Commit size cannot be zero", 0, result.get(result.size()-1).getCommitSize());
         Assert.assertEquals(g.getCommitSize(), result.get(result.size()-1).getCommitSize());
     }
 
-  
+    @Test
+    public void gitIssueQueryTest()
+    {
+        if(gitIssue == null)
+            createGitIssueTest();
+
+        System.out.println("Running Git Issue QueryTest ...");
+
+        Query query = entityManager.createQuery("FROM GitIssue", GitIssue.class);
+        List<GitIssue> result = query.getResultList();
+        Assert.assertNotEquals(0, result.size());
+        Assert.assertEquals(gitIssue.getAction(), result.get(result.size()-1).getAction());
+        Assert.assertEquals(gitIssue.getRepository(), result.get(result.size()-1).getRepository());
+        Assert.assertEquals(gitIssue.getTimestamp(), result.get(result.size()-1).getTimestamp());
+        Assert.assertEquals(gitIssue.getAssignee(), result.get(result.size()-1).getAssignee());
+        Assert.assertEquals(gitIssue.getCreatedBy(), result.get(result.size()-1).getCreatedBy());
+    }
+
+    @Test
+    public void travisEventQueryTest()
+    {
+        if(t == null)
+            createTravisEventTest();
+
+        System.out.println("Running Travis Event QueryTest ...");
+
+        Query query = entityManager.createQuery("FROM TravisEvent", TravisEvent.class);
+        List<TravisEvent> result = query.getResultList();
+        Assert.assertNotEquals(0, result.size());
+        Assert.assertEquals(t.getCommiter(), result.get(result.size()-1).getCommiter());
+        Assert.assertEquals(t.getBranch(), result.get(result.size()-1).getBranch());
+        Assert.assertEquals(t.getStatus(), result.get(result.size()-1).getStatus());
+        Assert.assertEquals(t.getTimestamp(), result.get(result.size()-1).getTimestamp());
+        Assert.assertEquals(t.getRepo(), result.get(result.size()-1).getRepo());
+    }
 
     @After
     public void closeManager()
