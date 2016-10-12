@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
 
 
 @Stateless
-public class Email
+public class Notification implements INotification
 {
     /**
      * This uses JavaEE to pull the configuration from the wildfly application server
@@ -28,7 +28,7 @@ public class Email
     @Resource(name = "java:jboss/mail/gmail")
     private Session session;
 
-    public Email()
+    public Notification()
     {
     }
 
