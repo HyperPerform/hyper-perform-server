@@ -1,7 +1,8 @@
 package me.hyperperform.rest;
 
 import me.hyperperform.Hash;
-import me.hyperperform.notifications.Email;
+import me.hyperperform.notifications.INotification;
+import me.hyperperform.notifications.Notification;
 import me.hyperperform.reporting.IReport;
 import me.hyperperform.reporting.request.GetScoreRequest;
 import me.hyperperform.reporting.response.GetScoreResponse;
@@ -44,7 +45,7 @@ public class LoginRest
     IReport reportGenerator;
 
     @Inject
-    Email mail;
+    INotification mail;
 
     /**
      * Allows for authentication of users. Authorized users are granted access while unauthorized users are not.
@@ -250,7 +251,7 @@ public class LoginRest
 
         if (mail == null)
         {
-            mail = new Email();
+            mail = new Notification();
             mail.sendMail(sign.getUserEmail(), "Welcome to HyperPerform " + sign.getUserName(), body);
         }
         else mail.sendMail(sign.getUserEmail(), "Welcome to HyperPerform " + sign.getUserName(), body);
@@ -372,7 +373,7 @@ public class LoginRest
             entityTransaction.commit();
 
             if (mail == null )
-             mail = new Email();
+             mail = new Notification();
 
             String body = "<div>" +
                     "<div class=\"center\">" +
