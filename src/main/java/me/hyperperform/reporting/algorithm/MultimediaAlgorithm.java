@@ -66,8 +66,13 @@ public class MultimediaAlgorithm implements Algorithm
         GetForecastValueRequest getForecastValueRequest = new GetForecastValueRequest("GitCommits", Position.Multimedia.getType());
         double forecastValue = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
-        double avg = (double) totalCommits / (double) timeGit;
-        double git = avg/forecastValue;
+        double avg = 0;
+        double git = 0;
+
+        if (forecastValue > 0) {
+            avg = (double) totalCommits / (double) timeGit;
+            git = avg/forecastValue;
+        }
 
         System.out.println("\n\nGit: " + git + " forecasted: " + forecastValue + " average: " + avg);
         /*---------------------------------------------------------------------*/
@@ -88,7 +93,10 @@ public class MultimediaAlgorithm implements Algorithm
 
         avg = (double) passed / (double)(passed+failed);
 
-        double travis = avg/forecastValue;
+        double travis = 0;
+
+        if (forecastValue > 0)
+            travis = avg/forecastValue;
 
         System.out.println("\n\nTravis: " + travis + " forecasted: " + forecastValue + " Average: " + avg);
         /*---------------------------------------------------------------------*/
@@ -110,8 +118,10 @@ public class MultimediaAlgorithm implements Algorithm
         getForecastValueRequest.setIntegration("GitIssues");
         double issuesForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
-        issues = totalClosed/issuesTime;
-        issues /= issuesForecast;
+        if (issuesForecast > 0) {
+            issues = totalClosed / issuesTime;
+            issues /= issuesForecast;
+        }
 
         System.out.println("\n\n Issue value: " + issues + " forecast: " + issuesForecast + " average: " + totalClosed/issuesTime);
         /*---------------------------------------------------------------------*/
@@ -137,9 +147,11 @@ public class MultimediaAlgorithm implements Algorithm
         getForecastValueRequest.setIntegration("EntryExit");
         double entryExitForecast = forecasting.getForecastValue(getForecastValueRequest).getValue();
 
-        entry = totalHours/entryExitTime;
-        entry /= entryExitForecast;
-
+        if (entryExitForecast > 0) {
+            entry = totalHours / entryExitTime;
+            entry /= entryExitForecast;
+        }
+        
         System.out.println("\n\n Entry value: " + entry + " forecast: " + entryExitForecast + " average: " + totalHours/entryExitTime);
         /*---------------------------------------------------------------------*/
 
