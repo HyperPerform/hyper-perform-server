@@ -290,7 +290,7 @@ public class Forecasting implements IForecasting
             }
         }
 
-        return null;
+        return new GetForecastTimeResponse(null);
     }
 
     /**
