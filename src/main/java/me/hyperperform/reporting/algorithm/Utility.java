@@ -56,6 +56,9 @@ public class Utility
      */
     public static long convertDays(long days, String time)
     {
+        if (time == null)
+            return days;
+
         System.out.println("D: " + days + "  " + time);
         if (time.equals("week"))
         {
