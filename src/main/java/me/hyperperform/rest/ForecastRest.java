@@ -36,7 +36,7 @@ public class ForecastRest
     public Response updateIntegrations(String str) throws Exception
     {
         UpdateIntegrationRequest update = new UpdateIntegrationRequest(str);
-        return Response.status(200).entity(forecasting.updateIntegration(update)).header("Access-Control-Allow-Origin", "*").build();
+        return Response.status(200).entity(forecasting.updateIntegration(update)).build();
     }
 
     /**
